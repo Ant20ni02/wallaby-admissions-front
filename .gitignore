@@ -33,3 +33,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#Secrets
+public/wallabyproject-415815-8285a0fe1a8a.json
