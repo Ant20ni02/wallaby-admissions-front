@@ -7,6 +7,7 @@ import axios from 'axios';
 import page from "../page.module.css"
 import googleLogo from "../../../public/google-logo.png";
 import Image from 'next/image';
+import Router from 'next/router';
 
 
 const LoginButton = ({}) => {
@@ -35,6 +36,9 @@ const LoginButton = ({}) => {
                     })
                     .then((res) => {
                         setProfile(res.data);
+
+                        
+
                     })
                     .catch((err) => console.log(err));
             }
@@ -52,7 +56,7 @@ const LoginButton = ({}) => {
         <>
     
             {profile!=null && (
-                Object.keys(profile).length ? (
+                Object.keys(profile).length>0 ? (
                 
                 <div>
                     <img src={profile.picture} alt="user image" />
@@ -85,8 +89,6 @@ const LoginButton = ({}) => {
                     
                                 <div className={page.bottomBand}></div>
                     </div>
-
-                    
                             
                     )
                 )
