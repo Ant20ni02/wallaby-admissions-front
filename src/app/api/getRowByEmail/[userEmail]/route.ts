@@ -16,32 +16,32 @@ async function _getGoogleSheetClient() {
   return google.sheets(options);
 }
 
-export async function GET(req : NextRequest, res : NextResponse) {
+export async function GET( req : NextRequest, context : any ) {
   try {
-    const sheetId = '1wUvnBvsg2wmEHhAzUelIawmw2TXQr7UDKTyHOv4jVEc';
+    const { params } = context;
+    const userEmail = params.userEmail;
+
+    const spreadsheetId = '1wUvnBvsg2wmEHhAzUelIawmw2TXQr7UDKTyHOv4jVEc';
     const tabName = 'Admisión'
     const range = 'A1:AP';
 
     const googleSheetClient = await _getGoogleSheetClient();
 
     const googleResponse = await googleSheetClient.spreadsheets.values.get({
-      spreadsheetId: sheetId,
+      spreadsheetId: spreadsheetId,
       range: `${tabName}!${range}`,
     });
 
-    const targetValue = 'A01423221@tec.mx';
+    const table: Array<Array<string>> | null | undefined = googleResponse.data.values;
 
-    const table : Array<Array<string>> | null | undefined = googleResponse.data.values;
-    const filteredRows: Array<Array<string>> = table?.filter((row: Array<string>) => row[27] === targetValue) || [];
+    const rowIndex: number = table?.findIndex((row: Array<string>) => row[27] === userEmail) ?? -1;
 
-    return new Response(JSON.stringify(filteredRows[0]), {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const filteredRow: Array<string> = rowIndex !== -1  && table != undefined ? table[rowIndex] : [];
+
+    return NextResponse.json({index: rowIndex + 1, row: filteredRow});
   } 
   catch (error) {
     console.error('The API returned an error: ' + error);
-    return Response.json({ message: error }, { status: res.status });
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }
