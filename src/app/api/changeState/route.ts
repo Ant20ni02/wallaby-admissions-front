@@ -16,26 +16,34 @@ async function _getGoogleSheetClient() {
   return google.sheets(options);
 }
 
-export async function GET( req : NextRequest, context : any ) {
+export async function POST( req : Request) {
   try {
-    const { params } = context;
-    const userEmail = params.userId;
+    const body = await req.json();
+    const row = body.row;
+    const newState = body.newState;
 
-    const sheetId = '1wUvnBvsg2wmEHhAzUelIawmw2TXQr7UDKTyHOv4jVEc';
+    
+    const spreadsheetId = '1wUvnBvsg2wmEHhAzUelIawmw2TXQr7UDKTyHOv4jVEc';
     const tabName = 'Admisión'
-    const range = 'A1:AP';
+    const range = `${tabName}!AD${row}`;
+
+    var request = {
+        range: range,
+        values: [
+            [newState]
+        ]
+    };
 
     const googleSheetClient = await _getGoogleSheetClient();
 
-    const googleResponse = await googleSheetClient.spreadsheets.values.get({
-      spreadsheetId: sheetId,
-      range: `${tabName}!${range}`,
+    const googleResponse = await googleSheetClient.spreadsheets.values.update({
+        spreadsheetId: spreadsheetId,
+        requestBody: request,
+        range: range,
+        valueInputOption: "USER_ENTERED"
     });
-    
-    const table : Array<Array<string>> | null | undefined = googleResponse.data.values;
-    const filteredRows: Array<Array<string>> = table?.filter((row: Array<string>) => row[27] === userEmail) || [];
-
-    return NextResponse.json(filteredRows[0]);
+    console.log('%d cells updated.', googleResponse.data.updatedCells);
+    return NextResponse.json('OK')
   } 
   catch (error) {
     console.error('The API returned an error: ' + error);
