@@ -3,7 +3,7 @@ import { google } from 'googleapis';
 
 async function _getGoogleSheetClient() {
 
-  const serviceAccountKeyFile = "public/wallabyproject-415815-8285a0fe1a8a.json";
+  const serviceAccountKeyFile = "public/key.json";
 
   const auth = new google.auth.GoogleAuth({
     keyFile: serviceAccountKeyFile,
