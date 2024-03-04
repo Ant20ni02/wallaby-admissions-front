@@ -23,9 +23,9 @@ export async function POST( req : Request) {
     const newState = body.newState;
 
     
-    const spreadsheetId = '1wUvnBvsg2wmEHhAzUelIawmw2TXQr7UDKTyHOv4jVEc';
+    const spreadsheetId = '1H549f8hZRufLjULdo_FNwzHkXYxqKGA9wNf5kk2DSSo';
     const tabName = 'Admisión'
-    const range = `${tabName}!AD${row}`;
+    const range = `${tabName}!AH${row}`;
 
     var request = {
         range: range,
