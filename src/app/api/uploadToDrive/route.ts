@@ -45,6 +45,18 @@ export async function POST( req : Request) {
 
         //Files
         const ACTA_NACIMIENTO = formData.get("ACTA_NACIMIENTO");
+        const CURP_ALUMNO = formData.get("CURP_ALUMNO");
+        const CURP_PADRE = formData.get("CURP_PADRE");
+        const CURP_MADRE = formData.get("CURP_MADRE");
+        const INE_PADRE = formData.get("INE_PADRE");
+        const INE_MADRE = formData.get("INE_MADRE");
+        const CARTA_NO_ADEUDO = formData.get("CARTA_NO_ADEUDO");
+        const FOTOS = formData.get("FOTOS");
+        const CARTILLA_VACUNACION = formData.get("CARTILLA_VACUNACION");
+        const PRUEBA_LABORATORIO = formData.get("PRUEBA_LABORATORIO");
+        const VACUNA_COVID = formData.get("VACUNA_COVID");
+        const CARTA_BUENA_SALUD = formData.get("CARTA_BUENA_SALUD");
+        const EXUDADO_BUCOFARINGEO = formData.get("EXUDADO_BUCOFARINGEO");
 
         //Drive folder data
         const studentName = formData.get("studentName");
@@ -54,15 +66,16 @@ export async function POST( req : Request) {
         const row = formData.get("row");
         const spreadsheetId = '1H549f8hZRufLjULdo_FNwzHkXYxqKGA9wNf5kk2DSSo';
         const tabName = 'Admisión'
-        const columns = ["AI"];
-        
+        const columns = ["AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU"];
 
-        if (!(ACTA_NACIMIENTO instanceof File)) {
+        const allFilesAttached = ACTA_NACIMIENTO instanceof File && CURP_ALUMNO instanceof File && CURP_PADRE instanceof File  && CURP_MADRE instanceof File && INE_PADRE instanceof File && INE_MADRE instanceof File && CARTA_NO_ADEUDO instanceof File && FOTOS instanceof File && CARTILLA_VACUNACION instanceof File && PRUEBA_LABORATORIO instanceof File && VACUNA_COVID instanceof File && CARTA_BUENA_SALUD instanceof File && EXUDADO_BUCOFARINGEO instanceof File;
+
+        if (!(allFilesAttached)) {
             return NextResponse.json({ error: "No files received." }, { status: 400 });
         }
 
-        const requiredFiles : Array<File> = [ACTA_NACIMIENTO]
-        const requiredFilesNames = ["ACTA_NACIMIENTO"]
+        const requiredFiles : Array<File> = [ACTA_NACIMIENTO, CURP_ALUMNO, CURP_PADRE, CURP_MADRE, INE_PADRE, INE_MADRE, CARTA_NO_ADEUDO, FOTOS, CARTILLA_VACUNACION, PRUEBA_LABORATORIO, VACUNA_COVID, CARTA_BUENA_SALUD, EXUDADO_BUCOFARINGEO]
+        const requiredFilesNames = ["ACTA_NACIMIENTO", "CURP_ALUMNO", "CURP_PADRE", "CURP_MADRE", "INE_PADRE", "INE_MADRE", "CARTA_NO_ADEUDO", "FOTOS", "CARTILLA_VACUNACION", "PRUEBA_LABORATORIO", "VACUNA_COVID", "CARTA_BUENA_SALUD", "EXUDADO_BUCOFARINGEO"]
 
         const googleDriveClient = await _getGoogleDriveClient();
         const googleSheetClient = await _getGoogleSheetClient();
