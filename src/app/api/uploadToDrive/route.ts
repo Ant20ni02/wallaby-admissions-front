@@ -17,6 +17,21 @@ async function _getGoogleDriveClient() {
     return google.drive(options);
 }
 
+async function _getGoogleSheetClient() {
+
+    const serviceAccountKeyFile = "public/key.json";
+  
+    const auth = new google.auth.GoogleAuth({
+      keyFile: serviceAccountKeyFile,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+    const authClient = await auth.getClient();
+  
+    const options : any = {version: 'v4', auth: authClient}
+  
+    return google.sheets(options);
+}
+
 function bufferToStream(buffer: Buffer): Readable {
     const stream = new Readable();
     stream.push(buffer);
@@ -31,9 +46,16 @@ export async function POST( req : Request) {
         //Files
         const ACTA_NACIMIENTO = formData.get("ACTA_NACIMIENTO");
 
+        //Drive folder data
         const studentName = formData.get("studentName");
-        const row = formData.get("row");
         const parentFolder = "1QJlFxLrKHXG7UxUs74a4VHXSPGeVOP_2";
+
+        //Spread sheet data
+        const row = formData.get("row");
+        const spreadsheetId = '1H549f8hZRufLjULdo_FNwzHkXYxqKGA9wNf5kk2DSSo';
+        const tabName = 'Admisión'
+        const columns = ["AI"];
+        
 
         if (!(ACTA_NACIMIENTO instanceof File)) {
             return NextResponse.json({ error: "No files received." }, { status: 400 });
@@ -43,6 +65,7 @@ export async function POST( req : Request) {
         const requiredFilesNames = ["ACTA_NACIMIENTO"]
 
         const googleDriveClient = await _getGoogleDriveClient();
+        const googleSheetClient = await _getGoogleSheetClient();
 
         //Create folder
         const responseFolder = await googleDriveClient.files.insert({
@@ -58,8 +81,11 @@ export async function POST( req : Request) {
 
         //Upload required files
         for(let i = 0; i< requiredFilesNames.length; i++){
+
+            //Upload File Process
             const file = requiredFiles[i];
             const fileName = requiredFilesNames[i];
+            const column = columns[i]
 
             const buffer = Buffer.from(await file.arrayBuffer());
 
@@ -82,6 +108,24 @@ export async function POST( req : Request) {
             const fileId = responseFile.data.id;
             const fileUrl = `https://drive.google.com/file/d/${fileId}/view`;
             console.log(`File ${fileName} URL:`, fileUrl);
+
+            //Update Cell With File URL
+            const range = `${tabName}!${column}${row}`;
+
+            var request = {
+                range: range,
+                values: [
+                    [fileUrl]
+                ]
+            };
+
+            const googleResponse = await googleSheetClient.spreadsheets.values.update({
+                spreadsheetId: spreadsheetId,
+                requestBody: request,
+                range: range,
+                valueInputOption: "USER_ENTERED"
+            });
+            console.log(`${googleResponse.data.updatedCells} cells updated with ${fileName}`, );
         }
 
         return new NextResponse('OK');
