@@ -34,7 +34,7 @@ export async function GET( req : NextRequest, context : any ) {
 
     const table: Array<Array<string>> | null | undefined = googleResponse.data.values;
 
-    const rowIndex: number = table?.findIndex((row: Array<string>) => row[31] === userEmail) ?? -1;
+    const rowIndex: number = table?.findIndex((row: Array<string>) => row[31].toUpperCase() === userEmail.toUpperCase()) ?? -1;
 
     const filteredRow: Array<string> = rowIndex !== -1  && table != undefined ? table[rowIndex] : [];
 
