@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { google } from 'googleapis';
 import { Readable } from 'stream';
 
@@ -29,15 +29,18 @@ export async function POST( req : Request) {
         const formData = await req.formData();
 
         //Files
-        const fileActa = formData.get("fileActa");
+        const ACTA_NACIMIENTO = formData.get("ACTA_NACIMIENTO");
 
         const studentName = formData.get("studentName");
         const row = formData.get("row");
         const parentFolder = "1QJlFxLrKHXG7UxUs74a4VHXSPGeVOP_2";
 
-        if (!(fileActa instanceof File)) {
+        if (!(ACTA_NACIMIENTO instanceof File)) {
             return NextResponse.json({ error: "No files received." }, { status: 400 });
         }
+
+        const requiredFiles : Array<File> = [ACTA_NACIMIENTO]
+        const requiredFilesNames = ["ACTA_NACIMIENTO"]
 
         const googleDriveClient = await _getGoogleDriveClient();
 
@@ -53,33 +56,38 @@ export async function POST( req : Request) {
         const newFolderId = responseFolder.data.id;
         console.log('newFolderId:', newFolderId);
 
-        //Upload files
-        const bufferActa = Buffer.from(await fileActa.arrayBuffer());
+        //Upload required files
+        for(let i = 0; i< requiredFilesNames.length; i++){
+            const file = requiredFiles[i];
+            const fileName = requiredFilesNames[i];
 
-        //Acta de nacimiento
-        const media = {
-            mimeType: fileActa.type,
-            body: bufferToStream(bufferActa),
-        };
-        const requestBody = {
-            title: "ActaDeNacimiento.pdf",
-            mimeType: fileActa.type,
-            parents: [{id: newFolderId?.toString()}]
-        };
+            const buffer = Buffer.from(await file.arrayBuffer());
 
-        const responseFile = await googleDriveClient.files.insert({
-            media: media,
-            requestBody: requestBody
-        })
-        
-        const fileId = responseFile.data.id
-        const fileUrl = `https://drive.google.com/file/d/${fileId}/view`
-        console.log("fileUrl:", fileUrl)
+            const media = {
+                mimeType: file.type,
+                body: bufferToStream(buffer),
+            };
 
-        return NextResponse.json({fileUrl: fileUrl}, { status: 200 });
+            const requestBody = {
+                title: `${fileName}.pdf`,
+                mimeType: file.type,
+                parents: [{id: newFolderId?.toString()}]
+            };
+
+            const responseFile = await googleDriveClient.files.insert({
+                media: media,
+                requestBody: requestBody
+            })
+
+            const fileId = responseFile.data.id;
+            const fileUrl = `https://drive.google.com/file/d/${fileId}/view`;
+            console.log(`File ${fileName} URL:`, fileUrl);
+        }
+
+        return new NextResponse('OK');
     } 
     catch (error) {
         console.error('The API returned an error: ' + error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
     }
 }
