@@ -138,7 +138,141 @@ export async function POST( req : Request) {
                 range: range,
                 valueInputOption: "USER_ENTERED"
             });
-            console.log(`${googleResponse.data.updatedCells} cells updated with ${fileName}`, );
+            console.log(`${googleResponse.data.updatedCells} cells updated with ${fileName}`);
+        }
+
+        //Optional Files
+        const CONSTANCIA_ANO_CURSADO = formData.get("CONSTANCIA_ANO_CURSADO");
+        const BOLETA = formData.get("BOLETA");
+        const BUENA_CONDUCTA = formData.get("BUENA_CONDUCTA");
+
+        if(CONSTANCIA_ANO_CURSADO instanceof File){
+            //Upload file
+            const bufferCONSTANCIA_ANO_CURSADO = Buffer.from(await CONSTANCIA_ANO_CURSADO.arrayBuffer());
+
+            const mediaCONSTANCIA_ANO_CURSADO = {
+                mimeType: CONSTANCIA_ANO_CURSADO.type,
+                body: bufferToStream(bufferCONSTANCIA_ANO_CURSADO),
+            };
+
+            const requestBodyCONSTANCIA_ANO_CURSADO = {
+                title: "CONSTANCIA_AÑO_CURSADO.pdf",
+                mimeType: CONSTANCIA_ANO_CURSADO.type,
+                parents: [{id: newFolderId?.toString()}]
+            };
+
+            const responseFileCONSTANCIA_ANO_CURSADO = await googleDriveClient.files.insert({
+                media: mediaCONSTANCIA_ANO_CURSADO,
+                requestBody: requestBodyCONSTANCIA_ANO_CURSADO
+            })
+
+            const fileIdCONSTANCIA_ANO_CURSADO = responseFileCONSTANCIA_ANO_CURSADO.data.id;
+            const fileUrlCONSTANCIA_ANO_CURSADO = `https://drive.google.com/file/d/${fileIdCONSTANCIA_ANO_CURSADO}/view`;
+            console.log("File CONSTANCIA_ANO_CURSADO URL:", fileUrlCONSTANCIA_ANO_CURSADO);
+
+            //Update Cell With File URL
+            const rangeCONSTANCIA_ANO_CURSADO = `${tabName}!AV${row}`;
+
+            var requestCONSTANCIA_ANO_CURSADO = {
+                range: rangeCONSTANCIA_ANO_CURSADO,
+                values: [
+                    [fileUrlCONSTANCIA_ANO_CURSADO]
+                ]
+            };
+
+            const googleResponserangeCONSTANCIA_ANO_CURSADO = await googleSheetClient.spreadsheets.values.update({
+                spreadsheetId: spreadsheetId,
+                requestBody: requestCONSTANCIA_ANO_CURSADO,
+                range: rangeCONSTANCIA_ANO_CURSADO,
+                valueInputOption: "USER_ENTERED"
+            });
+            console.log(`${googleResponserangeCONSTANCIA_ANO_CURSADO.data.updatedCells} cells updated with CONSTANCIA_ANO_CURSADO`);
+        }
+
+        if(BOLETA instanceof File){
+            //Upload file
+            const bufferBOLETA = Buffer.from(await BOLETA.arrayBuffer());
+
+            const mediaBOLETA  = {
+                mimeType: BOLETA.type,
+                body: bufferToStream(bufferBOLETA),
+            };
+
+            const requestBodyBOLETA = {
+                title: "BOLETA.pdf",
+                mimeType: BOLETA.type,
+                parents: [{id: newFolderId?.toString()}]
+            };
+
+            const responseFileBOLETA  = await googleDriveClient.files.insert({
+                media: mediaBOLETA ,
+                requestBody: requestBodyBOLETA
+            })
+
+            const fileIdBOLETA = responseFileBOLETA.data.id;
+            const fileUrlBOLETA = `https://drive.google.com/file/d/${fileIdBOLETA}/view`;
+            console.log("File BOLETA URL:", fileUrlBOLETA);
+
+            //Update Cell With File URL
+            const rangeBOLETA= `${tabName}!AW${row}`;
+
+            var requestBOLETA = {
+                range: rangeBOLETA,
+                values: [
+                    [fileUrlBOLETA]
+                ]
+            };
+
+            const googleResponserangeBOLETA = await googleSheetClient.spreadsheets.values.update({
+                spreadsheetId: spreadsheetId,
+                requestBody: requestBOLETA,
+                range: rangeBOLETA,
+                valueInputOption: "USER_ENTERED"
+            });
+            console.log(`${googleResponserangeBOLETA.data.updatedCells} cells updated with BOLETA`);
+        }
+
+        if(BUENA_CONDUCTA instanceof File){
+            //Upload file
+            const bufferBUENA_CONDUCTA = Buffer.from(await BUENA_CONDUCTA.arrayBuffer());
+
+            const mediaBUENA_CONDUCTA = {
+                mimeType: BUENA_CONDUCTA.type,
+                body: bufferToStream(bufferBUENA_CONDUCTA),
+            };
+
+            const requestBodyBUENA_CONDUCTA = {
+                title: "BUENA_CONDUCTA.pdf",
+                mimeType: BUENA_CONDUCTA.type,
+                parents: [{id: newFolderId?.toString()}]
+            };
+
+            const responseFileBUENA_CONDUCTA = await googleDriveClient.files.insert({
+                media: mediaBUENA_CONDUCTA,
+                requestBody: requestBodyBUENA_CONDUCTA
+            })
+
+            const fileIdBUENA_CONDUCTA = responseFileBUENA_CONDUCTA.data.id;
+            const fileUrlBUENA_CONDUCTA = `https://drive.google.com/file/d/${fileIdBUENA_CONDUCTA}/view`;
+            console.log("File BUENA_CONDUCTA URL:", fileUrlBUENA_CONDUCTA);
+
+            //Update Cell With File URL
+            const rangeBUENA_CONDUCTA = `${tabName}!AX${row}`;
+
+            var requestBUENA_CONDUCTA = {
+                range: rangeBUENA_CONDUCTA,
+                values: [
+                    [fileUrlBUENA_CONDUCTA]
+                ]
+            };
+
+            const googleResponserangeBUENA_CONDUCTA = await googleSheetClient.spreadsheets.values.update({
+                spreadsheetId: spreadsheetId,
+                requestBody: requestBUENA_CONDUCTA,
+                range: rangeBUENA_CONDUCTA,
+                valueInputOption: "USER_ENTERED"
+            });
+            console.log(`${googleResponserangeBUENA_CONDUCTA.data.updatedCells} cells updated with BUENA_CONDUCTA`);
         }
 
         return new NextResponse('OK');
