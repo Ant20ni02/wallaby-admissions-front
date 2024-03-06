@@ -1,0 +1,131 @@
+@import "../variables.css";
+
+@font-face {
+  font-family: "one-little-font";
+  src: local("one-little-font"),
+    url("../../fonts/OneLittleFont/one-little-font-regular.otf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "arimo-regular";
+  src: local("arimo-regular"),
+    url("../../fonts/Arimo/Arimo-Regular.ttf") format("truetype");
+}
+
+.upperText {
+  text-align: center;
+  font-family: "one-little-font", sans-serif;
+  font-size: 2em;
+  color: #192746;
+  margin-bottom: 0;
+}
+
+.lowerText {
+  text-align: center;
+  font-family: "arimo-regular", sans-serif;
+  font-size: 1.5em;
+  color: #192746;
+  margin-bottom: 0;
+  margin-top: 30px;
+}
+
+.container {
+  margin: 2em 5em auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: last baseline;
+  margin-bottom: 2em;
+}
+
+.welcome-header {
+  margin-right: 4em;
+}
+
+.welcome-header .upperText {
+  color: var(--blue-wallaby);
+}
+
+.search-bar-header {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: end;
+}
+
+.search-bar-header img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 1em;
+  object-fit: cover;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px 0px 0px 8px;
+  width: 20.5em;
+}
+
+.search-bar button {
+  padding: 16px 24px;
+  background-color: var(--blue-wallaby);
+  color: white;
+  border: 1px solid var(--blue-wallaby);
+  border-radius: 0px 8px 8px 0px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+.search-bar button:focus {
+  outline: none; /* Elimina el borde de enfoque del botón */
+}
+
+.info-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.info-container > div {
+  flex: 1;
+  margin-right: 5em;
+}
+
+.info-container > div:last-child {
+  margin-right: 0em; /* No se aplica margen al último div para evitar espacio extra */
+}
+
+.info-container h4 {
+  background-color: var(--yellow-wallaby);
+  border-radius: 10px 10px 0px 0px;
+  width: 100%;
+  padding: 10px 0px 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.info-container p {
+  background-color: #cccccc6f;
+  border-radius: 0px 0px 10px 10px;
+  width: 100%;
+  padding: 30px 0px 30px;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+}
