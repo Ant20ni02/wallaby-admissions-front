@@ -50,13 +50,13 @@ export async function POST( req : Request) {
     var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = today.getFullYear();
 
-    today = dd + '/' + mm + '/' + yyyy;
+    const todayFormatted = dd + '/' + mm + '/' + yyyy;
 
 
     var requestDateUpdate = {
         range: rangeDateUpdate,
         values: [
-            [today]
+            [todayFormatted]
         ]
     };
 
