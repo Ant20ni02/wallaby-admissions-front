@@ -1,0 +1,98 @@
+@font-face {
+    font-family: 'one-little-font';
+    src: local("one-little-font"),
+        url('../../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'arimo-regular';
+    src: local("arimo-regular"),
+        url('../../fonts/Arimo/Arimo-Regular.ttf') format('truetype');
+}
+
+.headerItemsWrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5em;
+}
+
+.generalItemsWrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerText {
+    font-family: "one-little-font";
+    font-size: 2em;
+    color: #1B489A;
+    margin-right: 0.5em;
+}
+
+.lowerText {
+    text-align: center;
+    font-family: "arimo-regular", sans-serif;
+    font-size: 0.9em;
+    color: #192746;
+    width: 40em;
+    margin-top: 2em;
+    padding-bottom: 2em;
+    line-height: 1.5em;
+}
+
+.hollowCircle {
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 0.5em;
+    position: absolute;
+    border-color: #B8B9BB;
+}
+
+.hollowCircle2 {
+    width: 9em;
+    height: 9em;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 1em;
+    position: relative;
+}
+
+.statesWrap{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.images{
+    padding: 1.2em;
+    width: 5.5em;
+    height: auto;
+}
+
+.line{
+    height: 0.2em;
+    background-color: #B8B9BB;
+    width: 3em;
+}
+
+.topBand {
+    top: 0;
+    width: 100%;
+    height: 3em;
+    background-color: #FFD100;
+}
+
+.bottomBand {
+    bottom: 0;
+    width: 99%;
+    height: 3em;
+    background-color: #FFD100;
+    position: absolute;
+}
