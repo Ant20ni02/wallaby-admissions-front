@@ -42,7 +42,32 @@ export async function POST( req : Request) {
         range: range,
         valueInputOption: "USER_ENTERED"
     });
-    console.log('%d cells updated.', googleResponse.data.updatedCells);
+    console.log(`${googleResponse.data.updatedCells} updated cells in row ${row} and cell ${range} for State Change`);
+
+    const rangeDateUpdate = `${tabName}!AY${row}`
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+
+
+    var requestDateUpdate = {
+        range: rangeDateUpdate,
+        values: [
+            [today]
+        ]
+    };
+
+    const googleResponseDateUpdate = await googleSheetClient.spreadsheets.values.update({
+        spreadsheetId: spreadsheetId,
+        requestBody: requestDateUpdate,
+        range: rangeDateUpdate,
+        valueInputOption: "USER_ENTERED"
+    });
+    console.log(`${googleResponseDateUpdate.data.updatedCells} updated cells in row ${row} and cell ${rangeDateUpdate} for Date Update`);
+
     return NextResponse.json('OK')
   } 
   catch (error) {
