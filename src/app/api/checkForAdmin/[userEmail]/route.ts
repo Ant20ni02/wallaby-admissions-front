@@ -22,8 +22,8 @@ export async function GET( req : NextRequest, context : any ) {
     const userEmail = params.userEmail;
 
     const spreadsheetId = '1H549f8hZRufLjULdo_FNwzHkXYxqKGA9wNf5kk2DSSo';
-    const tabName = 'Admisión'
-    const range = 'A1:AY';
+    const tabName = 'Admins'
+    const range = 'A1:A';
 
     const googleSheetClient = await _getGoogleSheetClient();
 
@@ -34,11 +34,9 @@ export async function GET( req : NextRequest, context : any ) {
 
     const table: Array<Array<string>> | null | undefined = googleResponse.data.values;
 
-    const rowIndex: number = table?.findIndex((row: Array<string>) => row[31].toUpperCase() === userEmail.toUpperCase()) ?? -1;
+    const rowIndex: number = table?.findIndex((row: Array<string>) => row[0].toUpperCase() === userEmail.toUpperCase()) ?? -1;
 
-    const filteredRow: Array<string> = rowIndex !== -1  && table != undefined ? table[rowIndex] : [];
-
-    return NextResponse.json({index: rowIndex + 1, row: filteredRow});
+    return NextResponse.json({index: rowIndex + 1});
   } 
   catch (error) {
     console.error('The API returned an error: ' + error);
