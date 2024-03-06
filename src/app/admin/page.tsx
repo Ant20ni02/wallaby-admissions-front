@@ -40,55 +40,60 @@ export default function AdminHome() {
 
   return (
     <div className="container">
-      <div className="header">
-
-        <div className="welcome-header">
-          <h3 className="upperText">¡Bienvenido!</h3>
-          <p className="lowerText">
-            Busca el correo de la persona que te interesa para conocer su
-            progreso
-          </p>
-        </div>
-
-        <div className="search-bar-header">
-          <img
-            src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png"
-            alt="wallabyLogo"
-          />
-          <form className="search-bar">
-            <input id="test" type="text" placeholder="Correo Electrónico..."></input>
-            <button onClick={(event) => obtain(event)} type="button">
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-
       {/* Mostrar el componente de carga si el estado de carga es verdadero */}
       {loading && <Loading />}
 
       {/* Mostrar los datos si no hay carga */}
       {!loading && (
-        <div className="info-container">
-          <div>
-            <h4>Nombre del papá</h4>
-            <p>{data.length > 0 ? data[13] : "Diego Delgado"}</p>
+        <>
+          <div className="header">
+            <div className="welcome-header">
+              <h3 className="upperText">¡Bienvenido!</h3>
+              <p className="lowerText">
+                Busca el correo de la persona que te interesa para conocer su
+                progreso
+              </p>
+            </div>
+
+            <div className="search-bar-header">
+              <img
+                src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png"
+                alt="wallabyLogo"
+              />
+              <form className="search-bar">
+                <input
+                  id="test"
+                  type="text"
+                  placeholder="Correo Electrónico..."
+                ></input>
+                <button onClick={(event) => obtain(event)} type="button">
+                  Search
+                </button>
+              </form>
+            </div>
           </div>
 
-          <div>
-            <h4>Nombre del hijo (a)</h4>
-            <p>
-              {data.length > 0
-                ? data[1] + " " + data[2] + " " + data[3]
-                : "Diego Delgado segundo"}
-            </p>
-          </div>
+          <div className="info-container">
+            <div>
+              <h4>Nombre del papá</h4>
+              <p>{data.length > 0 ? data[13] : "No hay información"}</p>
+            </div>
 
-          <div>
-            <h4>Correo electrónico</h4>
-            <p>{data.length > 0 ? data[12] : "diego@gmail.com"}</p>
+            <div>
+              <h4>Nombre del hijo (a)</h4>
+              <p>
+                {data.length > 0
+                  ? data[1] + " " + data[2] + " " + data[3]
+                  : "No hay información"}
+              </p>
+            </div>
+
+            <div>
+              <h4>Correo electrónico</h4>
+              <p>{data.length > 0 ? data[12] : "No hay información"}</p>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
