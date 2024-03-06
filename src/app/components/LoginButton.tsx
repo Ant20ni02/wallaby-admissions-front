@@ -41,12 +41,13 @@ const LoginButton = ({}) => {
                         axios
                             .get(`/api/getRowByEmail/${res.data.email}`)
                             .then((res2) =>{
-                                console.log(res2);
+                                console.log(res2.data.row[33]);
                                 if (res2.data.index !== 0) { 
 
                                     setProfile(res.data);
                                     localStorage.setItem('email', res.data.email);
-                                    localStorage.setItem('index', res.data.index);
+                                    localStorage.setItem('index', res2.data.index);
+                                    localStorage.setItem('status', res2.data.row[33]);
 
                                     //router to timeline
                                     router.push("/Timeline");
