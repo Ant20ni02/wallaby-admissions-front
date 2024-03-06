@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState } from "react";
 import Loading from "../components/SunLoader";
+import "./admin.css";
 
 export default function AdminHome() {
   const [data, setData] = useState([]);
@@ -38,22 +39,29 @@ export default function AdminHome() {
   };
 
   return (
-    <>
-      <div>
-        <form>
-          <button onClick={(event) => obtain(event)} type="button">
-            Search
-          </button>{" "}
-          {/* Cambiar el tipo de button a "button" */}
-          <input id="test" type="text" placeholder="Buscar..."></input>
-          <button>&#8942;</button>
-        </form>
-      </div>
+    <div className="container">
+      <div className="header">
 
-      <div>
-        <p>
-          Busca el correo de la persona que te interesa para conocer su progreso
-        </p>
+        <div className="welcome-header">
+          <h3 className="upperText">¡Bienvenido!</h3>
+          <p className="lowerText">
+            Busca el correo de la persona que te interesa para conocer su
+            progreso
+          </p>
+        </div>
+
+        <div className="search-bar-header">
+          <img
+            src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png"
+            alt="wallabyLogo"
+          />
+          <form className="search-bar">
+            <input id="test" type="text" placeholder="Correo Electrónico..."></input>
+            <button onClick={(event) => obtain(event)} type="button">
+              Search
+            </button>
+          </form>
+        </div>
       </div>
 
       {/* Mostrar el componente de carga si el estado de carga es verdadero */}
@@ -61,21 +69,27 @@ export default function AdminHome() {
 
       {/* Mostrar los datos si no hay carga */}
       {!loading && (
-        <div>
-          <h4>Nombre del papá</h4>
-          <p>{data.length > 0 ? data[13] : "Diego Delgado"}</p>
+        <div className="info-container">
+          <div>
+            <h4>Nombre del papá</h4>
+            <p>{data.length > 0 ? data[13] : "Diego Delgado"}</p>
+          </div>
 
-          <h4>Nombre del hijo (a)</h4>
-          <p>
-            {data.length > 0
-              ? data[1] + " " + data[2] + " " + data[3]
-              : "Diego Delgado segundo"}
-          </p>
+          <div>
+            <h4>Nombre del hijo (a)</h4>
+            <p>
+              {data.length > 0
+                ? data[1] + " " + data[2] + " " + data[3]
+                : "Diego Delgado segundo"}
+            </p>
+          </div>
 
-          <h4>Correo electrónico</h4>
-          <p>{data.length > 0 ? data[12] : "diego@gmail.com"}</p>
+          <div>
+            <h4>Correo electrónico</h4>
+            <p>{data.length > 0 ? data[12] : "diego@gmail.com"}</p>
+          </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
