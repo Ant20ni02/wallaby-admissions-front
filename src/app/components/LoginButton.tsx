@@ -9,15 +9,17 @@ import googleLogo from "../../../public/google-logo.png";
 import Image from 'next/image';
 
 
-const LoginButton = ({}) => {
+const LoginButton = ({ }) => {
+
+    const router = useRouter();
 
     const [user, setUser] = useState<any>([]);
     const [profile, setProfile] = useState<any>([]);
 
 
-    const triggerLogin = useGoogleLogin ({
-        onSuccess : codeResponse => setUser(codeResponse),
-        onError : (e) => console.log("Login failed: ", e)
+    const triggerLogin = useGoogleLogin({
+        onSuccess: codeResponse => setUser(codeResponse),
+        onError: (e) => console.log("Login failed: ", e)
     })
 
     console.log(Object.keys(user).length);
@@ -34,14 +36,53 @@ const LoginButton = ({}) => {
                         }
                     })
                     .then((res) => {
-                        setProfile(res.data);
+
+                        if(res.data.hd === "tec.mx") //HARDCODED TO TEC, NEED TO CHANGE IT TO WALLABY
+                        {
+                            axios
+                                .get (`/api/checkForAdmin/${res.data.email}`)
+                                .then((adminRes)=>{
+                                    console.log(adminRes.data.index);
+
+                                    if(adminRes.data.index === 0){
+                                        axios
+                                            .get(`/api/getRowByEmail/${res.data.email}`)
+                                            .then((res2) => {
+                                                console.log(res2.data.row[33]);
+            
+                                                    setProfile(res.data);
+                                                    localStorage.setItem('email', res.data.email);
+                                                    localStorage.setItem('hd', res.data.hd);
+                                                    localStorage.setItem('index', res2.data.index);
+                                                    localStorage.setItem('status', res2.data.row[33]);
+            
+                                                    //router to timeline
+                                                    router.push("/Timeline");
+                                            })
+                                            .catch((e) => console.log(e));
+
+                                    }
+                                    else{
+                                        //ROUTE TO ADMIN INTERFACE
+                                        router.replace('/admin');
+                                    }
+
+                                })
+                                .catch((e) => console.log(e));
+                            
+                        }
+                        else{
+                            //router to hd incorrect page
+                        }
+
+
                     })
                     .catch((err) => console.log(err));
             }
-        
 
-    },
-    [user])
+
+        },
+        [user])
 
     const logOut = () => {
         googleLogout();
@@ -69,7 +110,7 @@ const LoginButton = ({}) => {
                         <div className={page.topBand}></div>
 
 
-                        <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="200em"/>
+                <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="200em" />
 
                         <span className={page.upperText}>¿Estás preparado para comenzar el proceso de admisión?</span>
                         <span className={page.lowerText}> Inicia sesión con la cuenta que te proporcionamos y así podremos guiarte paso a paso en los procedimientos clave para la inscripción de tu pequeño</span>
@@ -81,20 +122,13 @@ const LoginButton = ({}) => {
 
                             Iniciar sesión con Google
 
-                        </button>
-                    
-                                <div className={page.bottomBand}></div>
-                    </div>
+                </button>
 
-                    
-                            
-                    )
-                )
-             }
-
+                <div className={page.bottomBand}></div>
+            </div>
         </>
     )
-    
+
 }
 
 export default LoginButton;
