@@ -398,7 +398,7 @@ const FileUploader = () =>{
     return (
         <div className={fileUploader.container}>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Acta de nacimiento</div>
+                    <div className={fileUploader.fileName}>Acta de nacimiento*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileACTA_NACIMIENTO ?
@@ -424,7 +424,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>CURP del alumno</div>
+                    <div className={fileUploader.fileName}>CURP del alumno*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileCURP_ALUMNO ?
@@ -450,7 +450,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>CURP del padre</div>
+                    <div className={fileUploader.fileName}>CURP del padre*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileCURP_PADRE ?
@@ -476,7 +476,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>CURP de la madre</div>
+                    <div className={fileUploader.fileName}>CURP de la madre*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileCURP_MADRE ?
@@ -502,7 +502,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>INE del padre</div>
+                    <div className={fileUploader.fileName}>INE del padre*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileINE_PADRE ?
@@ -528,7 +528,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>INE de la madre</div>
+                    <div className={fileUploader.fileName}>INE de la madre*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileINE_MADRE ?
@@ -554,7 +554,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Carta de no adeudo</div>
+                    <div className={fileUploader.fileName}>Carta de no adeudo*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileCARTA_NO_ADEUDO ?
@@ -580,7 +580,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Fotos</div>
+                    <div className={fileUploader.fileName}>Fotos*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileFOTOS ?
@@ -606,7 +606,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Cartilla de vacunación</div>
+                    <div className={fileUploader.fileName}>Cartilla de vacunación*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileCARTILLA_VACUNACION ?
@@ -632,7 +632,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Prueba de laboratorio</div>
+                    <div className={fileUploader.fileName}>Prueba de laboratorio*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFilePRUEBA_LABORATORIO ?
@@ -658,7 +658,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Certificado de vacunación contra la COVID-19</div>
+                    <div className={fileUploader.fileName}>Certificado de vacunación contra la COVID-19*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileVACUNA_COVID ?
@@ -684,7 +684,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Carta de buena salud</div>
+                    <div className={fileUploader.fileName}>Carta de buena salud*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileCARTA_BUENA_SALUD ?
@@ -710,7 +710,7 @@ const FileUploader = () =>{
                     </div>
                 </div>
                 <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Exudado bucofaringeo</div>
+                    <div className={fileUploader.fileName}>Exudado bucofaringeo*</div>
                     <div className={fileUploader.fileContainer}>
                         {
                             !hasFileEXUDADO_BUCOFARINGEO ?
@@ -735,8 +735,90 @@ const FileUploader = () =>{
                         }
                     </div>
                 </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Constancia de año cursado</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileCONSTANCIA_ANO_CURSADO ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-CONSTANCIA_ANO_CURSADO">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-CONSTANCIA_ANO_CURSADO" name="fileCONSTANCIA_ANO_CURSADO" accept="application/pdf" required onChange={handleChangeCONSTANCIA_ANO_CURSADO}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileCONSTANCIA_ANO_CURSADO !== undefined ? fileCONSTANCIA_ANO_CURSADO.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCONSTANCIA_ANO_CURSADO}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Boleta de calificaciones</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileBOLETA ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-BOLETA">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-BOLETA" name="fileBOLETA" accept="application/pdf" required onChange={handleChangeBOLETA}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileBOLETA !== undefined ? fileBOLETA.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteBOLETA}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Carta de buena conducta</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileBUENA_CONDUCTA ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-BUENA_CONDUCTA">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-BUENA_CONDUCTA" name="fileBUENA_CONDUCTA" accept="application/pdf" required onChange={handleChangeBUENA_CONDUCTA}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileBUENA_CONDUCTA !== undefined ? fileBUENA_CONDUCTA.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteBUENA_CONDUCTA}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
                 <div className={fileUploader.buttonContainer}>
-                    <button className={fileUploader.revisionButton} onClick={handleSubmission}>Mandar a revisión</button>
+                    {
+                        hasFileACTA_NACIMIENTO && hasFileCURP_ALUMNO && hasFileCURP_PADRE && hasFileCURP_MADRE && hasFileINE_PADRE && hasFileINE_MADRE && hasFileCARTA_NO_ADEUDO && hasFileFOTOS && hasFileCARTILLA_VACUNACION && hasFilePRUEBA_LABORATORIO && hasFileVACUNA_COVID && hasFileCARTA_BUENA_SALUD && hasFileEXUDADO_BUCOFARINGEO? 
+                        <button className={fileUploader.revisionButton} onClick={handleSubmission}>Mandar a revisión</button>:
+                        <button className={fileUploader.revisionButtonWaiting}  disabled={false}>Mandar a revisión</button>
+                    }
                 </div>
         </div>
     )

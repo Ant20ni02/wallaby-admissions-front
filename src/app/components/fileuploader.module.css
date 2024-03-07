@@ -56,6 +56,17 @@
     cursor: pointer;
 }
 
+.revisionButtonWaiting {
+    color: white;
+    font-size: medium;
+    font-family: "inter", sans-serif;
+    border-radius: 0.4em;
+    background-color: #a0a0a0;
+    border: none;
+    width: 20em;
+    height: 5em;
+}
+
 .revisionButton:hover {
     background-color: #c4b14e;
 }
@@ -99,7 +110,7 @@
 
 .preview {
     width: 3.5em;
-    height: 3.17em;
+    height: 3.15em;
 }
 
 .previewFileName {
