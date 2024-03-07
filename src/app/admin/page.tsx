@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Loading from "../components/SunLoader";
 import ChecklistAdmin from "../components/Checklist";
@@ -25,9 +25,12 @@ export default function AdminHome() {
 
   // Objeto de elementos del requerimiento dependiendo del estado
   const documentos = [
-    { id: 0, text: "Acta de nacimiento", completed: false },
-    { id: 1, text: "INE", completed: false },
-    { id: 2, text: "CURP", completed: false }
+    { id: 0, text: "Acta de nacimiento", completed: false, externalLink: data[34]},
+    { id: 1, text: "INE del padre", completed: false, externalLink: data[38]},
+    { id: 2, text: "INE de la madre", completed: false, externalLink: data[39]},
+    { id: 3, text: "CURP del alumno", completed: false, externalLink: data[35]},
+    { id: 4, text: "CURP del padre", completed: false, externalLink: data[36]},
+    { id: 5, text: "CURP de la madre", completed: false, externalLink: data[37]}
   ];
   
   const elements = {
@@ -61,6 +64,7 @@ export default function AdminHome() {
       });
   };
 
+  //Función para obtener los datos desde la barra de busqueda
   const obtain = (
     event:
       | React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -182,7 +186,7 @@ export default function AdminHome() {
             <ChecklistAdmin
               elements={elements[data[33]]}
               onClick={() => changeState(index, data[33])}
-              reloadData={() => getInfo(data[12])}
+              data={data}
             />
           </>
         )}
@@ -191,4 +195,9 @@ export default function AdminHome() {
   );
 }
 
-//data[12] -> correo
+/**
+ * data[33] -> estado
+ * data[34] -> Acta
+ * data[35] -> Curp alumno, 36 -> papá, 37 -> mamá
+ * data[38] -> INE papá, 39 -> mamá
+ */

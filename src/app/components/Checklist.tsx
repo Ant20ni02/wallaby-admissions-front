@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import "./Checklist.css";
 
-// Definición de las props del componente
 interface ChecklistAdminProps {
   elements: {
     id: number;
     text: string;
     completed: boolean;
+    externalLink?: string; // Añadimos un campo opcional para la URL externa
   }[];
   onClick: () => void;
-  reloadData: () => void;
+  data: string[];
 }
 
 const ChecklistAdmin: React.FC<ChecklistAdminProps> = ({
   elements,
   onClick,
+  data,
 }) => {
   const [items, setItems] = useState(elements);
 
-  // Cambia el estado de completado
   const toggleItem = (id: number): void => {
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -27,15 +27,43 @@ const ChecklistAdmin: React.FC<ChecklistAdminProps> = ({
     );
   };
 
-  // Verifica si todos los elementos están completados
   const allItemsCompleted = items.every((item) => item.completed);
+
+  const allDocumentsSent = () => {
+    if (
+      data[33] === "ADJUNTAR_DOCUMENTOS" ||
+      data[33] === "VERIFICAR_DOCUMENTOS"
+    ) {
+      const requiredFields = [34, 36, 37, 38, 39, 54];
+      return requiredFields.every((index) => data[index] !== "");
+    }
+  };
+
+  const checkAllDocumentsSent = allDocumentsSent();
+
+  console.log('Elements',elements)
 
   return (
     <div className="checklist-container">
       <ul className="checklist">
         {items.map((item) => (
           <li key={item.id}>
-            <label htmlFor={`item-${item.id}`}>{item.text}</label>
+            {/* Renderizamos un enlace si todos los documentos están enviados */}
+            {checkAllDocumentsSent ? (
+              <a
+                href={item.externalLink} // Usamos la URL externa del elemento
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`checklist-label-${checkAllDocumentsSent}`}
+              >
+                {item.text}
+              </a>
+            ) : (
+              // Renderizamos un label normal si no todos los documentos están enviados
+              <label htmlFor={`item-${item.id}`} className={`checklist-label-${checkAllDocumentsSent}`}>
+                {item.text}
+              </label>
+            )}
             <input
               type="checkbox"
               id={`item-${item.id}`}
