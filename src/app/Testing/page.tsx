@@ -1,13 +1,20 @@
 "use client";
 import FileUploader from '../components/FileUploader';
+import testing from "./Testing.module.css"
 
 
 const Testing = ({ }) => {
 
     return (
         <div>
-            <FileUploader/>
+            <br/>
+            <br/>
+            <br/>
+            <div className={testing.container}>
+                <FileUploader/>
+            </div>
         </div>
+        
     )
 }
 

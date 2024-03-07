@@ -1,49 +1,89 @@
+@font-face {
+    font-family: 'inter';
+    src: local("inter"),
+        url('../../fonts/Inter/static/Inter-Regular.ttf') format('truetype');
+}
+
 .container {
     display: flex;
     flex-direction: column;
+    width: 35%;
+}
+
+.fileName {
+    width: 10em;
+    font-size: large;
+    font-family: "inter", sans-serif;
+    color: white;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    padding-left: 4.5em;
+    padding-right: 4.5em;
+    background-color: #3a5aca;
+    border-radius: 0.4em;
 }
 
 .innerContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    margin-bottom: 1.25em;
 }
 
-.attachIcon {
-    border: none;
-    background-color: white;
-    margin: 0.2em;
+.fileContainer {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 
-.attachIcon label {
-    margin-top: 0.5em;
-    margin-right: 0.5em;
+.uploadSection {
+    display: flex;
+    flex-direction: row;
+}
+
+.uploadSection label {
     cursor: pointer;
 }
 
-.attachIcon>input {
+.uploadSection>input {
     display: none;
 }
 
-.preview {
-    width: 1.4em;
-    height: 1.4em;
+.uploadIcon {
+    width: 3.5em;
+    height: 3.5em;
 }
 
-.fileName {
+.phantom {
+    width: 6em;  
+}
+
+.uploadedSection{
+    display: flex;
+    flex-direction: row;
+}
+
+.previewSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.preview {
+    width: 3.5em;
+    height: 3.25em;
+}
+
+.previewFileName {
     display: inline-block;
-    width: inherit;
+    width: 10em;
     font-size: 0.4em;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.fileContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 2.1em;
-    height: 2.1em;
+.deleteIcon {
+    width: 3.5em;
+    height: 3.25em;
+    padding-left: 2em;
+    cursor: pointer;
 }
