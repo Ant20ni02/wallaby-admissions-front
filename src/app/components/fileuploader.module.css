@@ -11,10 +11,11 @@
 }
 
 .fileName {
-    width: 10em;
-    font-size: large;
+    width: 11em;
+    font-size: medium;
     font-family: "inter", sans-serif;
     color: white;
+    text-align: center;
     padding-top: 1.5em;
     padding-bottom: 1.5em;
     padding-left: 4.5em;
@@ -69,7 +70,7 @@
 
 .preview {
     width: 3.5em;
-    height: 3.25em;
+    height: 3.17em;
 }
 
 .previewFileName {
@@ -83,7 +84,7 @@
 
 .deleteIcon {
     width: 3.5em;
-    height: 3.25em;
+    height: 3.17em;
     padding-left: 2em;
     cursor: pointer;
 }

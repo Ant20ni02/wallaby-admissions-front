@@ -103,6 +103,293 @@ const FileUploader = () =>{
         setHasFileCURP_MADRE(false);
     };
 
+    const [hasFileINE_PADRE, setHasFileINE_PADRE] = useState<boolean>(false);
+    const [fileINE_PADRE, setFileINE_PADRE] = useState<File | undefined>();
+    const handleChangeINE_PADRE = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileINE_PADRE(false);
+                return;
+            }
+            else{
+                setFileINE_PADRE(tempFile);
+                setHasFileINE_PADRE(true);
+            }
+        }
+        else{
+            setHasFileINE_PADRE(false);
+            return;
+        }
+    };
+    const handleDeleteINE_PADRE = () => {
+        setHasFileINE_PADRE(false);
+    };
+
+    const [hasFileINE_MADRE, setHasFileINE_MADRE] = useState<boolean>(false);
+    const [fileINE_MADRE, setFileINE_MADRE] = useState<File | undefined>();
+    const handleChangeINE_MADRE = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileINE_MADRE(false);
+                return;
+            }
+            else{
+                setFileINE_MADRE(tempFile);
+                setHasFileINE_MADRE(true);
+            }
+        }
+        else{
+            setHasFileINE_MADRE(false);
+            return;
+        }
+    };
+    const handleDeleteINE_MADRE = () => {
+        setHasFileINE_MADRE(false);
+    };
+
+    const [hasFileCARTA_NO_ADEUDO, setHasFileCARTA_NO_ADEUDO] = useState<boolean>(false);
+    const [fileCARTA_NO_ADEUDO, setFileCARTA_NO_ADEUDO] = useState<File | undefined>();
+    const handleChangeCARTA_NO_ADEUDO = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileCARTA_NO_ADEUDO(false);
+                return;
+            }
+            else{
+                setFileCARTA_NO_ADEUDO(tempFile);
+                setHasFileCARTA_NO_ADEUDO(true);
+            }
+        }
+        else{
+            setHasFileCARTA_NO_ADEUDO(false);
+            return;
+        }
+    };
+    const handleDeleteCARTA_NO_ADEUDO= () => {
+        setHasFileCARTA_NO_ADEUDO(false);
+    };
+
+    const [hasFileFOTOS, setHasFileFOTOS] = useState<boolean>(false);
+    const [fileFOTOS, setFileFOTOS] = useState<File | undefined>();
+    const handleChangeFOTOS = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileFOTOS(false);
+                return;
+            }
+            else{
+                setFileFOTOS(tempFile);
+                setHasFileFOTOS(true);
+            }
+        }
+        else{
+            setHasFileFOTOS(false);
+            return;
+        }
+    };
+    const handleDeleteFOTOS= () => {
+        setHasFileFOTOS(false);
+    };
+
+    const [hasFileCARTILLA_VACUNACION, setHasFileCARTILLA_VACUNACION] = useState<boolean>(false);
+    const [fileCARTILLA_VACUNACION, setFileCARTILLA_VACUNACION] = useState<File | undefined>();
+    const handleChangeCARTILLA_VACUNACION = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileCARTILLA_VACUNACION(false);
+                return;
+            }
+            else{
+                setFileCARTILLA_VACUNACION(tempFile);
+                setHasFileCARTILLA_VACUNACION(true);
+            }
+        }
+        else{
+            setHasFileCARTILLA_VACUNACION(false);
+            return;
+        }
+    };
+    const handleDeleteCARTILLA_VACUNACION= () => {
+        setHasFileCARTILLA_VACUNACION(false);
+    };
+
+    const [hasFilePRUEBA_LABORATORIO, setHasFilePRUEBA_LABORATORIO] = useState<boolean>(false);
+    const [filePRUEBA_LABORATORIO, setFilePRUEBA_LABORATORIO] = useState<File | undefined>();
+    const handleChangePRUEBA_LABORATORIO = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFilePRUEBA_LABORATORIO(false);
+                return;
+            }
+            else{
+                setFilePRUEBA_LABORATORIO(tempFile);
+                setHasFilePRUEBA_LABORATORIO(true);
+            }
+        }
+        else{
+            setHasFilePRUEBA_LABORATORIO(false);
+            return;
+        }
+    };
+    const handleDeletePRUEBA_LABORATORIO= () => {
+        setHasFilePRUEBA_LABORATORIO(false);
+    };
+
+    const [hasFileVACUNA_COVID, setHasFileVACUNA_COVID] = useState<boolean>(false);
+    const [fileVACUNA_COVID, setFileVACUNA_COVID] = useState<File | undefined>();
+    const handleChangeVACUNA_COVID = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileVACUNA_COVID(false);
+                return;
+            }
+            else{
+                setFileVACUNA_COVID(tempFile);
+                setHasFileVACUNA_COVID(true);
+            }
+        }
+        else{
+            setHasFileVACUNA_COVID(false);
+            return;
+        }
+    };
+    const handleDeleteVACUNA_COVID= () => {
+        setHasFileVACUNA_COVID(false);
+    };
+
+    const [hasFileCARTA_BUENA_SALUD, setHasFileCARTA_BUENA_SALUD] = useState<boolean>(false);
+    const [fileCARTA_BUENA_SALUD, setFileCARTA_BUENA_SALUD] = useState<File | undefined>();
+    const handleChangeCARTA_BUENA_SALUD = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileCARTA_BUENA_SALUD(false);
+                return;
+            }
+            else{
+                setFileCARTA_BUENA_SALUD(tempFile);
+                setHasFileCARTA_BUENA_SALUD(true);
+            }
+        }
+        else{
+            setHasFileCARTA_BUENA_SALUD(false);
+            return;
+        }
+    };
+    const handleDeleteCARTA_BUENA_SALUD= () => {
+        setHasFileCARTA_BUENA_SALUD(false);
+    };
+
+    const [hasFileEXUDADO_BUCOFARINGEO, setHasFileEXUDADO_BUCOFARINGEO] = useState<boolean>(false);
+    const [fileEXUDADO_BUCOFARINGEO, setFileEXUDADO_BUCOFARINGEO] = useState<File | undefined>();
+    const handleChangeEXUDADO_BUCOFARINGEO= (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileEXUDADO_BUCOFARINGEO(false);
+                return;
+            }
+            else{
+                setFileEXUDADO_BUCOFARINGEO(tempFile);
+                setHasFileEXUDADO_BUCOFARINGEO(true);
+            }
+        }
+        else{
+            setHasFileEXUDADO_BUCOFARINGEO(false);
+            return;
+        }
+    };
+    const handleDeleteEXUDADO_BUCOFARINGEO= () => {
+        setHasFileEXUDADO_BUCOFARINGEO(false);
+    };
+
+    const [hasFileCONSTANCIA_ANO_CURSADO, setHasFileCONSTANCIA_ANO_CURSADO] = useState<boolean>(false);
+    const [fileCONSTANCIA_ANO_CURSADO, setFileCONSTANCIA_ANO_CURSADO] = useState<File | undefined>();
+    const handleChangeCONSTANCIA_ANO_CURSADO= (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileCONSTANCIA_ANO_CURSADO(false);
+                return;
+            }
+            else{
+                setFileCONSTANCIA_ANO_CURSADO(tempFile);
+                setHasFileCONSTANCIA_ANO_CURSADO(true);
+            }
+        }
+        else{
+            setHasFileCONSTANCIA_ANO_CURSADO(false);
+            return;
+        }
+    };
+    const handleDeleteCONSTANCIA_ANO_CURSADO= () => {
+        setHasFileCONSTANCIA_ANO_CURSADO(false);
+    };
+
+    const [hasFileBOLETA, setHasFileBOLETA] = useState<boolean>(false);
+    const [fileBOLETA, setFileBOLETA] = useState<File | undefined>();
+    const handleChangeBOLETA= (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileBOLETA(false);
+                return;
+            }
+            else{
+                setFileBOLETA(tempFile);
+                setHasFileBOLETA(true);
+            }
+        }
+        else{
+            setHasFileBOLETA(false);
+            return;
+        }
+    };
+    const handleDeleteBOLETA= () => {
+        setHasFileBOLETA(false);
+    };
+
+    const [hasFileBUENA_CONDUCTA, setHasFileBUENA_CONDUCTA] = useState<boolean>(false);
+    const [fileBUENA_CONDUCTA, setFileBUENA_CONDUCTA] = useState<File | undefined>();
+    const handleChangeBUENA_CONDUCTA= (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileBUENA_CONDUCTA(false);
+                return;
+            }
+            else{
+                setFileBUENA_CONDUCTA(tempFile);
+                setHasFileBUENA_CONDUCTA(true);
+            }
+        }
+        else{
+            setHasFileBUENA_CONDUCTA(false);
+            return;
+        }
+    };
+    const handleDeleteBUENA_CONDUCTA= () => {
+        setHasFileBUENA_CONDUCTA(false);
+    };
 
     return (
         <div className={fileUploader.container}>
@@ -205,6 +492,240 @@ const FileUploader = () =>{
                                 </div>
                                 <div>
                                     <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_MADRE}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>INE del padre</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileINE_PADRE ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-INE_PADRE">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-INE_PADRE" name="fileINE_PADRE" accept="application/pdf" required onChange={handleChangeINE_PADRE}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileINE_PADRE !== undefined ? fileINE_PADRE.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteINE_PADRE}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>INE de la madre</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileINE_MADRE ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-INE_MADRE">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-INE_MADRE" name="fileINE_MADRE" accept="application/pdf" required onChange={handleChangeINE_MADRE}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileINE_MADRE !== undefined ? fileINE_MADRE.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteINE_MADRE}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Carta de no adeudo</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileCARTA_NO_ADEUDO ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-CARTA_NO_ADEUDO">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-CARTA_NO_ADEUDO" name="fileCARTA_NO_ADEUDO" accept="application/pdf" required onChange={handleChangeCARTA_NO_ADEUDO}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileCARTA_NO_ADEUDO !== undefined ? fileCARTA_NO_ADEUDO.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTA_NO_ADEUDO}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Fotos</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileFOTOS ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-FOTOS">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-FOTOS" name="fileFOTOS" accept="application/pdf" required onChange={handleChangeFOTOS}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileFOTOS !== undefined ? fileFOTOS.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteFOTOS}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Cartilla de vacunación</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileCARTILLA_VACUNACION ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-CARTILLA_VACUNACION">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-CARTILLA_VACUNACION" name="fileCARTILLA_VACUNACION" accept="application/pdf" required onChange={handleChangeCARTILLA_VACUNACION}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileCARTILLA_VACUNACION !== undefined ? fileCARTILLA_VACUNACION.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTILLA_VACUNACION}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Prueba de laboratorio</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFilePRUEBA_LABORATORIO ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-PRUEBA_LABORATORIO">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-PRUEBA_LABORATORIO" name="filePRUEBA_LABORATORIO" accept="application/pdf" required onChange={handleChangePRUEBA_LABORATORIO}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {filePRUEBA_LABORATORIO !== undefined ? filePRUEBA_LABORATORIO.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeletePRUEBA_LABORATORIO}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Certificado de vacunación contra la COVID-19</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileVACUNA_COVID ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-VACUNA_COVID">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-VACUNA_COVID" name="fileVACUNA_COVID" accept="application/pdf" required onChange={handleChangeVACUNA_COVID}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileVACUNA_COVID !== undefined ? fileVACUNA_COVID.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteVACUNA_COVID}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Carta de buena salud</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileCARTA_BUENA_SALUD ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-CARTA_BUENA_SALUD">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-CARTA_BUENA_SALUD" name="fileCARTA_BUENA_SALUD" accept="application/pdf" required onChange={handleChangeCARTA_BUENA_SALUD}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileCARTA_BUENA_SALUD !== undefined ? fileCARTA_BUENA_SALUD.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTA_BUENA_SALUD}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>Exudado bucofaringeo</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileEXUDADO_BUCOFARINGEO ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-EXUDADO_BUCOFARINGEO">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-EXUDADO_BUCOFARINGEO" name="fileEXUDADO_BUCOFARINGEO" accept="application/pdf" required onChange={handleChangeEXUDADO_BUCOFARINGEO}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileEXUDADO_BUCOFARINGEO !== undefined ? fileEXUDADO_BUCOFARINGEO.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteEXUDADO_BUCOFARINGEO}/>
                                 </div>
                             </div>
                         }
