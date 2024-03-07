@@ -1,0 +1,19 @@
+div.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+button.FloatButton {
+    border-radius: 50%;
+    border: none;
+    width: 2em;
+    height: 2em;
+    background-color: #F48A32;
+    margin-top: 3em;
+}
+
+.plus {
+    color: white;
+    height: 1.3em;
+    width: auto;
+}
