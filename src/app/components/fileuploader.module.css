@@ -7,7 +7,13 @@
 .container {
     display: flex;
     flex-direction: column;
-    width: 35%;
+    width: 50em;
+    height: 50em;
+    overflow:scroll;
+    scrollbar-width: thin;
+    overflow-x:hidden;
+    padding: 2em;
+    background-color: white;
 }
 
 .fileName {
