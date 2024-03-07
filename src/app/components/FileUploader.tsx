@@ -391,6 +391,10 @@ const FileUploader = () =>{
         setHasFileBUENA_CONDUCTA(false);
     };
 
+    const handleSubmission = async () => {
+        console.log('Cat')
+    };
+
     return (
         <div className={fileUploader.container}>
                 <div className={fileUploader.innerContainer}>
@@ -730,6 +734,9 @@ const FileUploader = () =>{
                             </div>
                         }
                     </div>
+                </div>
+                <div className={fileUploader.buttonContainer}>
+                    <button className={fileUploader.revisionButton} onClick={handleSubmission}>Mandar a revisión</button>
                 </div>
         </div>
     )

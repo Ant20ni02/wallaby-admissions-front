@@ -37,6 +37,29 @@
     margin-bottom: 1.25em;
 }
 
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 2em;
+}
+
+.revisionButton{
+    color: white;
+    font-size: medium;
+    font-family: "inter", sans-serif;
+    border-radius: 0.4em;
+    background-color: #f5de62;
+    border: none;
+    width: 20em;
+    height: 5em;
+    cursor: pointer;
+}
+
+.revisionButton:hover {
+    background-color: #c4b14e;
+}
+
 .fileContainer {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
