@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.innerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.attachIcon {
+    border: none;
+    background-color: white;
+    margin: 0.2em;
+}
+
+.attachIcon label {
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    cursor: pointer;
+}
+
+.attachIcon>input {
+    display: none;
+}
+
+.preview {
+    width: 1.4em;
+    height: 1.4em;
+}
+
+.fileName {
+    display: inline-block;
+    width: inherit;
+    font-size: 0.4em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.fileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 2.1em;
+    height: 2.1em;
+}
