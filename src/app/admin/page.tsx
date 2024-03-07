@@ -128,6 +128,9 @@ export default function AdminHome() {
         {!loading && (
           <>
             <div className="header">
+              <div className="welcome-header">
+                <h3 className="upperText">¡Bienvenido!</h3>
+              </div>
               <div className="search-bar-header">
                 <form className="search-bar">
                   <input
@@ -144,9 +147,6 @@ export default function AdminHome() {
                     Search
                   </button>
                 </form>
-              </div>
-              <div className="welcome-header">
-                <h3 className="upperText">¡Bienvenido!</h3>
                 <p className="lowerText">
                   Busca el correo de la persona que te interesa para conocer su
                   progreso

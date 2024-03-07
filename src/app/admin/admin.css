@@ -16,22 +16,23 @@
 .upperText {
   text-align: center;
   font-family: "one-little-font", sans-serif;
-  font-size: 2em;
+  font-size: 3em;
   color: var(--blue-wallaby);
   margin-bottom: 0;
+  margin-left: 7em;
 }
 
 .lowerText {
   text-align: center;
   font-family: "arimo-regular", sans-serif;
-  font-size: 1.5em;
+  font-size: 0.8em;
   color: #192746;
   margin-bottom: 0;
-  margin-top: 30px;
+  margin-top: 0.2em;
 }
 
 .container {
-  margin: 5em 10em auto;
+  margin: 3em 10em auto;
 }
 
 .header {
@@ -39,13 +40,14 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  align-items: last baseline;
   margin-bottom: 2em;
 }
 
 .welcome-header {
-  margin-right: 4em;
+  margin-left: 2em;
 }
+
+
 
 .search-bar-header {
   display: flex;
@@ -59,7 +61,7 @@
   width: 9em;
   height: auto;
   margin-left: 10em;
-  margin-top: -2em;
+  margin-top: 0em;
   object-fit: cover;
 }
 
