@@ -4,8 +4,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Iniciar Sesión',
-  description: 'Iniciar sesión en Wallaby',
+  title: 'Administradores',
+  description: 'Página de administradores',
 }
 
 export default function RootLayout({
