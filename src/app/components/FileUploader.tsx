@@ -55,6 +55,54 @@ const FileUploader = () =>{
         setHasFileCURP_ALUMNO(false);
     };
 
+    const [hasFileCURP_PADRE, setHasFileCURP_PADRE] = useState<boolean>(false);
+    const [fileCURP_PADRE, setFileCURP_PADRE] = useState<File | undefined>();
+    const handleChangeCURP_PADRE = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileCURP_PADRE(false);
+                return;
+            }
+            else{
+                setFileCURP_PADRE(tempFile);
+                setHasFileCURP_PADRE(true);
+            }
+        }
+        else{
+            setHasFileCURP_PADRE(false);
+            return;
+        }
+    };
+    const handleDeleteCURP_PADRE = () => {
+        setHasFileCURP_PADRE(false);
+    };
+
+    const [hasFileCURP_MADRE, setHasFileCURP_MADRE] = useState<boolean>(false);
+    const [fileCURP_MADRE, setFileCURP_MADRE] = useState<File | undefined>();
+    const handleChangeCURP_MADRE = (e : React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const tempFile = e.target.files[0];
+            if(tempFile.size / 1024 > 15000){
+
+                setHasFileCURP_MADRE(false);
+                return;
+            }
+            else{
+                setFileCURP_MADRE(tempFile);
+                setHasFileCURP_MADRE(true);
+            }
+        }
+        else{
+            setHasFileCURP_MADRE(false);
+            return;
+        }
+    };
+    const handleDeleteCURP_MADRE = () => {
+        setHasFileCURP_MADRE(false);
+    };
+
 
     return (
         <div className={fileUploader.container}>
@@ -105,6 +153,58 @@ const FileUploader = () =>{
                                 </div>
                                 <div>
                                     <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_ALUMNO}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>CURP del padre</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileCURP_PADRE ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-CURP_PADRE">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-CURP_PADRE" name="fileCURP_PADRE" accept="application/pdf" required onChange={handleChangeCURP_PADRE}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileCURP_PADRE !== undefined ? fileCURP_PADRE.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_PADRE}/>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.fileName}>CURP de la madre</div>
+                    <div className={fileUploader.fileContainer}>
+                        {
+                            !hasFileCURP_MADRE ?
+                            <div className={fileUploader.uploadSection}>
+                                <label htmlFor="file-input-CURP_MADRE">
+                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                </label>
+                                <input type="file" id="file-input-CURP_MADRE" name="fileCURP_MADRE" accept="application/pdf" required onChange={handleChangeCURP_MADRE}/>
+                                <div className={fileUploader.phantom}></div>
+                            </div> :
+                            <div className={fileUploader.uploadedSection}>
+                                <div className={fileUploader.previewSection}>
+                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                    <div className={fileUploader.previewFileName}>
+                                        {fileCURP_MADRE !== undefined ? fileCURP_MADRE.name : ""}
+                                    </div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_MADRE}/>
                                 </div>
                             </div>
                         }
