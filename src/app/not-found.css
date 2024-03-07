@@ -1,21 +1,23 @@
 @font-face {
     font-family: 'arimo-regular';
     src: local("arimo-regular"),
-      url('../../fonts/Arimo/Arimo-Regular.ttf') format('truetype');
+      url('../fonts/Arimo/Arimo-Regular.ttf') format('truetype');
   }
 
   @font-face {
     font-family: 'one-little-font';
     src: local("one-little-font"),
-    url('../../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
+    url('../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
   }
 
 .body {
-    background-color: #1B489A;
-    margin: 0;
     display: flex;
     flex-direction: column;
     height: 100vh; 
+}
+
+.fourofour{
+    font-family: "one-little-font", sans-serif;
 }
 
 .topBar {
@@ -24,7 +26,6 @@
 }
 
 .centralElements {
-    color: white;
     text-align: center;
     display: flex;
     flex-direction: column;

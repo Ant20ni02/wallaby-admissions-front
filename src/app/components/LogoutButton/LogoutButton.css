@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'one-little-font';
+    src: local("one-little-font"),
+    url('../../../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
+}
+
+.logout{
+    padding: 10px 20px;
+    border-style: none;
+    border-radius:10px;
+    color: white;
+    background-color: #FF3131;
+    border-color: #FF3131;
+    cursor: pointer;
+    font-family: "one-little-font", sans-serif;
+    font-size: medium;
+}
