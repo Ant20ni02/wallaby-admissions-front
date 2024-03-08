@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import Loading from "../components/SunLoader";
 import ChecklistAdmin from "../components/Checklist";
+import NoDataAdmin from "../components/NoData";
 
 import "./admin.css";
 
@@ -32,15 +33,23 @@ export default function AdminHome() {
     { id: 4, text: "CURP del padre", completed: false, externalLink: data[36]},
     { id: 5, text: "CURP de la madre", completed: false, externalLink: data[37]}
   ];
-  
+
   const elements = {
     undefined: [{ id: 0, text: "No hay informacion", completed: false }],
     DIA_PRUEBA: [{ id: 0, text: "¿Agendo día de prueba?", completed: false }],
-    ADJUNTAR_DOCUMENTOS: documentos.map(doc => ({ ...doc })),
+    ADJUNTAR_DOCUMENTOS: documentos.map((doc) => ({ ...doc })),
     PAGO: [{ id: 0, text: "¿La persona completó su pago?", completed: false }],
-    MATERIALES: [{ id: 0, text: "¿Se entregó todos los objetos de la lista de materiales?", completed: false }],
-    ENTREVISTA: [{ id: 0, text: "¿La persona realizó su entrevista?", completed: false }]
-  };  
+    MATERIALES: [
+      {
+        id: 0,
+        text: "¿Se entregó todos los objetos de la lista de materiales?",
+        completed: false,
+      },
+    ],
+    ENTREVISTA: [
+      { id: 0, text: "¿La persona realizó su entrevista?", completed: false },
+    ],
+  };
 
   console.log(data);
 
@@ -87,7 +96,7 @@ export default function AdminHome() {
     if (currentStateIndex !== -1 && currentStateIndex < stateKeys.length - 1) {
       return stateKeys[currentStateIndex + 1];
     }
-    return null; 
+    return null;
   };
 
   // Función para enviar la petición POST al servidor
@@ -108,10 +117,9 @@ export default function AdminHome() {
       );
 
       getInfo(data[12]);
-      
-      console.log("Respuesta del servidor:", response.data);
-      console.log('Email', data[12]);
 
+      console.log("Respuesta del servidor:", response.data);
+      console.log("Email", data[12]);
     } catch (error) {
       console.error("Error al enviar la petición:", error);
     }
@@ -158,36 +166,41 @@ export default function AdminHome() {
               </div>
             </div>
 
-            <div className="info-container">
-              <div>
-                <h4>Nombre del papá</h4>
-                <p>{data.length > 0 ? data[13] : "No hay información"}</p>
-              </div>
+            {data.length == 0 && <NoDataAdmin />}
+            {data.length != 0 && (
+              <>
+                <div className="info-container">
+                  <div>
+                    <h4>Nombre del papá</h4>
+                    <p>{data.length > 0 ? data[13] : "No hay información"}</p>
+                  </div>
 
-              <div>
-                <h4>Nombre del hijo (a)</h4>
-                <p>
-                  {data.length > 0
-                    ? data[1] + " " + data[2] + " " + data[3]
-                    : "No hay información"}
-                </p>
-              </div>
+                  <div>
+                    <h4>Nombre del hijo (a)</h4>
+                    <p>
+                      {data.length > 0
+                        ? data[1] + " " + data[2] + " " + data[3]
+                        : "No hay información"}
+                    </p>
+                  </div>
 
-              <div>
-                <h4>Correo electrónico</h4>
-                <p>{data.length > 0 ? data[12] : "No hay información"}</p>
-              </div>
-            </div>
+                  <div>
+                    <h4>Correo electrónico</h4>
+                    <p>{data.length > 0 ? data[12] : "No hay información"}</p>
+                  </div>
+                </div>
 
-            <h3 className="upperText">
-              Estado: {data[33] ? state[data[33]] : "No hay información"}
-            </h3>
+                <h3 className="upperText">
+                  Estado: {data[33] ? state[data[33]] : "No hay información"}
+                </h3>
 
-            <ChecklistAdmin
-              elements={elements[data[33]]}
-              onClick={() => changeState(index, data[33])}
-              data={data}
-            />
+                <ChecklistAdmin
+                  elements={elements[data[33]]}
+                  onClick={() => changeState(index, data[33])}
+                  data={data}
+                />
+              </>
+            )}
           </>
         )}
       </div>
