@@ -1,8 +1,8 @@
 "use client";
 import LogoutButton from "./components/LogoutButton/LogoutButton";
 import "./not-found.css";
-import Sun from "../../public/sad-sun.png"
-import './favicon.ico'
+import Sun from "/public/sad-sun.png"
+import '/public/favicon.ico'
 import Image from "next/image";
 
 export default function NotFound() {
