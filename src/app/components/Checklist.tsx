@@ -6,7 +6,7 @@ interface ChecklistAdminProps {
     id: number;
     text: string;
     completed: boolean;
-    externalLink?: string; // Añadimos un campo opcional para la URL externa
+    externalLink?: string;
   }[];
   onClick: () => void;
   data: string[];
@@ -37,11 +37,11 @@ const ChecklistAdmin: React.FC<ChecklistAdminProps> = ({
       const requiredFields = [34, 36, 37, 38, 39, 54];
       return requiredFields.every((index) => data[index] !== "");
     }
+    return true;
   };
 
   const checkAllDocumentsSent = allDocumentsSent();
 
-  console.log("Elements", elements);
 
   return (
     <div className="checklist-container">
@@ -52,7 +52,7 @@ const ChecklistAdmin: React.FC<ChecklistAdminProps> = ({
             {checkAllDocumentsSent ? (
               <>
                 <a
-                  href={item.externalLink} // Usamos la URL externa del elemento
+                  href={item.externalLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`checklist-label-${checkAllDocumentsSent}`}
@@ -67,7 +67,6 @@ const ChecklistAdmin: React.FC<ChecklistAdminProps> = ({
                 />
               </>
             ) : (
-              // Renderizamos un label normal si no todos los documentos están enviados
               <label
                 htmlFor={`item-${item.id}`}
                 className={`checklist-label-${checkAllDocumentsSent}`}

@@ -14,11 +14,11 @@
 
 .checklist > li {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
 }
 
 .checklist > li > label {
-  flex: 0 0 90%; /* Ocupa el 80% del espacio disponible */
+  flex: 0 0 70%; /* Ocupa el 80% del espacio disponible */
   background-color: #a0a0a0;
   border-radius: 1em;
   padding: 1em 0px 1em;
@@ -28,7 +28,7 @@
 }
 
 .checklist > li > a {
-  flex: 0 0 90%; /* Ocupa el 80% del espacio disponible */
+  flex: 0 0 70%; /* Ocupa el 80% del espacio disponible */
   background-color: var(--green-wallaby);
   border-radius: 1em;
   padding: 1em 0px 1em;
@@ -41,7 +41,7 @@
 }
 
 .checklist > li:last-child > a {
-  flex: 0 0 90%; /* Ocupa el 80% del espacio disponible */
+  flex: 0 0 70%; /* Ocupa el 80% del espacio disponible */
   background-color: var(--green-wallaby);
   border-radius: 1em;
   padding: 1em 0px 1em;

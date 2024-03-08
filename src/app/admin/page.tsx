@@ -1,18 +1,38 @@
 "use client";
 
 import axios from "axios";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import Loading from "../components/SunLoader";
 import ChecklistAdmin from "../components/Checklist";
-import NoDataAdmin from "../components/NoData";
+import AdviseAdmin from "../components/Advise";
 
 import "./admin.css";
 
 export default function AdminHome() {
+  const router = useRouter();
   const [index, setIndex] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    //localStorage.removeItem("email");
+    // localStorage.setItem("email", "a01424338@tec.mx"); //! Admin
+    // localStorage.setItem("email", "a01423189@tec.mx"); //? No admin
+
+    const email = localStorage.getItem('email');
+    if (email) {
+      checkForAdmin(email).then((isAdmin) => {
+        console.log('IsAdmin', isAdmin);
+        if (!isAdmin) {
+          // Redirigir al usuario al login si no es un administrador
+          router.push('/');
+          console.log("Redirije")
+        }
+      });
+    }
+  });
 
   // Objeto de strings dependiendo del estado
   const state = {
@@ -22,21 +42,42 @@ export default function AdminHome() {
     PAGO: "Pago de colegiatura",
     MATERIALES: "Lista de materiales",
     ENTREVISTA: "Entrevista",
+    TERMINADO: "Finalizado",
   };
 
   // Objeto de elementos del requerimiento dependiendo del estado
   const documentos = [
-    { id: 0, text: "Acta de nacimiento", completed: false, externalLink: data[34]},
-    { id: 1, text: "INE del padre", completed: false, externalLink: data[38]},
-    { id: 2, text: "INE de la madre", completed: false, externalLink: data[39]},
-    { id: 3, text: "CURP del alumno", completed: false, externalLink: data[35]},
-    { id: 4, text: "CURP del padre", completed: false, externalLink: data[36]},
-    { id: 5, text: "CURP de la madre", completed: false, externalLink: data[37]}
+    {
+      id: 0,
+      text: "Acta de nacimiento",
+      completed: false,
+      externalLink: data[34],
+    },
+    { id: 1, text: "INE del padre", completed: false, externalLink: data[38] },
+    {
+      id: 2,
+      text: "INE de la madre",
+      completed: false,
+      externalLink: data[39],
+    },
+    {
+      id: 3,
+      text: "CURP del alumno",
+      completed: false,
+      externalLink: data[35],
+    },
+    { id: 4, text: "CURP del padre", completed: false, externalLink: data[36] },
+    {
+      id: 5,
+      text: "CURP de la madre",
+      completed: false,
+      externalLink: data[37],
+    },
   ];
 
   const elements = {
-    undefined: [{ id: 0, text: "No hay informacion", completed: false }],
-    DIA_PRUEBA: [{ id: 0, text: "¿Agendo día de prueba?", completed: false }],
+    undefined: [{ id: 0, text: "No hay información", completed: false }],
+    DIA_PRUEBA: [{ id: 0, text: "¿Agendó día de prueba?", completed: false }],
     ADJUNTAR_DOCUMENTOS: documentos.map((doc) => ({ ...doc })),
     PAGO: [{ id: 0, text: "¿La persona completó su pago?", completed: false }],
     MATERIALES: [
@@ -49,9 +90,26 @@ export default function AdminHome() {
     ENTREVISTA: [
       { id: 0, text: "¿La persona realizó su entrevista?", completed: false },
     ],
+    TERMINADO: [],
   };
 
-  //console.log(data);
+  // Peticion GET para verificar si el usuario es ADMIN
+  const checkForAdmin: (email: string) => Promise<boolean> = async function (
+    email: string
+  ) {
+    try {
+      const response = await axios.get(`/api/checkForAdmin/${email}`);
+      if (response.data.index === 0) {
+        
+        return false;
+      } else {
+        return true;
+      }
+    } catch (error) {
+      console.error("Error al obtener los datos del servidor:", error);
+      return false;
+    }
+  };
 
   // Peticion GET para obtener la info del usuario
   const getInfo: (email: string) => void = function (email: string) {
@@ -145,7 +203,7 @@ export default function AdminHome() {
                   <input
                     id="test"
                     type="text"
-                    placeholder="Correo Electrónico..."
+                    placeholder="Correo electrónico..."
                     onKeyDown={(event) => {
                       if (event.key === "Enter") {
                         obtain(event);
@@ -166,8 +224,10 @@ export default function AdminHome() {
               </div>
             </div>
 
-            {data.length == 0 && <NoDataAdmin />}
-            {data.length != 0 && (
+            {data.length === 0 && (
+              <AdviseAdmin message="Realiza una búsqueda válida del correo electrónico para ver la información referente." />
+            )}
+            {data.length !== 0 && (
               <>
                 <div className="info-container">
                   <div>
@@ -193,12 +253,16 @@ export default function AdminHome() {
                 <h3 className="upperText">
                   Estado: {data[33] ? state[data[33]] : "No hay información"}
                 </h3>
-
-                <ChecklistAdmin
-                  elements={elements[data[33]]}
-                  onClick={() => changeState(index, data[33])}
-                  data={data}
-                />
+                {data[33] === "TERMINADO" && (
+                  <AdviseAdmin message="El usuario ha concluido su proceso de admisión." />
+                )}
+                {data[33] != "TERMINADO" && (
+                  <ChecklistAdmin
+                    elements={elements[data[33]]}
+                    onClick={() => changeState(index, data[33])}
+                    data={data}
+                  />
+                )}
               </>
             )}
           </>
@@ -207,10 +271,3 @@ export default function AdminHome() {
     </div>
   );
 }
-
-/**
- * data[33] -> estado
- * data[34] -> Acta
- * data[35] -> Curp alumno, 36 -> papá, 37 -> mamá
- * data[38] -> INE papá, 39 -> mamá
- */
