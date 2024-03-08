@@ -38,3 +38,15 @@
     font-size: large;
     font-family: "arimo-regular", sans-serif;
 }
+
+.logout{
+    padding: 10px 20px;
+    border-style: none;
+    border-radius:10px;
+    color: white;
+    background-color: #FF3131;
+    border-color: #FF3131;
+    cursor: pointer;
+    font-family: "one-little-font", sans-serif;
+    font-size: medium;
+}

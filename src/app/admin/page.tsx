@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { useState } from "react";
-import Loading from "../components/SunLoader";
+import Loading from "../components/SunLoader/SunLoader";
 import "./admin.css";
 
 export default function AdminHome() {
