@@ -7,13 +7,20 @@
 .container {
     display: flex;
     flex-direction: column;
-    width: 50em;
+    width: 40em;
     height: 40em;
     overflow:scroll;
     scrollbar-width: thin;
     overflow-x:hidden;
     padding: 2.5em;
     background-color: white;
+    border-radius: 0.4em;
+}
+
+.title {
+    font-family: "inter", sans-serif;
+    font-size: medium;
+    padding-left: 17.25em; 
 }
 
 .fileName {

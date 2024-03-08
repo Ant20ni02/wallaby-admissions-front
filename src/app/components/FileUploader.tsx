@@ -440,6 +440,11 @@ const FileUploader = () =>{
     return (
         <div className={fileUploader.container}>
                 <div className={fileUploader.innerContainer}>
+                    <div className={fileUploader.title}>
+                        Cargar documento
+                    </div>
+                </div>
+                <div className={fileUploader.innerContainer}>
                     <div className={fileUploader.fileName}>Acta de nacimiento*</div>
                     <div className={fileUploader.fileContainer}>
                         {
