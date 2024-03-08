@@ -1,6 +1,6 @@
 "use client";
 import LogoutButton from "../components/LogoutButton/LogoutButton";
-import "./admissionOnly.css";
+import "./invalidEmail.css";
 
 export default function admissionOnly() {
   return (
@@ -8,7 +8,8 @@ export default function admissionOnly() {
       <div className="topBar"></div>
       <div className="centralElements">
         <p className="text">
-          Esta página está dedicada exclusivamente a tu proceso de admisión
+          El correo con el que ingresaste no es válido. Por favor contacta a tu
+          asesor(a) de Wallaby para que te proporcione uno
         </p>
         <LogoutButton />
       </div>
