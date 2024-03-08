@@ -41,7 +41,7 @@ const ChecklistAdmin: React.FC<ChecklistAdminProps> = ({
 
   const checkAllDocumentsSent = allDocumentsSent();
 
-  console.log('Elements',elements)
+  console.log("Elements", elements);
 
   return (
     <div className="checklist-container">
@@ -50,26 +50,31 @@ const ChecklistAdmin: React.FC<ChecklistAdminProps> = ({
           <li key={item.id}>
             {/* Renderizamos un enlace si todos los documentos están enviados */}
             {checkAllDocumentsSent ? (
-              <a
-                href={item.externalLink} // Usamos la URL externa del elemento
-                target="_blank"
-                rel="noopener noreferrer"
+              <>
+                <a
+                  href={item.externalLink} // Usamos la URL externa del elemento
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`checklist-label-${checkAllDocumentsSent}`}
+                >
+                  {item.text}
+                </a>
+                <input
+                  type="checkbox"
+                  id={`item-${item.id}`}
+                  checked={item.completed}
+                  onChange={() => toggleItem(item.id)}
+                />
+              </>
+            ) : (
+              // Renderizamos un label normal si no todos los documentos están enviados
+              <label
+                htmlFor={`item-${item.id}`}
                 className={`checklist-label-${checkAllDocumentsSent}`}
               >
                 {item.text}
-              </a>
-            ) : (
-              // Renderizamos un label normal si no todos los documentos están enviados
-              <label htmlFor={`item-${item.id}`} className={`checklist-label-${checkAllDocumentsSent}`}>
-                {item.text}
               </label>
             )}
-            <input
-              type="checkbox"
-              id={`item-${item.id}`}
-              checked={item.completed}
-              onChange={() => toggleItem(item.id)}
-            />
           </li>
         ))}
       </ul>

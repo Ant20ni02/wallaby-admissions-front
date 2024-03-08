@@ -1,5 +1,6 @@
 .checklist-container {
   margin-top: 4em;
+  margin-bottom: 4em;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,7 +19,7 @@
 
 .checklist > li > label {
   flex: 0 0 90%; /* Ocupa el 80% del espacio disponible */
-  background-color: var(--green-wallaby);
+  background-color: #a0a0a0;
   border-radius: 1em;
   padding: 1em 0px 1em;
   margin-top: 0;
@@ -26,7 +27,20 @@
   text-align: center;
 }
 
-.checklist > li:last-child > label {
+.checklist > li > a {
+  flex: 0 0 90%; /* Ocupa el 80% del espacio disponible */
+  background-color: var(--green-wallaby);
+  border-radius: 1em;
+  padding: 1em 0px 1em;
+  margin-top: 0;
+  margin-bottom: 2em; /* Agrega un margen inferior para separar las etiquetas */
+  text-align: center;
+  text-decoration: none;
+  color: #000000;
+  border: 2px solid #1c5b24 ;
+}
+
+.checklist > li:last-child > a {
   flex: 0 0 90%; /* Ocupa el 80% del espacio disponible */
   background-color: var(--green-wallaby);
   border-radius: 1em;
@@ -69,7 +83,7 @@
   top: 50%; /* Posiciona el marcador de verificación en el centro vertical */
   left: 50%; /* Posiciona el marcador de verificación en el centro horizontal */
   transform: translate(-50%, -50%); /* Centra el marcador de verificación */
-  font-size: 4em; /* Establece el tamaño de fuente del marcador de verificación */
+  font-size: 3em; /* Establece el tamaño de fuente del marcador de verificación */
   color: var(
     --green-wallaby
   ); /* Establece el color del marcador de verificación */

@@ -51,7 +51,7 @@ export default function AdminHome() {
     ],
   };
 
-  console.log(data);
+  //console.log(data);
 
   // Peticion GET para obtener la info del usuario
   const getInfo: (email: string) => void = function (email: string) {
@@ -68,7 +68,7 @@ export default function AdminHome() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        setData([]);
         setLoading(false);
       });
   };

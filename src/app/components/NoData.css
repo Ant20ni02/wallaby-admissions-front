@@ -24,6 +24,7 @@
   justify-content: center;
   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
   margin-top: 6em;
+  margin-bottom: 2em;
 }
 
 .bg {
@@ -54,7 +55,9 @@
   background-color: var(--yellow-wallaby);
   opacity: 1;
   filter: blur(1em);
-  animation: blob-bounce 10s infinite ease;
+  animation: blob-bounce infinite linear;
+  animation-duration: 8s;
+  animation-delay: 0s;
 }
 
 @keyframes blob-bounce {
