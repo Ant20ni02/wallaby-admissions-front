@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import fileUploader from "./fileuploader.module.css"
+import axios from 'axios';
 
 const FileUploader = () =>{
 
@@ -392,7 +393,48 @@ const FileUploader = () =>{
     };
 
     const handleSubmission = async () => {
-        console.log('Cat')
+        const row = localStorage.getItem('index');
+        const studentName = localStorage.getItem('studentName');
+
+        const formData = new FormData();
+        formData.append("row", row);
+        formData.append("studentName", studentName);
+
+        formData.append("ACTA_NACIMIENTO", fileACTA_NACIMIENTO);
+        formData.append("CURP_ALUMNO", fileCURP_ALUMNO);
+        formData.append("CURP_PADRE", fileCURP_PADRE);
+        formData.append("CURP_MADRE", fileCURP_MADRE);
+        formData.append("INE_PADRE", fileINE_PADRE);
+        formData.append("INE_MADRE", fileINE_MADRE);
+        formData.append("CARTA_NO_ADEUDO", fileCARTA_NO_ADEUDO);
+        formData.append("FOTOS", fileFOTOS);
+        formData.append("CARTILLA_VACUNACION", fileCARTILLA_VACUNACION);
+        formData.append("PRUEBA_LABORATORIO", filePRUEBA_LABORATORIO);
+        formData.append("VACUNA_COVID", fileVACUNA_COVID);
+        formData.append("CARTA_BUENA_SALUD", fileCARTA_BUENA_SALUD);
+        formData.append("EXUDADO_BUCOFARINGEO", fileEXUDADO_BUCOFARINGEO);
+
+        if(hasFileCONSTANCIA_ANO_CURSADO){
+            formData.append("CONSTANCIA_ANO_CURSADO", fileCONSTANCIA_ANO_CURSADO);
+        }
+
+        if(hasFileBOLETA){
+            formData.append("BOLETA", fileBOLETA);
+        }
+
+        if(hasFileBUENA_CONDUCTA){
+            formData.append("BUENA_CONDUCTA", fileBUENA_CONDUCTA);
+        }
+
+        try {
+            const res = await axios.post(
+                '/api/uploadToDrive',
+                formData
+            );
+        }
+        catch(e : any){
+            console.error(e);
+        }
     };
 
     return (
