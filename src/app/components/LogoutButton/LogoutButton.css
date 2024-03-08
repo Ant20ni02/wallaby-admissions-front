@@ -5,6 +5,8 @@
 }
 
 .logout{
+    width: 75px;
+    height: 40px;
     padding: 10px 20px;
     border-style: none;
     border-radius:10px;
@@ -14,4 +16,13 @@
     cursor: pointer;
     font-family: "one-little-font", sans-serif;
     font-size: medium;
+}
+
+.logout:hover{
+    background-color: #eb3030;
+}
+
+.logout:active{
+    background-color:#df2c2c;
+    font-size: small;
 }
