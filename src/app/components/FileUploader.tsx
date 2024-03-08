@@ -5,8 +5,13 @@ import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import fileUploader from "./fileuploader.module.css"
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import { TailSpin } from  'react-loader-spinner'
 
 const FileUploader = () =>{
+
+    //change send icon to loading
+    const [sending, setSending] = useState<boolean>(false);
 
     const [hasFileACTA_NACIMIENTO, setHasFileACTA_NACIMIENTO] = useState<boolean>(false);
     const [fileACTA_NACIMIENTO, setFileACTA_NACIMIENTO] = useState<File | undefined>();
@@ -396,45 +401,117 @@ const FileUploader = () =>{
         const row = localStorage.getItem('index');
         const studentName = localStorage.getItem('studentName');
 
-        const formData = new FormData();
-        formData.append("row", row);
-        formData.append("studentName", studentName);
+        if(row !== null && studentName !== null){
 
-        formData.append("ACTA_NACIMIENTO", fileACTA_NACIMIENTO);
-        formData.append("CURP_ALUMNO", fileCURP_ALUMNO);
-        formData.append("CURP_PADRE", fileCURP_PADRE);
-        formData.append("CURP_MADRE", fileCURP_MADRE);
-        formData.append("INE_PADRE", fileINE_PADRE);
-        formData.append("INE_MADRE", fileINE_MADRE);
-        formData.append("CARTA_NO_ADEUDO", fileCARTA_NO_ADEUDO);
-        formData.append("FOTOS", fileFOTOS);
-        formData.append("CARTILLA_VACUNACION", fileCARTILLA_VACUNACION);
-        formData.append("PRUEBA_LABORATORIO", filePRUEBA_LABORATORIO);
-        formData.append("VACUNA_COVID", fileVACUNA_COVID);
-        formData.append("CARTA_BUENA_SALUD", fileCARTA_BUENA_SALUD);
-        formData.append("EXUDADO_BUCOFARINGEO", fileEXUDADO_BUCOFARINGEO);
+            const formData = new FormData();
+            formData.append("row", row);
+            formData.append("studentName", studentName);
 
-        if(hasFileCONSTANCIA_ANO_CURSADO){
-            formData.append("CONSTANCIA_ANO_CURSADO", fileCONSTANCIA_ANO_CURSADO);
+            formData.append("ACTA_NACIMIENTO", fileACTA_NACIMIENTO);
+            formData.append("CURP_ALUMNO", fileCURP_ALUMNO);
+            formData.append("CURP_PADRE", fileCURP_PADRE);
+            formData.append("CURP_MADRE", fileCURP_MADRE);
+            formData.append("INE_PADRE", fileINE_PADRE);
+            formData.append("INE_MADRE", fileINE_MADRE);
+            formData.append("CARTA_NO_ADEUDO", fileCARTA_NO_ADEUDO);
+            formData.append("FOTOS", fileFOTOS);
+            formData.append("CARTILLA_VACUNACION", fileCARTILLA_VACUNACION);
+            formData.append("PRUEBA_LABORATORIO", filePRUEBA_LABORATORIO);
+            formData.append("VACUNA_COVID", fileVACUNA_COVID);
+            formData.append("CARTA_BUENA_SALUD", fileCARTA_BUENA_SALUD);
+            formData.append("EXUDADO_BUCOFARINGEO", fileEXUDADO_BUCOFARINGEO);
+
+            if(hasFileCONSTANCIA_ANO_CURSADO){
+                formData.append("CONSTANCIA_ANO_CURSADO", fileCONSTANCIA_ANO_CURSADO);
+            }
+
+            if(hasFileBOLETA){
+                formData.append("BOLETA", fileBOLETA);
+            }
+
+            if(hasFileBUENA_CONDUCTA){
+                formData.append("BUENA_CONDUCTA", fileBUENA_CONDUCTA);
+            }
+
+            try {
+                const res = await axios.post(
+                    '/api/uploadToDrive',
+                    formData
+                );
+
+                const Toast = Swal.mixin({
+                    showConfirmButton: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    },
+                    willClose: () => {
+                        clearInterval(1500)
+                        }
+                })
+                    
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Se han mandado los archivos exitosamente',
+                    text: 'Asiste fisicamente a las instalaciones para verificar tus documentos originales'
+                })
+            }
+            catch(e : any){
+                console.error(e);
+                const Toast = Swal.mixin({
+                    showConfirmButton: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    },
+                    willClose: () => {
+                        clearInterval(1500)
+                        }
+                })
+                    
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Hubo un fallo al mandar los archivos',
+                    text: 'Intenta de nuevo'
+                })
+            }
+        }
+        else{
+            const Toast = Swal.mixin({
+                showConfirmButton: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                },
+                willClose: () => {
+                    clearInterval(1500)
+                    }
+            })
+                
+            Toast.fire({
+                icon: 'error',
+                title: 'Hubo un fallo al mandar los archivos',
+                text: 'Intenta de nuevo'
+            })
         }
 
-        if(hasFileBOLETA){
-            formData.append("BOLETA", fileBOLETA);
-        }
-
-        if(hasFileBUENA_CONDUCTA){
-            formData.append("BUENA_CONDUCTA", fileBUENA_CONDUCTA);
-        }
-
-        try {
-            const res = await axios.post(
-                '/api/uploadToDrive',
-                formData
-            );
-        }
-        catch(e : any){
-            console.error(e);
-        }
+        setSending(false);
+        setHasFileACTA_NACIMIENTO(false);
+        setHasFileCURP_ALUMNO(false);
+        setHasFileCURP_PADRE(false);
+        setHasFileCURP_MADRE(false);
+        setHasFileINE_PADRE(false);
+        setHasFileINE_MADRE(false);
+        setHasFileCARTA_NO_ADEUDO(false);
+        setHasFileFOTOS(false);
+        setHasFileCARTILLA_VACUNACION(false);
+        setHasFilePRUEBA_LABORATORIO(false);
+        setHasFileVACUNA_COVID(false);
+        setHasFileCARTA_BUENA_SALUD(false);
+        setHasFileEXUDADO_BUCOFARINGEO(false);
+        setHasFileCONSTANCIA_ANO_CURSADO(false);
+        setHasFileBOLETA(false);
+        setHasFileBUENA_CONDUCTA(false);
     };
 
     return (
@@ -860,13 +937,31 @@ const FileUploader = () =>{
                         }
                     </div>
                 </div>
-                <div className={fileUploader.buttonContainer}>
-                    {
-                        hasFileACTA_NACIMIENTO && hasFileCURP_ALUMNO && hasFileCURP_PADRE && hasFileCURP_MADRE && hasFileINE_PADRE && hasFileINE_MADRE && hasFileCARTA_NO_ADEUDO && hasFileFOTOS && hasFileCARTILLA_VACUNACION && hasFilePRUEBA_LABORATORIO && hasFileVACUNA_COVID && hasFileCARTA_BUENA_SALUD && hasFileEXUDADO_BUCOFARINGEO? 
-                        <button className={fileUploader.revisionButton} onClick={handleSubmission}>Mandar a revisión</button>:
-                        <button className={fileUploader.revisionButtonWaiting}  disabled={false}>Mandar a revisión</button>
-                    }
-                </div>
+                {
+                    !sending ?
+                    <div className={fileUploader.buttonContainer}>
+                        {
+                            hasFileACTA_NACIMIENTO && hasFileCURP_ALUMNO && hasFileCURP_PADRE && hasFileCURP_MADRE && hasFileINE_PADRE && hasFileINE_MADRE && hasFileCARTA_NO_ADEUDO && hasFileFOTOS && hasFileCARTILLA_VACUNACION && hasFilePRUEBA_LABORATORIO && hasFileVACUNA_COVID && hasFileCARTA_BUENA_SALUD && hasFileEXUDADO_BUCOFARINGEO? 
+                            <button className={fileUploader.revisionButton} onClick={()=>{handleSubmission(); setSending(true)}}>Mandar a revisión</button>:
+                            <div className={fileUploader.disabledButtonContainer}>
+                                <button className={fileUploader.revisionButtonWaiting}  disabled={false}>Mandar a revisión</button>
+                                <p className={fileUploader.displayText}>Faltan archivos obligatorios por subir</p>
+                            </div>
+                        }
+                    </div>:
+                    <div className={fileUploader.buttonContainer}>
+                        <TailSpin
+                            height="50"
+                            width="50"
+                            color="#2666BE"
+                            ariaLabel="tail-spin-loading"
+                            radius="1"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            visible={true}
+                        />
+                    </div>
+                }
         </div>
     )
 }
