@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'arimo-regular';
+    src: local("arimo-regular"),
+      url('../fonts/Arimo/Arimo-Regular.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'one-little-font';
+    src: local("one-little-font"),
+    url('../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
+  }
+
+.body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+}
+
+.border{
+    background-color: #1B489A;
+    width: 5px;
+    height:100px;
+    border-radius: 20px;
+    margin-left: 30px;
+}
+
+.four{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 120px;
+}
+
+.fourofour{
+    margin: 0 35px;
+    font-size: 6rem;
+    font-family: "one-little-font", sans-serif;
+    color: #1B489A
+}
+
+.sun{
+    margin: 0;
+}
+
+.topBar {
+    height: 50px;
+    background-color: #FFD100;
+}
+
+.centralElements {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; 
+}
+
+.text{
+    margin-bottom: 80px;
+    font-size: large;
+    font-family: "arimo-regular", sans-serif;
+}
