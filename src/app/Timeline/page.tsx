@@ -23,10 +23,10 @@ const Timeline = ({ }) => {
     let color = "";
 
 
-    useEffect (() =>{
+    useEffect(() => {
 
-        const currentStatus : string = localStorage.getItem("status");
-        let decoyValue : number = 0;
+        const currentStatus: string = localStorage.getItem("status");
+        let decoyValue: number = 0;
 
         switch (currentStatus) {
             case "DIA_PRUEBA":
@@ -54,11 +54,11 @@ const Timeline = ({ }) => {
         console.log(currentStatus);
         console.log(decoyValue);
 
-        for (let x = 2; x <= 7; x++){
+        for (let x = 2; x <= 7; x++) {
             //dynamicProp = {index : x, color : }
 
-            if (x === decoyValue) { color = "#22629E";}
-            else{
+            if (x === decoyValue) { color = "#22629E"; }
+            else {
                 if (x <= decoyValue) {
                     color = "#39B54A";
                 }
@@ -68,9 +68,9 @@ const Timeline = ({ }) => {
                 }
             }
 
-            
 
-            dynamicProp = { index: x, color: color, imgSrc: nodeImages[x-2] };
+
+            dynamicProp = { index: x, color: color, imgSrc: nodeImages[x - 2] };
 
             let propertiesDecoy = properties;
             propertiesDecoy.push(dynamicProp);
@@ -81,7 +81,7 @@ const Timeline = ({ }) => {
             forceUpdate();
         }
 
-    },[])
+    }, [])
 
     console.log(properties);
 
@@ -90,7 +90,7 @@ const Timeline = ({ }) => {
 
             <div className={page.generalItemsWrap}>
                 <div className={page.headerItemsWrap}>
-                    <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="120em" />
+                    <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="150em" />
                     <span className={page.headerText}> ¡Aquí inicia tu proceso de admisión!</span>
 
                 </div>
@@ -98,11 +98,14 @@ const Timeline = ({ }) => {
                 <span className={page.lowerText}>Comienza tu aventura siguiendo los pasos establecidos, y verás cómo tu progreso se marca con cada avance. Recuerda, ante cualquier duda, estamos aquí para apoyarte.</span>
 
                 <div className={page.statesWrap}>
-                    {/*<StateComponent />*/}
+
                     {
                         properties.map((element: any, index) =>
                             <StateComponent key={element.key} index={properties[index].index} imgSrc={properties[index].imgSrc} color={properties[index].color} />
-                        )
+                        
+                        
+                        
+                            )
                     }
 
                 </div>
