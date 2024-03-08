@@ -3,7 +3,7 @@
 import page from "../Timeline/timeline.module.css"
 import { nodeProperties } from '../types';
 import FloatInfoButton from "./FloatInfoButton";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 
@@ -11,28 +11,18 @@ import Image from "next/image";
 const StateComponent = ({ index, imgSrc, color }: nodeProperties) => {
 
     const titles: Array<string> = (["¿Ya nos conociste?", "Programa tu día prueba", "Adjunta y entrega tus documentos", "Pago presencial", "Lista de materiales", "Entrevista de bienvenida"]);
-/* 
-    const spanRef = useRef(null);
-    const [numLines, setNumLines] = useState(0);
+    const ref = useRef(null);
 
-    useEffect(() => {
-        const spanElement = spanRef.current;
-        const divStyles = window.getComputedStyle(spanElement);
-        const fontSize = parseFloat(divStyles.getPropertyValue('font-size'));
-        const lineHeight = parseFloat(divStyles.getPropertyValue('line-height'));
 
-        // Set span display to inline-block for accurate height measurement
-        spanElement.style.display = 'inline-block';
 
-        const spanHeight = spanElement.clientHeight;
-        const calculatedNumLines = Math.ceil(spanHeight / lineHeight);
-        setNumLines(calculatedNumLines);
-
-        // Restore original display property after measurement
-        spanElement.style.display = '';
-
-    }, [titles]); */
-
+    const textLines = document.getElementById("lines");
+    console.log(textLines)
+    /* 
+        useLayoutEffect(() => {
+            console.log(ref.current.clientHeight);
+        }, [ref])
+    
+     */
 
     // blue text dictionary
     return (
@@ -51,7 +41,7 @@ const StateComponent = ({ index, imgSrc, color }: nodeProperties) => {
                         </div>
 
                         <div className={page.lowerElementsFull}>
-                            <span>{titles[index - 2]}</span>
+                            <span ref={ref} className={page.titles} > {titles[index - 2]} </span>
                             <FloatInfoButton />
                         </div>
 
@@ -68,7 +58,7 @@ const StateComponent = ({ index, imgSrc, color }: nodeProperties) => {
                         </div>
 
                         <div className={page.lowerElementsEmpty} >
-                            <span >{titles[index - 2]}</span>
+                            <span className={page.titles}>{titles[index - 2]}</span>
                             <FloatInfoButton />
                         </div>
                     </div>

@@ -1,7 +1,8 @@
 import floatbutton from './FloatInfoButton.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
+import plusvg from '../../../public/plus_svg.svg';
+import Image from 'next/image';
 
 const FloatInfoButton = ({ activateInsertCard }: any) => {
 
@@ -12,7 +13,7 @@ const FloatInfoButton = ({ activateInsertCard }: any) => {
         <>
             <div className={floatbutton.buttonContainer} onClick={() => handleClick()}>
                 <button className={floatbutton.FloatButton}>
-                    <FontAwesomeIcon icon={faPlus} className={floatbutton.plus} />
+                    <Image src={plusvg} alt="" className={floatbutton.plus} />
                 </button>
             </div>
         </>

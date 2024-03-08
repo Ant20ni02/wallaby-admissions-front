@@ -1,6 +1,7 @@
 div.buttonContainer {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 button.FloatButton {
@@ -10,10 +11,12 @@ button.FloatButton {
     height: 2em;
     background-color: #F48A32;
     margin-top: 3em;
+    padding: 0em;
 }
 
 .plus {
     color: white;
-    height: 1.3em;
+    padding-top: 0.25em;
+    height: 1em;
     width: auto;
 }
