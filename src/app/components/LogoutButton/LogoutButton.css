@@ -5,13 +5,11 @@
 }
 
 .logout{
-    width: 75px;
-    height: 40px;
-    padding: 10px 20px;
+    padding: 0.5em 0.75em;
     border-style: none;
-    border-radius:10px;
+    border-radius:0.5em; 
     color: white;
-    background-color: #FF3131;
+    background-color: #FF3131;  
     border-color: #FF3131;
     cursor: pointer;
     font-family: "one-little-font", sans-serif;
