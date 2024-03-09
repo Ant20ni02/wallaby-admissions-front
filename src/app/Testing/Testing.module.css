@@ -1,10 +1,4 @@
-.blurScreen {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(0.5em);
+.modalWrap {
+    position: relative;
+    z-index: 3;
 }

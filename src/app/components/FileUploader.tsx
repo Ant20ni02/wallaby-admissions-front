@@ -7,8 +7,9 @@ import fileUploader from "./fileuploader.module.css"
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { TailSpin } from  'react-loader-spinner'
+import { FileUploaderProps } from '../types';
 
-const FileUploader = () =>{
+const FileUploader = ({setDisplayFileUploaderModalWrap} : FileUploaderProps) =>{
 
     //change send icon to loading
     const [sending, setSending] = useState<boolean>(false);
@@ -446,7 +447,26 @@ const FileUploader = () =>{
                         toast.addEventListener('mouseleave', Swal.resumeTimer)
                     },
                     willClose: () => {
-                        clearInterval(1500)
+                        
+                            setSending(false);
+                            setHasFileACTA_NACIMIENTO(false);
+                            setHasFileCURP_ALUMNO(false);
+                            setHasFileCURP_PADRE(false);
+                            setHasFileCURP_MADRE(false);
+                            setHasFileINE_PADRE(false);
+                            setHasFileINE_MADRE(false);
+                            setHasFileCARTA_NO_ADEUDO(false);
+                            setHasFileFOTOS(false);
+                            setHasFileCARTILLA_VACUNACION(false);
+                            setHasFilePRUEBA_LABORATORIO(false);
+                            setHasFileVACUNA_COVID(false);
+                            setHasFileCARTA_BUENA_SALUD(false);
+                            setHasFileEXUDADO_BUCOFARINGEO(false);
+                            setHasFileCONSTANCIA_ANO_CURSADO(false);
+                            setHasFileBOLETA(false);
+                            setHasFileBUENA_CONDUCTA(false);
+                            setDisplayFileUploaderModalWrap(false);
+                            clearInterval(1500);
                         }
                 })
                     
@@ -514,459 +534,465 @@ const FileUploader = () =>{
         setHasFileBUENA_CONDUCTA(false);
     };
 
+    const onCloseClick = () =>{
+       setDisplayFileUploaderModalWrap(false);
+    }
+
     return (
-        <div className={fileUploader.container}>
-                <div className={fileUploader.exitContainer}>
-                    <div>
-                        <FontAwesomeIcon icon={faXmark} className={fileUploader.exitIcon}/>
+        <div className={fileUploader.blurBackground}>
+            <div className={fileUploader.container}>
+                    <div className={fileUploader.exitContainer}>
+                        <div>
+                            <FontAwesomeIcon onClick={onCloseClick} icon={faXmark} className={fileUploader.exitIcon}/>
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.title}>
-                        Cargar documento
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.title}>
+                            Cargar documento
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Acta de nacimiento*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileACTA_NACIMIENTO ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-ACTA_NACIMIENTO">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-ACTA_NACIMIENTO" name="fileACTA_NACIMIENTO" accept="application/pdf" required onChange={handleChangeACTA_NACIMIENTO}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileACTA_NACIMIENTO !== undefined ? fileACTA_NACIMIENTO.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Acta de nacimiento*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileACTA_NACIMIENTO ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-ACTA_NACIMIENTO">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-ACTA_NACIMIENTO" name="fileACTA_NACIMIENTO" accept="application/pdf" required onChange={handleChangeACTA_NACIMIENTO}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileACTA_NACIMIENTO !== undefined ? fileACTA_NACIMIENTO.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteACTA_NACIMIENTO}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteACTA_NACIMIENTO}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>CURP del alumno*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileCURP_ALUMNO ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-CURP_ALUMNO">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-CURP_ALUMNO" name="fileCURP_ALUMNO" accept="application/pdf" required onChange={handleChangeCURP_ALUMNO}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileCURP_ALUMNO !== undefined ? fileCURP_ALUMNO.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>CURP del alumno*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileCURP_ALUMNO ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-CURP_ALUMNO">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-CURP_ALUMNO" name="fileCURP_ALUMNO" accept="application/pdf" required onChange={handleChangeCURP_ALUMNO}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileCURP_ALUMNO !== undefined ? fileCURP_ALUMNO.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_ALUMNO}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_ALUMNO}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>CURP del padre*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileCURP_PADRE ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-CURP_PADRE">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-CURP_PADRE" name="fileCURP_PADRE" accept="application/pdf" required onChange={handleChangeCURP_PADRE}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileCURP_PADRE !== undefined ? fileCURP_PADRE.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>CURP del padre*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileCURP_PADRE ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-CURP_PADRE">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-CURP_PADRE" name="fileCURP_PADRE" accept="application/pdf" required onChange={handleChangeCURP_PADRE}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileCURP_PADRE !== undefined ? fileCURP_PADRE.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_PADRE}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_PADRE}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>CURP de la madre*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileCURP_MADRE ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-CURP_MADRE">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-CURP_MADRE" name="fileCURP_MADRE" accept="application/pdf" required onChange={handleChangeCURP_MADRE}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileCURP_MADRE !== undefined ? fileCURP_MADRE.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>CURP de la madre*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileCURP_MADRE ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-CURP_MADRE">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-CURP_MADRE" name="fileCURP_MADRE" accept="application/pdf" required onChange={handleChangeCURP_MADRE}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileCURP_MADRE !== undefined ? fileCURP_MADRE.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_MADRE}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCURP_MADRE}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>INE del padre*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileINE_PADRE ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-INE_PADRE">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-INE_PADRE" name="fileINE_PADRE" accept="application/pdf" required onChange={handleChangeINE_PADRE}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileINE_PADRE !== undefined ? fileINE_PADRE.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>INE del padre*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileINE_PADRE ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-INE_PADRE">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-INE_PADRE" name="fileINE_PADRE" accept="application/pdf" required onChange={handleChangeINE_PADRE}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileINE_PADRE !== undefined ? fileINE_PADRE.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteINE_PADRE}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteINE_PADRE}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>INE de la madre*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileINE_MADRE ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-INE_MADRE">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-INE_MADRE" name="fileINE_MADRE" accept="application/pdf" required onChange={handleChangeINE_MADRE}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileINE_MADRE !== undefined ? fileINE_MADRE.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>INE de la madre*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileINE_MADRE ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-INE_MADRE">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-INE_MADRE" name="fileINE_MADRE" accept="application/pdf" required onChange={handleChangeINE_MADRE}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileINE_MADRE !== undefined ? fileINE_MADRE.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteINE_MADRE}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteINE_MADRE}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Carta de no adeudo*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileCARTA_NO_ADEUDO ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-CARTA_NO_ADEUDO">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-CARTA_NO_ADEUDO" name="fileCARTA_NO_ADEUDO" accept="application/pdf" required onChange={handleChangeCARTA_NO_ADEUDO}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileCARTA_NO_ADEUDO !== undefined ? fileCARTA_NO_ADEUDO.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Carta de no adeudo*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileCARTA_NO_ADEUDO ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-CARTA_NO_ADEUDO">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-CARTA_NO_ADEUDO" name="fileCARTA_NO_ADEUDO" accept="application/pdf" required onChange={handleChangeCARTA_NO_ADEUDO}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileCARTA_NO_ADEUDO !== undefined ? fileCARTA_NO_ADEUDO.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTA_NO_ADEUDO}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTA_NO_ADEUDO}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Fotos*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileFOTOS ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-FOTOS">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-FOTOS" name="fileFOTOS" accept="application/pdf" required onChange={handleChangeFOTOS}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileFOTOS !== undefined ? fileFOTOS.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Fotos*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileFOTOS ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-FOTOS">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-FOTOS" name="fileFOTOS" accept="application/pdf" required onChange={handleChangeFOTOS}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileFOTOS !== undefined ? fileFOTOS.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteFOTOS}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteFOTOS}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Cartilla de vacunación*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileCARTILLA_VACUNACION ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-CARTILLA_VACUNACION">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-CARTILLA_VACUNACION" name="fileCARTILLA_VACUNACION" accept="application/pdf" required onChange={handleChangeCARTILLA_VACUNACION}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileCARTILLA_VACUNACION !== undefined ? fileCARTILLA_VACUNACION.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Cartilla de vacunación*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileCARTILLA_VACUNACION ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-CARTILLA_VACUNACION">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-CARTILLA_VACUNACION" name="fileCARTILLA_VACUNACION" accept="application/pdf" required onChange={handleChangeCARTILLA_VACUNACION}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileCARTILLA_VACUNACION !== undefined ? fileCARTILLA_VACUNACION.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTILLA_VACUNACION}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTILLA_VACUNACION}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Prueba de laboratorio*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFilePRUEBA_LABORATORIO ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-PRUEBA_LABORATORIO">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-PRUEBA_LABORATORIO" name="filePRUEBA_LABORATORIO" accept="application/pdf" required onChange={handleChangePRUEBA_LABORATORIO}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {filePRUEBA_LABORATORIO !== undefined ? filePRUEBA_LABORATORIO.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Prueba de laboratorio*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFilePRUEBA_LABORATORIO ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-PRUEBA_LABORATORIO">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-PRUEBA_LABORATORIO" name="filePRUEBA_LABORATORIO" accept="application/pdf" required onChange={handleChangePRUEBA_LABORATORIO}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {filePRUEBA_LABORATORIO !== undefined ? filePRUEBA_LABORATORIO.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeletePRUEBA_LABORATORIO}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeletePRUEBA_LABORATORIO}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Certificado de vacunación contra la COVID-19*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileVACUNA_COVID ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-VACUNA_COVID">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-VACUNA_COVID" name="fileVACUNA_COVID" accept="application/pdf" required onChange={handleChangeVACUNA_COVID}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileVACUNA_COVID !== undefined ? fileVACUNA_COVID.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Certificado de vacunación contra la COVID-19*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileVACUNA_COVID ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-VACUNA_COVID">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-VACUNA_COVID" name="fileVACUNA_COVID" accept="application/pdf" required onChange={handleChangeVACUNA_COVID}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileVACUNA_COVID !== undefined ? fileVACUNA_COVID.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteVACUNA_COVID}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteVACUNA_COVID}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Carta de buena salud*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileCARTA_BUENA_SALUD ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-CARTA_BUENA_SALUD">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-CARTA_BUENA_SALUD" name="fileCARTA_BUENA_SALUD" accept="application/pdf" required onChange={handleChangeCARTA_BUENA_SALUD}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileCARTA_BUENA_SALUD !== undefined ? fileCARTA_BUENA_SALUD.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Carta de buena salud*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileCARTA_BUENA_SALUD ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-CARTA_BUENA_SALUD">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-CARTA_BUENA_SALUD" name="fileCARTA_BUENA_SALUD" accept="application/pdf" required onChange={handleChangeCARTA_BUENA_SALUD}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileCARTA_BUENA_SALUD !== undefined ? fileCARTA_BUENA_SALUD.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTA_BUENA_SALUD}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCARTA_BUENA_SALUD}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Exudado bucofaringeo*</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileEXUDADO_BUCOFARINGEO ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-EXUDADO_BUCOFARINGEO">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-EXUDADO_BUCOFARINGEO" name="fileEXUDADO_BUCOFARINGEO" accept="application/pdf" required onChange={handleChangeEXUDADO_BUCOFARINGEO}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileEXUDADO_BUCOFARINGEO !== undefined ? fileEXUDADO_BUCOFARINGEO.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Exudado bucofaringeo*</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileEXUDADO_BUCOFARINGEO ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-EXUDADO_BUCOFARINGEO">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-EXUDADO_BUCOFARINGEO" name="fileEXUDADO_BUCOFARINGEO" accept="application/pdf" required onChange={handleChangeEXUDADO_BUCOFARINGEO}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileEXUDADO_BUCOFARINGEO !== undefined ? fileEXUDADO_BUCOFARINGEO.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteEXUDADO_BUCOFARINGEO}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteEXUDADO_BUCOFARINGEO}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Constancia de año cursado</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileCONSTANCIA_ANO_CURSADO ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-CONSTANCIA_ANO_CURSADO">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-CONSTANCIA_ANO_CURSADO" name="fileCONSTANCIA_ANO_CURSADO" accept="application/pdf" required onChange={handleChangeCONSTANCIA_ANO_CURSADO}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileCONSTANCIA_ANO_CURSADO !== undefined ? fileCONSTANCIA_ANO_CURSADO.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Constancia de año cursado</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileCONSTANCIA_ANO_CURSADO ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-CONSTANCIA_ANO_CURSADO">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-CONSTANCIA_ANO_CURSADO" name="fileCONSTANCIA_ANO_CURSADO" accept="application/pdf" required onChange={handleChangeCONSTANCIA_ANO_CURSADO}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileCONSTANCIA_ANO_CURSADO !== undefined ? fileCONSTANCIA_ANO_CURSADO.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCONSTANCIA_ANO_CURSADO}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteCONSTANCIA_ANO_CURSADO}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Boleta de calificaciones</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileBOLETA ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-BOLETA">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-BOLETA" name="fileBOLETA" accept="application/pdf" required onChange={handleChangeBOLETA}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileBOLETA !== undefined ? fileBOLETA.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Boleta de calificaciones</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileBOLETA ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-BOLETA">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-BOLETA" name="fileBOLETA" accept="application/pdf" required onChange={handleChangeBOLETA}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileBOLETA !== undefined ? fileBOLETA.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteBOLETA}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteBOLETA}/>
-                                </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className={fileUploader.innerContainer}>
-                    <div className={fileUploader.fileName}>Carta de buena conducta</div>
-                    <div className={fileUploader.fileContainer}>
-                        {
-                            !hasFileBUENA_CONDUCTA ?
-                            <div className={fileUploader.uploadSection}>
-                                <label htmlFor="file-input-BUENA_CONDUCTA">
-                                    <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
-                                </label>
-                                <input type="file" id="file-input-BUENA_CONDUCTA" name="fileBUENA_CONDUCTA" accept="application/pdf" required onChange={handleChangeBUENA_CONDUCTA}/>
-                                <div className={fileUploader.phantom}></div>
-                            </div> :
-                            <div className={fileUploader.uploadedSection}>
-                                <div className={fileUploader.previewSection}>
-                                    <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
-                                    <div className={fileUploader.previewFileName}>
-                                        {fileBUENA_CONDUCTA !== undefined ? fileBUENA_CONDUCTA.name : ""}
+                    <div className={fileUploader.innerContainer}>
+                        <div className={fileUploader.fileName}>Carta de buena conducta</div>
+                        <div className={fileUploader.fileContainer}>
+                            {
+                                !hasFileBUENA_CONDUCTA ?
+                                <div className={fileUploader.uploadSection}>
+                                    <label htmlFor="file-input-BUENA_CONDUCTA">
+                                        <FontAwesomeIcon className={fileUploader.uploadIcon} icon={faCloudArrowUp}/>
+                                    </label>
+                                    <input type="file" id="file-input-BUENA_CONDUCTA" name="fileBUENA_CONDUCTA" accept="application/pdf" required onChange={handleChangeBUENA_CONDUCTA}/>
+                                    <div className={fileUploader.phantom}></div>
+                                </div> :
+                                <div className={fileUploader.uploadedSection}>
+                                    <div className={fileUploader.previewSection}>
+                                        <img className={fileUploader.preview} src={"/file.png"} alt="Your file" />
+                                        <div className={fileUploader.previewFileName}>
+                                            {fileBUENA_CONDUCTA !== undefined ? fileBUENA_CONDUCTA.name : ""}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteBUENA_CONDUCTA}/>
                                     </div>
                                 </div>
-                                <div>
-                                    <FontAwesomeIcon className={fileUploader.deleteIcon} icon={faTrashCan} onClick={handleDeleteBUENA_CONDUCTA}/>
+                            }
+                        </div>
+                    </div>
+                    {
+                        !sending ?
+                        <div className={fileUploader.buttonContainer}>
+                            {
+                                hasFileACTA_NACIMIENTO && hasFileCURP_ALUMNO && hasFileCURP_PADRE && hasFileCURP_MADRE && hasFileINE_PADRE && hasFileINE_MADRE && hasFileCARTA_NO_ADEUDO && hasFileFOTOS && hasFileCARTILLA_VACUNACION && hasFilePRUEBA_LABORATORIO && hasFileVACUNA_COVID && hasFileCARTA_BUENA_SALUD && hasFileEXUDADO_BUCOFARINGEO? 
+                                <button className={fileUploader.revisionButton} onClick={()=>{handleSubmission(); setSending(true)}}>Mandar a revisión</button>:
+                                <div className={fileUploader.disabledButtonContainer}>
+                                    <button className={fileUploader.revisionButtonWaiting}  disabled={false}>Mandar a revisión</button>
+                                    <p className={fileUploader.displayText}>Faltan archivos obligatorios por subir</p>
                                 </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-                {
-                    !sending ?
-                    <div className={fileUploader.buttonContainer}>
-                        {
-                            hasFileACTA_NACIMIENTO && hasFileCURP_ALUMNO && hasFileCURP_PADRE && hasFileCURP_MADRE && hasFileINE_PADRE && hasFileINE_MADRE && hasFileCARTA_NO_ADEUDO && hasFileFOTOS && hasFileCARTILLA_VACUNACION && hasFilePRUEBA_LABORATORIO && hasFileVACUNA_COVID && hasFileCARTA_BUENA_SALUD && hasFileEXUDADO_BUCOFARINGEO? 
-                            <button className={fileUploader.revisionButton} onClick={()=>{handleSubmission(); setSending(true)}}>Mandar a revisión</button>:
-                            <div className={fileUploader.disabledButtonContainer}>
-                                <button className={fileUploader.revisionButtonWaiting}  disabled={false}>Mandar a revisión</button>
-                                <p className={fileUploader.displayText}>Faltan archivos obligatorios por subir</p>
-                            </div>
-                        }
-                    </div>:
-                    <div className={fileUploader.buttonContainer}>
-                        <TailSpin
-                            height="50"
-                            width="50"
-                            color="#2666BE"
-                            ariaLabel="tail-spin-loading"
-                            radius="1"
-                            wrapperStyle={{}}
-                            wrapperClass=""
-                            visible={true}
-                        />
-                    </div>
-                }
+                            }
+                        </div>:
+                        <div className={fileUploader.buttonContainer}>
+                            <TailSpin
+                                height="50"
+                                width="50"
+                                color="#2666BE"
+                                ariaLabel="tail-spin-loading"
+                                radius="1"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                                visible={true}
+                            />
+                        </div>
+                    }
+            </div>
         </div>
     )
 }
