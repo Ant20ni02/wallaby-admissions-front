@@ -28,7 +28,6 @@ export default function AdminHome() {
         if (!isAdmin) {
           // Redirigir al usuario al login si no es un administrador
           router.push('/');
-          console.log("Redirije")
         }
       });
     }
