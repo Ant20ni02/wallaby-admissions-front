@@ -1,14 +1,14 @@
 @font-face {
   font-family: "one-little-font";
   src: local("one-little-font"),
-    url("../../fonts/OneLittleFont/one-little-font-regular.otf")
+    url("../../../fonts/OneLittleFont/one-little-font-regular.otf")
       format("truetype");
 }
 
 @font-face {
   font-family: "arimo-regular";
   src: local("arimo-regular"),
-    url("../../fonts/Arimo/Arimo-Regular.ttf") format("truetype");
+    url("../../../fonts/Arimo/Arimo-Regular.ttf") format("truetype");
 }
 
 .card {

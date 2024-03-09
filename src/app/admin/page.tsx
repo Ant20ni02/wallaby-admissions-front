@@ -4,9 +4,9 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import Loading from "../components/SunLoader";
-import ChecklistAdmin from "../components/Checklist";
-import AdviseAdmin from "../components/Advise";
+import Loading from "../components/SunLoader/SunLoader";
+import ChecklistAdmin from "../components/Checklist/Checklist";
+import AdviseAdmin from "../components/Advise/Advise";
 
 import "./admin.css";
 
