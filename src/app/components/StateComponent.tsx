@@ -1,30 +1,67 @@
 'use client';
 
 import page from "../Timeline/timeline.module.css"
-import Image, { StaticImageData } from 'next/image';
 import { nodeProperties } from '../types';
-import { relative } from "path";
+import FloatInfoButton from "./FloatInfoButton";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 
 
 const StateComponent = ({ index, imgSrc, color }: nodeProperties) => {
 
+    const titles: Array<string> = (["¿Ya nos conociste?", "Programa tu día prueba", "Adjunta y entrega tus documentos", "Pago presencial", "Lista de materiales", "Entrevista de bienvenida"]);
+    const ref = useRef(null);
+
+
+
+    const textLines = document.getElementById("lines");
+    console.log(textLines)
+    /* 
+        useLayoutEffect(() => {
+            console.log(ref.current.clientHeight);
+        }, [ref])
+    
+     */
+
     // blue text dictionary
     return (
         <>
 
+
+
             {(color !== "#FFFFFF" && index < 8) ?
                 (
-                    <div className={page.hollowCircle2} style={{ "borderColor": color, position: 'relative' }}>
-                        <span className={page.hollowCircle} style={{ position: "absolute" }}>
-                            {<Image className={page.images} src={imgSrc} alt="" ></Image>}
-                        </span>
+                    <div>
+                        <div className={page.hollowCircle2} style={{ "borderColor": color, "position": "relative" }}>
+                            <div className={page.hollowCircle} style={{ position: "absolute" }}>
+                                {<Image className={page.images} src={imgSrc} alt="" ></Image>}
+                            </div>
+
+                        </div>
+
+                        <div className={page.lowerElementsFull}>
+                            <span ref={ref} className={page.titles} > {titles[index - 2]} </span>
+                            <FloatInfoButton />
+                        </div>
+
+
 
                     </div>
+
+
                 ) : (index < 8 &&
-                    <span className={page.hollowCircle} style={{ position: "relative" }}>
-                        {<Image className={page.images} src={imgSrc} alt="" ></Image>}
-                    </span>
+
+                    <div>
+                        <div className={page.grayHollowCircle}>
+                            {<Image className={page.images} src={imgSrc} alt="" ></Image>}
+                        </div>
+
+                        <div className={page.lowerElementsEmpty} >
+                            <span className={page.titles}>{titles[index - 2]}</span>
+                            <FloatInfoButton />
+                        </div>
+                    </div>
                 )
 
             }
