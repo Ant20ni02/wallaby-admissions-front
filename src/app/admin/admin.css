@@ -129,3 +129,16 @@
   margin-bottom: 0;
   text-align: center;
 }
+
+.logoutButtonContainer {
+  position: relative; /* Establece el contenedor como relativo */
+  width: 100%; /* Ajusta el ancho según sea necesario */
+  height: 100%; /* Ajusta la altura según sea necesario */
+}
+
+.logoutButton {
+  margin-right: 10em;
+  position: absolute;
+  top: 0;
+  right: 0;
+}

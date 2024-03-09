@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Loading from "../components/SunLoader/SunLoader";
 import ChecklistAdmin from "../components/Checklist/Checklist";
 import AdviseAdmin from "../components/Advise/Advise";
+import LogoutButton from "../components/LogoutButton/LogoutButton";
 
 import "./admin.css";
 
@@ -21,13 +22,13 @@ export default function AdminHome() {
     // localStorage.setItem("email", "a01424338@tec.mx"); //! Admin
     // localStorage.setItem("email", "a01423189@tec.mx"); //? No admin
 
-    const email = localStorage.getItem('email');
+    const email = localStorage.getItem("email");
     if (email) {
       checkForAdmin(email).then((isAdmin) => {
-        console.log('IsAdmin', isAdmin);
+        console.log("IsAdmin", isAdmin);
         if (!isAdmin) {
           // Redirigir al usuario al login si no es un administrador
-          router.push('/');
+          router.push("/");
         }
       });
     }
@@ -99,7 +100,6 @@ export default function AdminHome() {
     try {
       const response = await axios.get(`/api/checkForAdmin/${email}`);
       if (response.data.index === 0) {
-        
         return false;
       } else {
         return true;
@@ -189,6 +189,12 @@ export default function AdminHome() {
         src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png"
         alt="wallabyLogo"
       />
+      <div className="logoutButtonContainer">
+        <div className="logoutButton">
+          <LogoutButton />
+        </div>
+      </div>
+
       <div className="container">
         {/* Mostrar el componente de carga si el estado de carga es verdadero */}
         {loading && <Loading />}
