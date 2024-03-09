@@ -32,6 +32,9 @@ export default function AdminHome() {
         }
       });
     }
+    else {
+      router.push("/");
+    }
   });
 
   // Objeto de strings dependiendo del estado
