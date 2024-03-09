@@ -535,9 +535,11 @@ const FileUploader = ({setDisplayFileUploaderModalWrap} : FileUploaderProps) =>{
     };
 
     const onCloseClick = () =>{
-       setDisplayFileUploaderModalWrap(false);
+        if(!sending){
+            setDisplayFileUploaderModalWrap(false);
+        }
     }
-
+    
     return (
         <div className={fileUploader.blurBackground}>
             <div className={fileUploader.container}>
