@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faCloudArrowUp, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import fileUploader from "./fileuploader.module.css"
 import axios from 'axios';
@@ -516,6 +516,11 @@ const FileUploader = () =>{
 
     return (
         <div className={fileUploader.container}>
+                <div className={fileUploader.exitContainer}>
+                    <div>
+                        <FontAwesomeIcon icon={faXmark} className={fileUploader.exitIcon}/>
+                    </div>
+                </div>
                 <div className={fileUploader.innerContainer}>
                     <div className={fileUploader.title}>
                         Cargar documento

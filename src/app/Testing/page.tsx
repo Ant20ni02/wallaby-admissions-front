@@ -6,9 +6,11 @@ import testing from "./Testing.module.css"
 const Testing = ({ }) => {
 
     return (
-        <div className={testing.container}>
-            <FileUploader/>
-        </div>
+        <>
+            <div className={testing.blurScreen}>
+                <FileUploader/>
+            </div>
+        </>
     )
 }
 
