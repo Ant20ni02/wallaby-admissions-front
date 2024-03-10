@@ -401,6 +401,7 @@ const FileUploader = ({ setDisplayFileUploaderModalWrap, changeUploadStatus }: F
     const handleSubmission = async () => {
         const row = localStorage.getItem('index');
         const studentName = localStorage.getItem('name');
+        const studentName = localStorage.getItem('name');
 
         if (row !== null && studentName !== null) {
 
@@ -488,7 +489,24 @@ const FileUploader = ({ setDisplayFileUploaderModalWrap, changeUploadStatus }: F
                         toast.addEventListener('mouseleave', Swal.resumeTimer)
                     },
                     willClose: () => {
-                        clearInterval(1500)
+                        setSending(false);
+                        setHasFileACTA_NACIMIENTO(false);
+                        setHasFileCURP_ALUMNO(false);
+                        setHasFileCURP_PADRE(false);
+                        setHasFileCURP_MADRE(false);
+                        setHasFileINE_PADRE(false);
+                        setHasFileINE_MADRE(false);
+                        setHasFileCARTA_NO_ADEUDO(false);
+                        setHasFileFOTOS(false);
+                        setHasFileCARTILLA_VACUNACION(false);
+                        setHasFilePRUEBA_LABORATORIO(false);
+                        setHasFileVACUNA_COVID(false);
+                        setHasFileCARTA_BUENA_SALUD(false);
+                        setHasFileEXUDADO_BUCOFARINGEO(false);
+                        setHasFileCONSTANCIA_ANO_CURSADO(false);
+                        setHasFileBOLETA(false);
+                        setHasFileBUENA_CONDUCTA(false);
+                        clearInterval(1500);
                     }
                 })
 
@@ -507,34 +525,33 @@ const FileUploader = ({ setDisplayFileUploaderModalWrap, changeUploadStatus }: F
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 },
                 willClose: () => {
-                    clearInterval(1500)
+                    setSending(false);
+                    setHasFileACTA_NACIMIENTO(false);
+                    setHasFileCURP_ALUMNO(false);
+                    setHasFileCURP_PADRE(false);
+                    setHasFileCURP_MADRE(false);
+                    setHasFileINE_PADRE(false);
+                    setHasFileINE_MADRE(false);
+                    setHasFileCARTA_NO_ADEUDO(false);
+                    setHasFileFOTOS(false);
+                    setHasFileCARTILLA_VACUNACION(false);
+                    setHasFilePRUEBA_LABORATORIO(false);
+                    setHasFileVACUNA_COVID(false);
+                    setHasFileCARTA_BUENA_SALUD(false);
+                    setHasFileEXUDADO_BUCOFARINGEO(false);
+                    setHasFileCONSTANCIA_ANO_CURSADO(false);
+                    setHasFileBOLETA(false);
+                    setHasFileBUENA_CONDUCTA(false);
+                    clearInterval(1500);
                 }
             })
-
+                
             Toast.fire({
                 icon: 'error',
                 title: 'Hubo un fallo al mandar los archivos',
                 text: 'Intenta de nuevo'
             })
-        }
-
-        setSending(false);
-        setHasFileACTA_NACIMIENTO(false);
-        setHasFileCURP_ALUMNO(false);
-        setHasFileCURP_PADRE(false);
-        setHasFileCURP_MADRE(false);
-        setHasFileINE_PADRE(false);
-        setHasFileINE_MADRE(false);
-        setHasFileCARTA_NO_ADEUDO(false);
-        setHasFileFOTOS(false);
-        setHasFileCARTILLA_VACUNACION(false);
-        setHasFilePRUEBA_LABORATORIO(false);
-        setHasFileVACUNA_COVID(false);
-        setHasFileCARTA_BUENA_SALUD(false);
-        setHasFileEXUDADO_BUCOFARINGEO(false);
-        setHasFileCONSTANCIA_ANO_CURSADO(false);
-        setHasFileBOLETA(false);
-        setHasFileBUENA_CONDUCTA(false);
+        } 
     };
 
     const onCloseClick = () => {
