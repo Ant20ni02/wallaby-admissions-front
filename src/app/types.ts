@@ -1,4 +1,5 @@
 import { StaticImageData } from "next/image"
+import { Dispatch, SetStateAction, useState } from 'react';
 
 export type nodeProperties = {
     index: number,
@@ -23,4 +24,7 @@ export type floatButtonProps = {
     updateTextBoxIndex: (param: number) => void,
     clickedIndex: number
 
+}
+export type FileUploaderProps = {
+    setDisplayFileUploaderModalWrap : Dispatch<SetStateAction<boolean>>
 }

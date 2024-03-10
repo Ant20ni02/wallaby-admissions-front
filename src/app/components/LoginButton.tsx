@@ -21,9 +21,6 @@ const LoginButton = ({}) => {
     onSuccess: codeResponse => setUser(codeResponse),
     onError: (e) => console.log("Login failed: ", e)
     })
-    
-
-  console.log(Object.keys(user).length);
 
   useEffect(() => {
     if (Object.keys(user).length) {
@@ -39,32 +36,40 @@ const LoginButton = ({}) => {
           }
         )
         .then((res) => {
+          console.log(res.data);
           if (res.data.hd === "tec.mx") {
             //HARDCODED TO TEC, NEED TO CHANGE IT TO WALLABY
             axios
               .get(`/api/checkForAdmin/${res.data.email}`)
               .then((adminRes) => {
-                console.log(adminRes.data.index);
 
                 if (adminRes.data.index === 0) {
                   axios
                     .get(`/api/getRowByEmail/${res.data.email}`)
                     .then((res2) => {
-                      console.log(res2.data.row[33]);
 
-                      setProfile(res.data);
-                      localStorage.setItem("email", res.data.email);
-                      localStorage.setItem("hd", res.data.hd);
-                      localStorage.setItem("index", res2.data.index);
-                      localStorage.setItem("status", res2.data.row[33]);
-
-                      //router to timeline
-                      setLoading(false);
-                      router.push("/Timeline");
+                      if(res2.data.row[33] === 'INSCRITO'){
+                        setLoading(false);
+                        router.replace("/admissionOnly");
+                      }
+                      else{
+                        setProfile(res.data);
+                        localStorage.setItem("email", res.data.email);
+                        localStorage.setItem("name", `${res.data.given_name} ${res.data.family_name}`)
+                        localStorage.setItem("hd", res.data.hd);
+                        localStorage.setItem("index", res2.data.index);
+                        localStorage.setItem("status", res2.data.row[33]);
+                        setLoading(false);
+                        router.push("/Timeline");
+                      }
                     })
-                    .catch((e) => console.log(e));
+                    .catch((e) => {
+                      console.log(e);
+                      router.replace('/admissionOnly');
+                    });
                 } else {
                   //ROUTE TO ADMIN INTERFACE
+                  localStorage.setItem("email", res.data.email);
                   router.replace("/admin");
                 }
               })
