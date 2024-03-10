@@ -4,9 +4,27 @@ import { Dispatch, SetStateAction, useState } from 'react';
 export type nodeProperties = {
     index: number,
     imgSrc: StaticImageData,
-    color: string
+    color: string,
 }
 
+export type nodeProps = {
+    mainProps : nodeProperties,
+    hideHeader: (param: boolean) => void,
+    headerIsHidden: boolean,
+    updateTextBoxIndex: (param: number) => void,
+    display: string,
+    text: string,
+    clickedIndex: number,
+}
+
+export type floatButtonProps = {
+    hideHeader: (param: boolean) => void,
+    headerIsHidden: boolean,
+    buttonIndex: number,
+    updateTextBoxIndex: (param: number) => void,
+    clickedIndex: number
+
+}
 export type FileUploaderProps = {
     setDisplayFileUploaderModalWrap : Dispatch<SetStateAction<boolean>>
 }
