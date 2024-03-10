@@ -401,7 +401,6 @@ const FileUploader = ({ setDisplayFileUploaderModalWrap, changeUploadStatus }: F
     const handleSubmission = async () => {
         const row = localStorage.getItem('index');
         const studentName = localStorage.getItem('name');
-        const studentName = localStorage.getItem('name');
 
         if (row !== null && studentName !== null) {
 

@@ -130,6 +130,8 @@ const Timeline = ({ }) => {
                 console.log(e);
                 //route to login
             })
+        
+            forceUpdate();
 
     }, [])
 
