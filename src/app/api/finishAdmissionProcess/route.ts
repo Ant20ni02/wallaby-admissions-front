@@ -28,8 +28,25 @@ export async function POST( req : Request) {
 
         const tabNameNew = 'Concentrado'
         const rangeNew = 'A2:BC';
+
+        const rangeUser = `${tabNameOld}!AH${row}`;
     
         const googleSheetClient = await _getGoogleSheetClient();
+
+        var requestChangeState = {
+          range: rangeUser,
+          values: [
+              ['INSCRITO']
+          ]
+        };
+
+        const googleResponseUser = await googleSheetClient.spreadsheets.values.update({
+          spreadsheetId: spreadsheetId,
+          requestBody: requestChangeState,
+          range: rangeUser,
+          valueInputOption: "USER_ENTERED"
+        });
+        console.log(`${googleResponseUser.data.updatedCells} updated cells in row ${row} and cell ${rangeUser} for State Change`);
     
         const googleResponseGetRow = await googleSheetClient.spreadsheets.values.get({
           spreadsheetId: spreadsheetId,
@@ -39,7 +56,6 @@ export async function POST( req : Request) {
         const table: Array<Array<string>> | null | undefined = googleResponseGetRow.data.values;
     
         const dataToTransfer : Array<string> = Array(6).fill('').concat(table[row - 1]);
-        console.log(dataToTransfer);
 
         var request = {
           values: [dataToTransfer]
