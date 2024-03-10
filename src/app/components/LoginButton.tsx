@@ -48,16 +48,20 @@ const LoginButton = ({}) => {
                     .get(`/api/getRowByEmail/${res.data.email}`)
                     .then((res2) => {
 
-                      setProfile(res.data);
-                      localStorage.setItem("email", res.data.email);
-                      localStorage.setItem("name", `${res.data.given_name} ${res.data.family_name}`)
-                      localStorage.setItem("hd", res.data.hd);
-                      localStorage.setItem("index", res2.data.index);
-                      localStorage.setItem("status", res2.data.row[33]);
-
-                      //router to timeline
-                      setLoading(false);
-                      router.push("/Timeline");
+                      if(res2.data.row[33] === 'INSCRITO'){
+                        setLoading(false);
+                        router.replace("/admissionOnly");
+                      }
+                      else{
+                        setProfile(res.data);
+                        localStorage.setItem("email", res.data.email);
+                        localStorage.setItem("name", `${res.data.given_name} ${res.data.family_name}`)
+                        localStorage.setItem("hd", res.data.hd);
+                        localStorage.setItem("index", res2.data.index);
+                        localStorage.setItem("status", res2.data.row[33]);
+                        setLoading(false);
+                        router.push("/Timeline");
+                      }
                     })
                     .catch((e) => {
                       console.log(e);
