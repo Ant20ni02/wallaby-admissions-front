@@ -274,48 +274,50 @@ export async function POST( req : Request) {
             });
             console.log(`${googleResponserangeBUENA_CONDUCTA.data.updatedCells} cells updated with BUENA_CONDUCTA`);
 
-            const rangeState = `${tabName}!AH${row}`;
-
-            var requestState = {
-                range: rangeState,
-                values: [
-                    ["VERIFICAR_DOCUMENTOS"]
-                ]
-            };
-
-            const googleResponseState = await googleSheetClient.spreadsheets.values.update({
-                spreadsheetId: spreadsheetId,
-                requestBody: requestState,
-                range: rangeState,
-                valueInputOption: "USER_ENTERED"
-            });
-
-            console.log(`${googleResponseState.data.updatedCells} updated cells in row ${row} and cell ${rangeState} for State Change`);
-
-            const rangeDateUpdate = `${tabName}!AY${row}`
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0');
-            var yyyy = today.getFullYear();
-
-            const todayFormatted = dd + '/' + mm + '/' + yyyy;
-
-
-            var requestDateUpdate = {
-                range: rangeDateUpdate,
-                values: [
-                    [todayFormatted]
-                ]
-            };
-
-            const googleResponseDateUpdate = await googleSheetClient.spreadsheets.values.update({
-                spreadsheetId: spreadsheetId,
-                requestBody: requestDateUpdate,
-                range: rangeDateUpdate,
-                valueInputOption: "USER_ENTERED"
-            });
-            console.log(`${googleResponseDateUpdate.data.updatedCells} updated cells in row ${row} and cell ${rangeDateUpdate} for Date Update`);
+            
         }
+
+        const rangeState = `${tabName}!AH${row}`;
+
+        var requestState = {
+            range: rangeState,
+            values: [
+                ["VERIFICAR_DOCUMENTOS"]
+            ]
+        };
+
+        const googleResponseState = await googleSheetClient.spreadsheets.values.update({
+            spreadsheetId: spreadsheetId,
+            requestBody: requestState,
+            range: rangeState,
+            valueInputOption: "USER_ENTERED"
+        });
+
+        console.log(`${googleResponseState.data.updatedCells} updated cells in row ${row} and cell ${rangeState} for State Change`);
+
+        const rangeDateUpdate = `${tabName}!AY${row}`
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        const todayFormatted = dd + '/' + mm + '/' + yyyy;
+
+
+        var requestDateUpdate = {
+            range: rangeDateUpdate,
+            values: [
+                [todayFormatted]
+            ]
+        };
+
+        const googleResponseDateUpdate = await googleSheetClient.spreadsheets.values.update({
+            spreadsheetId: spreadsheetId,
+            requestBody: requestDateUpdate,
+            range: rangeDateUpdate,
+            valueInputOption: "USER_ENTERED"
+        });
+        console.log(`${googleResponseDateUpdate.data.updatedCells} updated cells in row ${row} and cell ${rangeDateUpdate} for Date Update`);
 
         return new NextResponse('OK');
     } 
