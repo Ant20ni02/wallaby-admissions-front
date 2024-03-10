@@ -15,6 +15,7 @@ export type nodeProps = {
     display: string,
     text: string,
     clickedIndex: number,
+    currentStatus: string
 }
 
 export type floatButtonProps = {

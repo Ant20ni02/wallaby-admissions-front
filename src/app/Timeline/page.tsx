@@ -4,11 +4,11 @@ import StateComponent from "../components/StateComponent";
 import { nodeProperties } from '../types';
 
 import schoolState1 from '/public/school-state1.png';
-import sunState2 from '../../../public/sun-state2.png';
-import fileState3 from '../../../public/files-state3.png';
-import cardState4 from '../../../public/cards-state4.png';
-import backpackStage5 from '../../../public/backpack-state5.png';
-import formStage6 from '../../../public/form-stage6.png';
+import sunState2 from '/public/sun-state2.png';
+import fileState3 from '/public/files-state3.png';
+import cardState4 from '/public/cards-state4.png';
+import backpackStage5 from '/public/backpack-state5.png';
+import formStage6 from '/public/form-stage6.png';
 import { useEffect, useReducer, useState } from "react";
 import { StaticImageData } from "next/image";
 
@@ -22,20 +22,16 @@ const Timeline = ({ }) => {
 
     const [textBoxIndex, setTextBoxIndex] = useState<number>(0);
     const [textBoxText, setTextBoxText] = useState<string>("");
+    const [latestStatus, setLatestStatus] = useState<string>("");
 
     const currentText: Array<string> = [
-        "Si te encuentras aquí, es porque ya participaste en nuestro tour. No olvides marcar la casilla de completado. Y recuerda, si tienes alguna duda, estamos aquí para ayudarte.",
+        "Si te encuentras aquí, es porque ya participaste en nuestro tour. Y recuerda, si tienes alguna duda, estamos aquí para ayudarte.",
         "Programa una cita para traer a tu pequeño a conocer Wallaby, donde realizaremos su diagnóstico escolar.",
         "En este espacio podrás adjuntar tus documentos de manera digital, pero recuerda que también es necesario entregarlos en físico en la escuela para completar el expediente.",
         "Realiza tu pago de manera presencial visitando nuestras instalaciones, donde nuestro equipo estará listo para asistirte en el proceso y resolver cualquier duda que puedas tener.",
         "Entrega a la escuela de la lista de materiales a utilizar durante el ciclo escolar, asegurando así que el alumno tenga acceso a ellos.",
         "Este último paso implica rellenar un formulario con información tanto tuya como de tu pequeño, asegurando así que tenemos todos los detalles necesarios."
     ]
-
-
-    let dynamicProp: nodeProperties = { index: 0, color: "", imgSrc: schoolState1 }
-
-    let color = "";
 
     const hideHeader = (param: boolean) => {
         setHeaderIsHidden(param);
@@ -46,7 +42,7 @@ const Timeline = ({ }) => {
     }
 
     useEffect(() => {
-        setTextBoxText(currentText[textBoxIndex - 2])
+        setTextBoxText(currentText[textBoxIndex + 1])
     }, [textBoxIndex])
 
     useEffect(() => {
@@ -57,58 +53,49 @@ const Timeline = ({ }) => {
     useEffect(() => {
 
         const currentStatus: string = localStorage.getItem("status");
+        setLatestStatus(currentStatus);
         let decoyValue: number = 0;
 
         switch (currentStatus) {
             case "DIA_PRUEBA":
-                decoyValue = 2;
+                decoyValue = 0;
                 break;
             case "ADJUNTAR_DOCUMENTOS":
-                decoyValue = 3;
+                decoyValue = 1;
                 break;
-            case "VERIFICAR_DOCUMENTOS":
-                decoyValue = 4;
+            case "VERIFICAR":
+                decoyValue = 2;
                 break;
             case "PAGO":
-                decoyValue = 5;
+                decoyValue = 3;
                 break;
             case "MATERIALES":
-                decoyValue = 6;
+                decoyValue = 4;
                 break;
             case "ENTREVISTA":
-                decoyValue = 7;
+                decoyValue = 5;
                 break;
         }
 
+        //Something I'm not proud of at all but clock's ticking :(
+        const mapping: any = {
+            0: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#22629E", imgSrc: nodeImages[1] }, { index: 1, color: "#FFFFFF", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            1: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            2: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            3: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#22629E", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            4: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#22629E", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            5: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#39B54A", imgSrc: nodeImages[4] }, { index: 4, color: "#22629E", imgSrc: nodeImages[5] }]
+        };
 
-        color = "";
-        for (let x = 2; x <= 7; x++) {
-            //dynamicProp = {index : x, color : }
-
-            if (x === decoyValue) { color = "#22629E"; }
-            else {
-                if (x <= decoyValue) {
-                    color = "#39B54A";
-                }
-
-                else {
-                    color = "#FFFFFF";
-                }
-            }
-
-
-
-            dynamicProp = { index: x, color: color, imgSrc: nodeImages[x - 2] };
-
-            let propertiesDecoy = properties;
-            propertiesDecoy.push(dynamicProp);
-
-
-            setProperties(propertiesDecoy);
-            forceUpdate();
+        if (decoyValue >= 0 && decoyValue <= 5) {
+            setProperties(mapping[decoyValue]);
         }
 
+        forceUpdate();
+
     }, [])
+
+    console.log(properties);
 
     return (
         <>
@@ -127,10 +114,7 @@ const Timeline = ({ }) => {
 
                     {
                         properties.map((element: any, index) =>
-                            <StateComponent key={element.key} mainProps={properties[index]} hideHeader={hideHeader} headerIsHidden={headerIsHidden} updateTextBoxIndex={updateTextBoxIndex} display={display} text={textBoxText} clickedIndex={textBoxIndex} />
-
-
-
+                            <StateComponent key={element.key} mainProps={properties[index]} hideHeader={hideHeader} headerIsHidden={headerIsHidden} updateTextBoxIndex={updateTextBoxIndex} display={display} text={textBoxText} clickedIndex={textBoxIndex} currentStatus={latestStatus} />
                         )
                     }
 
