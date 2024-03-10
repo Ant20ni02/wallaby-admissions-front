@@ -9,6 +9,10 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
 
     const titles: Array<string> = (["¿Ya nos conociste?", "Programa tu día prueba", "Adjunta y entrega tus documentos", "Pago presencial", "Lista de materiales", "Entrevista de bienvenida"]);
 
+    const redirect = () => {
+        window.open("https://facebook.com");
+    }
+
     return (
         <>
 
@@ -17,7 +21,7 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
             {(mainProps.color !== "#FFFFFF" && mainProps.index < 5) ?
                 (
                     <div>
-                        
+
 
 
                         <div className={page.hollowCircle2} style={{ "borderColor": mainProps.color, "position": "relative" }}>
@@ -41,6 +45,11 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
                             {
                                 (currentStatus === "ADJUNTAR_DOCUMENTOS" && mainProps.index === 1) &&
                                 <button className={page.greenButton} onClick={() => { modalIsOpen(true) }}>Entregar</button>
+                            }
+
+                            {
+                                (currentStatus === "DIA_PRUEBA" && mainProps.index === 0) &&
+                                <button className={page.greenButton} onClick={() => redirect()}>Programar</button>
                             }
 
 
