@@ -15,7 +15,8 @@ export type nodeProps = {
     display: string,
     text: string,
     clickedIndex: number,
-    currentStatus: string
+    currentStatus: string,
+    modalIsOpen: (param: boolean) => void,
 }
 
 export type floatButtonProps = {

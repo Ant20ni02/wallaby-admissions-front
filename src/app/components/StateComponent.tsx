@@ -5,9 +5,7 @@ import { nodeProps } from '../types';
 import FloatInfoButton from "./FloatInfoButton";
 import Image from "next/image";
 
-
-
-const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIndex, display, text, clickedIndex, currentStatus }: nodeProps) => {
+const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIndex, display, text, clickedIndex, currentStatus, modalIsOpen }: nodeProps) => {
 
     const titles: Array<string> = (["¿Ya nos conociste?", "Programa tu día prueba", "Adjunta y entrega tus documentos", "Pago presencial", "Lista de materiales", "Entrevista de bienvenida"]);
 
@@ -19,6 +17,9 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
             {(mainProps.color !== "#FFFFFF" && mainProps.index < 5) ?
                 (
                     <div>
+                        
+
+
                         <div className={page.hollowCircle2} style={{ "borderColor": mainProps.color, "position": "relative" }}>
                             <div className={page.hollowCircle} style={{ position: "absolute" }}>
                                 {<Image className={page.images} src={mainProps.imgSrc} alt="" ></Image>}
@@ -39,7 +40,7 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
 
                             {
                                 (currentStatus === "ADJUNTAR_DOCUMENTOS" && mainProps.index === 1) &&
-                                <button className={page.greenButton}>Entregar</button>
+                                <button className={page.greenButton} onClick={() => { modalIsOpen(true) }}>Entregar</button>
                             }
 
 

@@ -12,6 +12,10 @@ import formStage6 from '/public/form-stage6.png';
 import { useEffect, useReducer, useState } from "react";
 import { StaticImageData } from "next/image";
 
+
+import FileUploader from '../components/FileUploader';
+import testing from "../Testing/Testing.module.css";
+
 const Timeline = ({ }) => {
 
     const [properties, setProperties] = useState<Array<nodeProperties>>([]);
@@ -23,6 +27,8 @@ const Timeline = ({ }) => {
     const [textBoxIndex, setTextBoxIndex] = useState<number>(0);
     const [textBoxText, setTextBoxText] = useState<string>("");
     const [latestStatus, setLatestStatus] = useState<string>("");
+    const [displayFileUploaderModalWrap, setDisplayFileUploaderModalWrap] = useState<boolean>(false);
+
 
     const currentText: Array<string> = [
         "Si te encuentras aquí, es porque ya participaste en nuestro tour. Y recuerda, si tienes alguna duda, estamos aquí para ayudarte.",
@@ -39,6 +45,10 @@ const Timeline = ({ }) => {
 
     const updateTextBoxIndex = (param: number) => {
         setTextBoxIndex(param);
+    }
+
+    const modalIsOpen = (param: boolean) => {
+        setDisplayFileUploaderModalWrap(param);
     }
 
     useEffect(() => {
@@ -77,7 +87,7 @@ const Timeline = ({ }) => {
                 break;
         }
 
-        //Something I'm not proud of at all but clock's ticking :(
+        //Something I'm not proud of at all but clock's ticking :(c
         const mapping: any = {
             0: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#22629E", imgSrc: nodeImages[1] }, { index: 1, color: "#FFFFFF", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
             1: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
@@ -100,7 +110,14 @@ const Timeline = ({ }) => {
     return (
         <>
 
+            <div className={testing.modalWrap}>
+                {displayFileUploaderModalWrap && <FileUploader setDisplayFileUploaderModalWrap={setDisplayFileUploaderModalWrap} />}
+            </div>
+
             <div className={page.generalItemsWrap} >
+
+
+
                 <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="150em" />
 
                 <div className={page.headerItemsWrap} style={{ "display": display }}>
@@ -114,7 +131,7 @@ const Timeline = ({ }) => {
 
                     {
                         properties.map((element: any, index) =>
-                            <StateComponent key={element.key} mainProps={properties[index]} hideHeader={hideHeader} headerIsHidden={headerIsHidden} updateTextBoxIndex={updateTextBoxIndex} display={display} text={textBoxText} clickedIndex={textBoxIndex} currentStatus={latestStatus} />
+                            <StateComponent key={element.key} mainProps={properties[index]} hideHeader={hideHeader} headerIsHidden={headerIsHidden} updateTextBoxIndex={updateTextBoxIndex} display={display} text={textBoxText} clickedIndex={textBoxIndex} currentStatus={latestStatus} modalIsOpen={modalIsOpen} />
                         )
                     }
 
