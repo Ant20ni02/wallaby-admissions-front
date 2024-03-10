@@ -17,11 +17,42 @@ const Timeline = ({ }) => {
     const [properties, setProperties] = useState<Array<nodeProperties>>([]);
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [nodeImages, setNodeImages] = useState<Array<StaticImageData>>([schoolState1, sunState2, fileState3, cardState4, backpackStage5, formStage6]);
+    const [headerIsHidden, setHeaderIsHidden] = useState<boolean>(false); //header is shown initially
+    const [display, setDisplay] = useState<string>("flex");
+
+    const [textBoxIndex, setTextBoxIndex] = useState<number>(0);
+    const [textBoxText, setTextBoxText] = useState<string>("");
+
+    const currentText: Array<string> = [
+        "Si te encuentras aquí, es porque ya participaste en nuestro tour. No olvides marcar la casilla de completado. Y recuerda, si tienes alguna duda, estamos aquí para ayudarte.",
+        "Programa una cita para traer a tu pequeño a conocer Wallaby, donde realizaremos su diagnóstico escolar.",
+        "En este espacio podrás adjuntar tus documentos de manera digital, pero recuerda que también es necesario entregarlos en físico en la escuela para completar el expediente.",
+        "Realiza tu pago de manera presencial visitando nuestras instalaciones, donde nuestro equipo estará listo para asistirte en el proceso y resolver cualquier duda que puedas tener.",
+        "Entrega a la escuela de la lista de materiales a utilizar durante el ciclo escolar, asegurando así que el alumno tenga acceso a ellos.",
+        "Este último paso implica rellenar un formulario con información tanto tuya como de tu pequeño, asegurando así que tenemos todos los detalles necesarios."
+    ]
+
 
     let dynamicProp: nodeProperties = { index: 0, color: "", imgSrc: schoolState1 }
 
     let color = "";
 
+    const hideHeader = (param: boolean) => {
+        setHeaderIsHidden(param);
+    }
+
+    const updateTextBoxIndex = (param: number) => {
+        setTextBoxIndex(param);
+    }
+
+    useEffect(() => {
+        setTextBoxText(currentText[textBoxIndex - 2])
+    }, [textBoxIndex])
+
+    useEffect(() => {
+        headerIsHidden ? setDisplay("none") : setDisplay("flex");
+        console.log(display);
+    }, [headerIsHidden])
 
     useEffect(() => {
 
@@ -51,9 +82,6 @@ const Timeline = ({ }) => {
 
 
         color = "";
-        console.log(currentStatus);
-        console.log(decoyValue);
-
         for (let x = 2; x <= 7; x++) {
             //dynamicProp = {index : x, color : }
 
@@ -75,7 +103,6 @@ const Timeline = ({ }) => {
             let propertiesDecoy = properties;
             propertiesDecoy.push(dynamicProp);
 
-            console.log(propertiesDecoy);
 
             setProperties(propertiesDecoy);
             forceUpdate();
@@ -83,29 +110,28 @@ const Timeline = ({ }) => {
 
     }, [])
 
-    console.log(properties);
-
     return (
         <>
 
-            <div className={page.generalItemsWrap}>
-                <div className={page.headerItemsWrap}>
-                    <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="150em" />
+            <div className={page.generalItemsWrap} >
+                <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="150em" />
+
+                <div className={page.headerItemsWrap} style={{ "display": display }}>
                     <span className={page.headerText}> ¡Aquí inicia tu proceso de admisión!</span>
+                    <span className={page.lowerText}>Comienza tu aventura siguiendo los pasos establecidos, y verás cómo tu progreso se marca con cada avance. Recuerda, ante cualquier duda, estamos aquí para apoyarte.</span>
 
                 </div>
 
-                <span className={page.lowerText}>Comienza tu aventura siguiendo los pasos establecidos, y verás cómo tu progreso se marca con cada avance. Recuerda, ante cualquier duda, estamos aquí para apoyarte.</span>
 
                 <div className={page.statesWrap}>
 
                     {
                         properties.map((element: any, index) =>
-                            <StateComponent key={element.key} index={properties[index].index} imgSrc={properties[index].imgSrc} color={properties[index].color} />
-                        
-                        
-                        
-                            )
+                            <StateComponent key={element.key} mainProps={properties[index]} hideHeader={hideHeader} headerIsHidden={headerIsHidden} updateTextBoxIndex={updateTextBoxIndex} display={display} text={textBoxText} clickedIndex={textBoxIndex} />
+
+
+
+                        )
                     }
 
                 </div>
