@@ -8,11 +8,10 @@ import fileState3 from '/public/files-state3.png';
 import cardState4 from '/public/cards-state4.png';
 import backpackStage5 from '/public/backpack-state5.png';
 import formStage6 from '/public/form-stage6.png';
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState, useLayoutEffect } from "react";
 import { StaticImageData } from "next/image";
 import axios from "axios";
 import FileUploader from '../components/FileUploader';
-import testing from "../Testing/Testing.module.css";
 
 const Timeline = ({ }) => {
 
@@ -27,6 +26,7 @@ const Timeline = ({ }) => {
     const [latestStatus, setLatestStatus] = useState<string>("");
     const [displayFileUploaderModalWrap, setDisplayFileUploaderModalWrap] = useState<boolean>(false);
 
+    const [alreadyUploaded, setAlreadyUploaded] = useState<boolean>(false);
 
     const currentText: Array<string> = [
         "Si te encuentras aquí, es porque ya participaste en nuestro tour. Y recuerda, si tienes alguna duda, estamos aquí para ayudarte.",
@@ -49,6 +49,60 @@ const Timeline = ({ }) => {
         setDisplayFileUploaderModalWrap(param);
     }
 
+    const changeUploadStatus = (param: boolean) => {
+        setAlreadyUploaded(param);
+    }
+
+    const fillNodes = (curr: string) => {
+
+        let decoyValue: number = 0;
+
+        switch (curr) {
+            case "DIA_PRUEBA":
+                decoyValue = 0;
+                break;
+            case "ADJUNTAR_DOCUMENTOS":
+                decoyValue = 1;
+                break;
+            case "VERIFICAR_DOCUMENTOS":
+                decoyValue = 2;
+                break;
+            case "PAGO":
+                decoyValue = 3;
+                break;
+            case "MATERIALES":
+                decoyValue = 4;
+                break;
+            case "ENTREVISTA":
+                decoyValue = 5;
+                break;
+        }
+
+        //Something I'm not proud of at all but clock's ticking :(c
+        const mapping: any = {
+            0: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#22629E", imgSrc: nodeImages[1] }, { index: 1, color: "#FFFFFF", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            1: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            2: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            3: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#22629E", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            4: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#22629E", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+            5: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#39B54A", imgSrc: nodeImages[4] }, { index: 4, color: "#22629E", imgSrc: nodeImages[5] }]
+        };
+
+
+        if (decoyValue >= 0 && decoyValue <= 5) {
+            setProperties(mapping[decoyValue]);
+        }
+
+
+    }
+
+
+    useLayoutEffect(() => {
+        localStorage.setItem("status", "VERIFICAR_DOCUMENTOS");
+        setLatestStatus("VERIFICAR_DOCUMENTOS");
+    }, [alreadyUploaded])
+
+
     useEffect(() => {
         setTextBoxText(currentText[textBoxIndex + 1])
     }, [textBoxIndex])
@@ -58,7 +112,7 @@ const Timeline = ({ }) => {
         console.log(display);
     }, [headerIsHidden])
 
-    useEffect(() => {
+    useLayoutEffect(() => {
 
         const currentEmail: string = localStorage.getItem("email");
         let currentStatus: string = "";
@@ -68,52 +122,16 @@ const Timeline = ({ }) => {
             .then((response) => {
                 currentStatus = response.data.row[33];
                 setLatestStatus(currentStatus);
-                
-                let decoyValue: number = 0;
 
-                switch (currentStatus) {
-                    case "DIA_PRUEBA":
-                        decoyValue = 0;
-                        break;
-                    case "ADJUNTAR_DOCUMENTOS":
-                        decoyValue = 1;
-                        break;
-                    case "VERIFICAR":
-                        decoyValue = 2;
-                        break;
-                    case "PAGO":
-                        decoyValue = 3;
-                        break;
-                    case "MATERIALES":
-                        decoyValue = 4;
-                        break;
-                    case "ENTREVISTA":
-                        decoyValue = 5;
-                        break;
-                }
-
-                //Something I'm not proud of at all but clock's ticking :(c
-                const mapping: any = {
-                    0: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#22629E", imgSrc: nodeImages[1] }, { index: 1, color: "#FFFFFF", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-                    1: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-                    2: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-                    3: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#22629E", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-                    4: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#22629E", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-                    5: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#39B54A", imgSrc: nodeImages[4] }, { index: 4, color: "#22629E", imgSrc: nodeImages[5] }]
-                };
-
-
-                if (decoyValue >= 0 && decoyValue <= 5) {
-                    setProperties(mapping[decoyValue]);
-                }
-
-                forceUpdate();
+                fillNodes(currentStatus);
 
             })
             .catch((e) => {
                 console.log(e);
                 //route to login
             })
+        
+            forceUpdate();
 
     }, [])
 
@@ -122,20 +140,17 @@ const Timeline = ({ }) => {
     return (
         <>
 
-            <div className={testing.modalWrap}>
-                {displayFileUploaderModalWrap && <FileUploader setDisplayFileUploaderModalWrap={setDisplayFileUploaderModalWrap} />}
+            <div style={{ "position": "relative", "zIndex": "3" }}>
+                {displayFileUploaderModalWrap && <FileUploader setDisplayFileUploaderModalWrap={setDisplayFileUploaderModalWrap} changeUploadStatus={changeUploadStatus} />}
             </div>
 
             <div className={page.generalItemsWrap} >
-
-
 
                 <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="150em" />
 
                 <div className={page.headerItemsWrap} style={{ "display": display }}>
                     <span className={page.headerText}> ¡Aquí inicia tu proceso de admisión!</span>
                     <span className={page.lowerText}>Comienza tu aventura siguiendo los pasos establecidos, y verás cómo tu progreso se marca con cada avance. Recuerda, ante cualquier duda, estamos aquí para apoyarte.</span>
-
                 </div>
 
 
