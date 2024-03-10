@@ -1,26 +1,29 @@
 'use client';
 
 import page from "../Timeline/timeline.module.css"
-import { nodeProperties, nodeProps } from '../types';
+import { nodeProps } from '../types';
 import FloatInfoButton from "./FloatInfoButton";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-
-
-const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIndex, display, text, clickedIndex }: nodeProps) => {
+const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIndex, display, text, clickedIndex, currentStatus, modalIsOpen }: nodeProps) => {
 
     const titles: Array<string> = (["¿Ya nos conociste?", "Programa tu día prueba", "Adjunta y entrega tus documentos", "Pago presencial", "Lista de materiales", "Entrevista de bienvenida"]);
 
-    // blue text dictionary
+    const redirect = () => {
+        window.open("https://facebook.com");
+    }
+
     return (
         <>
 
 
 
-            {(mainProps.color !== "#FFFFFF" && mainProps.index < 8) ?
+            {(mainProps.color !== "#FFFFFF" && mainProps.index < 5) ?
                 (
                     <div>
+
+
+
                         <div className={page.hollowCircle2} style={{ "borderColor": mainProps.color, "position": "relative" }}>
                             <div className={page.hollowCircle} style={{ position: "absolute" }}>
                                 {<Image className={page.images} src={mainProps.imgSrc} alt="" ></Image>}
@@ -29,7 +32,7 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
                         </div>
 
                         <div className={page.lowerElementsFull}>
-                            <span className={page.titles} > {titles[mainProps.index - 2]} </span>
+                            <span className={page.titles} > {titles[mainProps.index + 1]} </span>
                             <FloatInfoButton hideHeader={hideHeader} headerIsHidden={headerIsHidden} buttonIndex={mainProps.index} updateTextBoxIndex={updateTextBoxIndex} clickedIndex={clickedIndex} />
 
 
@@ -39,11 +42,22 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
 
                             }
 
+                            {
+                                (currentStatus === "ADJUNTAR_DOCUMENTOS" && mainProps.index === 1) &&
+                                <button className={page.greenButton} onClick={() => { modalIsOpen(true) }}>Entregar</button>
+                            }
+
+                            {
+                                (currentStatus === "DIA_PRUEBA" && mainProps.index === 0) &&
+                                <button className={page.greenButton} onClick={() => redirect()}>Programar</button>
+                            }
+
+
                         </div>
                     </div>
 
 
-                ) : (mainProps.index < 8 &&
+                ) : (mainProps.index < 5 &&
 
                     <div>
                         <div className={page.grayHollowCircle}>
@@ -51,7 +65,7 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
                         </div>
 
                         <div className={page.lowerElementsEmpty} >
-                            <span className={page.titles}>{titles[mainProps.index - 2]}</span>
+                            <span className={page.titles}>{titles[mainProps.index + 1]}</span>
                             <FloatInfoButton hideHeader={hideHeader} headerIsHidden={headerIsHidden} buttonIndex={mainProps.index} updateTextBoxIndex={updateTextBoxIndex} clickedIndex={clickedIndex} />
 
                             {(display === "none" && clickedIndex === mainProps.index) &&
@@ -66,7 +80,7 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
 
             }
 
-            {(mainProps.index < 7) &&
+            {(mainProps.index < 4) &&
                 ((mainProps.color === "#39B54A") ?
                     (<div className={page.line} style={{ backgroundColor: "#39B54A" }} ></div>)
                     :

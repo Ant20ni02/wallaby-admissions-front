@@ -135,10 +135,9 @@
 }
 
 .infoBox {
+    width: 10.5em;
     margin-top: 2em;
     display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 10em;
     border-radius: 1em;
     background-color: #1B489A;
@@ -146,4 +145,14 @@
     font-family: inter;
     font-size: 0.7em;
     padding: 0.5em;
+}
+
+.greenButton {
+    margin-top: 1.5em;
+    background-color: #39B54A;
+    color: white;
+    border-radius: 1em;
+    width: 10em;
+    height: 3em;
+    border: none;
 }
