@@ -2,7 +2,6 @@
 import page from "../Timeline/timeline.module.css"
 import StateComponent from "../components/StateComponent";
 import { nodeProperties } from '../types';
-
 import schoolState1 from '/public/school-state1.png';
 import sunState2 from '/public/sun-state2.png';
 import fileState3 from '/public/files-state3.png';
@@ -11,8 +10,7 @@ import backpackStage5 from '/public/backpack-state5.png';
 import formStage6 from '/public/form-stage6.png';
 import { useEffect, useReducer, useState } from "react";
 import { StaticImageData } from "next/image";
-
-
+import axios from "axios";
 import FileUploader from '../components/FileUploader';
 import testing from "../Testing/Testing.module.css";
 
@@ -62,46 +60,60 @@ const Timeline = ({ }) => {
 
     useEffect(() => {
 
-        const currentStatus: string = localStorage.getItem("status");
-        setLatestStatus(currentStatus);
-        let decoyValue: number = 0;
+        const currentEmail: string = localStorage.getItem("email");
+        let currentStatus: string = "";
 
-        switch (currentStatus) {
-            case "DIA_PRUEBA":
-                decoyValue = 0;
-                break;
-            case "ADJUNTAR_DOCUMENTOS":
-                decoyValue = 1;
-                break;
-            case "VERIFICAR":
-                decoyValue = 2;
-                break;
-            case "PAGO":
-                decoyValue = 3;
-                break;
-            case "MATERIALES":
-                decoyValue = 4;
-                break;
-            case "ENTREVISTA":
-                decoyValue = 5;
-                break;
-        }
+        axios
+            .get(`/api/getRowByEmail/${currentEmail}`)
+            .then((response) => {
+                currentStatus = response.data.row[33];
+                setLatestStatus(currentStatus);
+                
+                let decoyValue: number = 0;
 
-        //Something I'm not proud of at all but clock's ticking :(c
-        const mapping: any = {
-            0: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#22629E", imgSrc: nodeImages[1] }, { index: 1, color: "#FFFFFF", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-            1: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-            2: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-            3: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#22629E", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-            4: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#22629E", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
-            5: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#39B54A", imgSrc: nodeImages[4] }, { index: 4, color: "#22629E", imgSrc: nodeImages[5] }]
-        };
+                switch (currentStatus) {
+                    case "DIA_PRUEBA":
+                        decoyValue = 0;
+                        break;
+                    case "ADJUNTAR_DOCUMENTOS":
+                        decoyValue = 1;
+                        break;
+                    case "VERIFICAR":
+                        decoyValue = 2;
+                        break;
+                    case "PAGO":
+                        decoyValue = 3;
+                        break;
+                    case "MATERIALES":
+                        decoyValue = 4;
+                        break;
+                    case "ENTREVISTA":
+                        decoyValue = 5;
+                        break;
+                }
 
-        if (decoyValue >= 0 && decoyValue <= 5) {
-            setProperties(mapping[decoyValue]);
-        }
+                //Something I'm not proud of at all but clock's ticking :(c
+                const mapping: any = {
+                    0: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#22629E", imgSrc: nodeImages[1] }, { index: 1, color: "#FFFFFF", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+                    1: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+                    2: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#22629E", imgSrc: nodeImages[2] }, { index: 2, color: "#FFFFFF", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+                    3: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#22629E", imgSrc: nodeImages[3] }, { index: 3, color: "#FFFFFF", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+                    4: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#22629E", imgSrc: nodeImages[4] }, { index: 4, color: "#FFFFFF", imgSrc: nodeImages[5] }],
+                    5: [{ index: -1, color: "#39B54A", imgSrc: nodeImages[0] }, { index: 0, color: "#39B54A", imgSrc: nodeImages[1] }, { index: 1, color: "#39B54A", imgSrc: nodeImages[2] }, { index: 2, color: "#39B54A", imgSrc: nodeImages[3] }, { index: 3, color: "#39B54A", imgSrc: nodeImages[4] }, { index: 4, color: "#22629E", imgSrc: nodeImages[5] }]
+                };
 
-        forceUpdate();
+
+                if (decoyValue >= 0 && decoyValue <= 5) {
+                    setProperties(mapping[decoyValue]);
+                }
+
+                forceUpdate();
+
+            })
+            .catch((e) => {
+                console.log(e);
+                //route to login
+            })
 
     }, [])
 
