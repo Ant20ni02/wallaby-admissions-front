@@ -10,9 +10,9 @@ const Testing = ({ }) => {
 
     return (
         <>
-            <div className={testing.modalWrap}>
+            {/* <div className={testing.modalWrap}>
                 {displayFileUploaderModalWrap && <FileUploader setDisplayFileUploaderModalWrap={setDisplayFileUploaderModalWrap}/>}
-            </div>
+            </div> */}
             <div>Hello World</div>
             <div>Hello World</div>
             <div>Hello World</div>

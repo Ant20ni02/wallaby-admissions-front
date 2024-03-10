@@ -28,5 +28,6 @@ export type floatButtonProps = {
 
 }
 export type FileUploaderProps = {
-    setDisplayFileUploaderModalWrap : Dispatch<SetStateAction<boolean>>
+    setDisplayFileUploaderModalWrap : Dispatch<SetStateAction<boolean>>,
+    changeUploadStatus: (param:boolean) => void
 }
