@@ -23,12 +23,13 @@ const Timeline = ({ }) => {
     const [headerIsHidden, setHeaderIsHidden] = useState<boolean>(false); //header is shown initially
     const [display, setDisplay] = useState<string>("flex");
 
-    const [textBoxIndex, setTextBoxIndex] = useState<number>(0);
+    const [textBoxIndex, setTextBoxIndex] = useState<number>(-2);
     const [textBoxText, setTextBoxText] = useState<string>("");
     const [latestStatus, setLatestStatus] = useState<string>("");
     const [displayFileUploaderModalWrap, setDisplayFileUploaderModalWrap] = useState<boolean>(false);
 
     const [alreadyUploaded, setAlreadyUploaded] = useState<boolean>(false);
+    const currentEmail: string = localStorage.getItem("email");
 
     const currentText: Array<string> = [
         "Si te encuentras aquí, es porque ya participaste en nuestro tour. Y recuerda, si tienes alguna duda, estamos aquí para ayudarte.",
@@ -163,13 +164,22 @@ const Timeline = ({ }) => {
                 {displayFileUploaderModalWrap && <FileUploader setDisplayFileUploaderModalWrap={setDisplayFileUploaderModalWrap} changeUploadStatus={changeUploadStatus} />}
             </div>
 
+
+            <button className={page.profile}>
+                {currentEmail}
+            </button>
+
             <div className={page.generalItemsWrap} >
 
-                <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="150em" />
+                <div className={page.menuItemsWrap}>
+                    <img src="https://wallaby.edu.mx/wp-content/uploads/thegem-logos/logo_4c4b74d94dc18e7b988f3224ed408701_2x.png" alt="wallabyLogo" width="150em" />
+                </div>
 
-                <div className={page.headerItemsWrap} style={{ "display": display }}>
+                <div className={`${display === "flex" ? page.headerItemsWrap_displayed : page.headerItemsWrap_hidden}`}>
+
                     <span className={page.headerText}> ¡Aquí inicia tu proceso de admisión!</span>
                     <span className={page.lowerText}>Comienza tu aventura siguiendo los pasos establecidos, y verás cómo tu progreso se marca con cada avance. Recuerda, ante cualquier duda, estamos aquí para apoyarte.</span>
+
                 </div>
 
 
