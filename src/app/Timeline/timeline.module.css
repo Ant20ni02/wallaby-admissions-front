@@ -23,13 +23,30 @@
 }
 
 
-.headerItemsWrap {
+.headerItemsWrap_displayed {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 1em;
+    margin-top: 0.5em;
+    opacity: 1;
+    height: 7em;
+    transition: all 0.5s ease-in-out;
 }
+
+.headerItemsWrap_hidden {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2em;
+    opacity: 0;
+    height: 0em;
+    transition: all 0.5s ease-in-out;
+}
+
+
+
 
 .generalItemsWrap {
     display: flex;
@@ -138,13 +155,28 @@
     width: 10.5em;
     margin-top: 2em;
     display: flex;
-    min-height: 10em;
+    max-height: 15em;
     border-radius: 1em;
     background-color: #1B489A;
     color: white;
     font-family: inter;
     font-size: 0.7em;
     padding: 0.5em;
+    transition-duration: 0.5s;
+}
+
+.infoBox_hidden {
+    width: 10.5em;
+    display: flex;
+    border-radius: 1em;
+    background-color: #1B489A;
+    color: white;
+    font-family: inter;
+    font-size: 0.7em;
+    padding: 0.5em;
+    opacity: 0;
+    max-height: 0em;
+    transition-duration: 0.5s;
 }
 
 .greenButton {
@@ -155,4 +187,27 @@
     width: 10em;
     height: 3em;
     border: none;
+    cursor: pointer;
+    font-family: inter, sans-serif;
+    font-size: 0.7em;
+}
+
+.menuItemsWrap {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile {
+    padding: 1em;
+    border: none;
+    border-radius: 1em;
+    background-color: #F6F6F6;
+    position: fixed;
+    top: 1em;
+    right: 3em;
+    transition-duration: 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
 }

@@ -9,13 +9,25 @@ button.FloatButton {
     border: none;
     width: 2em;
     height: 2em;
+    background-color: #f7ad6f;
+    margin-top: 2em;
+    padding: 0em;
+    cursor: pointer;
+}
+
+button.FloatButton:hover {
+    border-radius: 50%;
+    border: none;
+    width: 2em;
+    height: 2em;
     background-color: #F48A32;
     margin-top: 2em;
     padding: 0em;
+    cursor: pointer;
 }
 
 .plus {
-    color: white;
+    color: #F48A32;
     padding-top: 0.25em;
     height: 1em;
     width: auto;

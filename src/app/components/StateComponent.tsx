@@ -36,10 +36,10 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
                             <FloatInfoButton hideHeader={hideHeader} headerIsHidden={headerIsHidden} buttonIndex={mainProps.index} updateTextBoxIndex={updateTextBoxIndex} clickedIndex={clickedIndex} />
 
 
-                            {(display === "none" && clickedIndex === mainProps.index) &&
-
-                                <div className={page.infoBox}>{text}</div>
-
+                            {(display === "none" && clickedIndex === mainProps.index) ? (
+                                <div className={page.infoBox}>{text}</div>)
+                                    :
+                                (<div className={page.infoBox_hidden}>{text}</div>)
                             }
 
                             {
@@ -68,10 +68,10 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
                             <span className={page.titles}>{titles[mainProps.index + 1]}</span>
                             <FloatInfoButton hideHeader={hideHeader} headerIsHidden={headerIsHidden} buttonIndex={mainProps.index} updateTextBoxIndex={updateTextBoxIndex} clickedIndex={clickedIndex} />
 
-                            {(display === "none" && clickedIndex === mainProps.index) &&
-
-                                <div className={page.infoBox}>{text}</div>
-
+                            {(display === "none" && clickedIndex === mainProps.index) ? (
+                                <div className={page.infoBox}>{text}</div>)
+                                :
+                                (<div className={page.infoBox_hidden}>{text}</div>)
                             }
 
                         </div>
