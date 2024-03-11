@@ -17,7 +17,7 @@
   text-align: center;
   font-family: "one-little-font", sans-serif;
   font-size: 2em;
-  color: #192746;
+  color: var(--blue-wallaby);
   margin-bottom: 0;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .container {
-  margin: 2em 5em auto;
+  margin: 5em 10em auto;
 }
 
 .header {
@@ -47,21 +47,19 @@
   margin-right: 4em;
 }
 
-.welcome-header .upperText {
-  color: var(--blue-wallaby);
-}
-
 .search-bar-header {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
-  align-items: end;
+  align-items: start;
 }
 
-.search-bar-header img {
-  width: 150px;
+.logoImage {
+  position: absolute;
+  width: 9em;
   height: auto;
-  margin-bottom: 1em;
+  margin-left: 10em;
+  margin-top: -2em;
   object-fit: cover;
 }
 
@@ -71,18 +69,18 @@
 }
 
 .search-bar input {
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px 0px 0px 8px;
+  padding: 1em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.8em 0 0 0.8em;
   width: 20.5em;
 }
 
 .search-bar button {
-  padding: 16px 24px;
+  padding: 1em 2em;
   background-color: var(--blue-wallaby);
   color: white;
-  border: 1px solid var(--blue-wallaby);
-  border-radius: 0px 8px 8px 0px;
+  border: 0.1em solid var(--blue-wallaby);
+  border-radius: 0 0.8em 0.8em 0;
   cursor: pointer;
 }
 
@@ -99,6 +97,8 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  margin-bottom: 5em;
+  margin-top: 5em;
 }
 
 .info-container > div {
@@ -112,9 +112,9 @@
 
 .info-container h4 {
   background-color: var(--yellow-wallaby);
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 1em 1em 0 0;
   width: 100%;
-  padding: 10px 0px 10px;
+  padding: 1em 0 1em;
   margin-top: 0;
   margin-bottom: 0;
   text-align: center;
@@ -122,10 +122,23 @@
 
 .info-container p {
   background-color: #cccccc6f;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0 0 1em 1em;
   width: 100%;
-  padding: 30px 0px 30px;
+  padding: 2.4em 0px 2.4em;
   margin-top: 0;
   margin-bottom: 0;
   text-align: center;
+}
+
+.logoutButtonContainer {
+  position: relative; /* Establece el contenedor como relativo */
+  width: 100%; /* Ajusta el ancho según sea necesario */
+  height: 100%; /* Ajusta la altura según sea necesario */
+}
+
+.logoutButton {
+  margin-right: 10em;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

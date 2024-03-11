@@ -1,0 +1,151 @@
+.checklist-container {
+  margin-top: 4em;
+  margin-bottom: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checklist {
+  list-style-type: none;
+  padding: 0;
+  width: 60%;
+}
+
+.checklist > li {
+  display: flex;
+  justify-content: left;
+}
+
+.checklist > li > label {
+  flex: 0 0 70%; /* Ocupa el 80% del espacio disponible */
+  background-color: #a0a0a0;
+  border-radius: 1em;
+  padding: 1em 0px 1em;
+  margin-top: 0;
+  margin-bottom: 2em; /* Agrega un margen inferior para separar las etiquetas */
+  text-align: center;
+}
+
+.checklist > li > a {
+  flex: 0 0 70%; /* Ocupa el 80% del espacio disponible */
+  background-color: var(--green-wallaby);
+  border-radius: 1em;
+  padding: 1em 0px 1em;
+  margin-top: 0;
+  margin-bottom: 2em; /* Agrega un margen inferior para separar las etiquetas */
+  text-align: center;
+  text-decoration: none;
+  color: #000000;
+  border: 2px solid #2b8637 ;
+}
+
+.checklist > li:last-child > a {
+  flex: 0 0 70%; /* Ocupa el 80% del espacio disponible */
+  background-color: var(--green-wallaby);
+  border-radius: 1em;
+  padding: 1em 0px 1em;
+  margin-top: 0;
+  margin-bottom: 0; /* Agrega un margen inferior para separar las etiquetas */
+  text-align: center;
+}
+
+.checklist > li > input {
+  appearance: none; /* Oculta el estilo predeterminado del checkbox */
+  width: 4em; /* Establece el ancho del checkbox */
+  height: 4em; /* Establece la altura del checkbox */
+  border-radius: 50%; /* Hace que el checkbox sea circular */
+  border: 0.2em solid var(--blue-wallaby); /* Agrega un borde alrededor del checkbox */
+  outline: none; /* Elimina el borde de enfoque predeterminado */
+  position: relative; /* Establece la posición relativa para los pseudo-elementos */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el checkbox */
+}
+
+/* Estilos para el pseudo-elemento ::before, que representa el círculo interno del checkbox */
+.checklist > li > input::before {
+  content: ""; /* Agrega contenido al pseudo-elemento */
+  position: absolute; /* Establece la posición absoluta */
+  top: 50%; /* Posiciona el círculo en el centro vertical */
+  left: 50%; /* Posiciona el círculo en el centro horizontal */
+  transform: translate(-50%, -50%); /* Centra el círculo */
+  width: 100%; /* Establece el ancho del círculo interno */
+  height: 100%; /* Establece la altura del círculo interno */
+  border-radius: 50%; /* Hace que el círculo interno sea circular */
+  background-color: transparent; /* Establece el color de fondo transparente */
+  transition: background-color 0.3s ease; /* Agrega una transición suave al cambio de color de fondo */
+  opacity: 0.3;
+}
+
+/* Estilos para el pseudo-elemento ::after, que representa el marcador de verificación */
+.checklist > li > input::after {
+  content: "\2713"; /* Agrega el marcador de verificación (✔) como contenido */
+  position: absolute; /* Establece la posición absoluta */
+  top: 50%; /* Posiciona el marcador de verificación en el centro vertical */
+  left: 50%; /* Posiciona el marcador de verificación en el centro horizontal */
+  transform: translate(-50%, -50%); /* Centra el marcador de verificación */
+  font-size: 3em; /* Establece el tamaño de fuente del marcador de verificación */
+  color: var(
+    --green-wallaby
+  ); /* Establece el color del marcador de verificación */
+  opacity: 0; /* Establece la opacidad inicial del marcador de verificación a cero */
+  transition: opacity 0.3s ease; /* Agrega una transición suave al cambio de opacidad */
+}
+
+/* Estilos para el checkbox cuando está marcado */
+.checklist > li > input:checked::before {
+  background-color: var(
+    --green-wallaby
+  ); /* Cambia el color de fondo del círculo interno cuando está marcado */
+}
+
+/* Estilos para el checkbox cuando está marcado */
+.checklist > li > input:checked::after {
+  opacity: 1; /* Hace que el marcador de verificación sea visible cuando está marcado */
+}
+
+.button-true {
+  padding: 1em 2em;
+  background-color: var(--blue-wallaby);
+  color: white;
+  border: 0.1em solid var(--blue-wallaby);
+  border-radius: 0.8em;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.button-true:hover {
+  background-color: #0056b3;
+}
+
+.button-false {
+  padding: 1em 2em;
+  background-color: #f0f0f0;
+  color: #a0a0a0;
+  border: 0.1em solid #d0d0d0;
+  border-radius: 0.8em;
+  box-shadow: none;
+  font-size: 1.2em;
+}
+
+.button-container-false {
+  position: relative;
+}
+
+.display-text {
+  display: none;
+  position: absolute;
+  top: calc(-100% - 2em); /* Posiciona el texto sobre el botón */
+  left: 50%; /* Centra el texto horizontalmente */
+  transform: translateX(-50%);
+  color: #ff0000;
+  padding: 0.5em 3.5em;
+  font-size: 0.7em;
+  border: 0.1em solid #d0d0d0;
+  border-radius: 0.8em;
+  box-shadow: none;
+  text-align: center;
+}
+
+.button-container-false:hover .display-text {
+  display: block;
+}
