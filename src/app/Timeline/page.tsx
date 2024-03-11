@@ -55,6 +55,8 @@ const Timeline = ({ }) => {
         setAlreadyUploaded(param);
     }
 
+    console.log("latest status: ", latestStatus);
+
     const fillNodes = (curr: string) => {
 
         let decoyValue: number = 0;
@@ -100,8 +102,12 @@ const Timeline = ({ }) => {
 
 
     useLayoutEffect(() => {
-        localStorage.setItem("status", "VERIFICAR_DOCUMENTOS");
-        setLatestStatus("VERIFICAR_DOCUMENTOS");
+
+        if (alreadyUploaded) {
+            localStorage.setItem("status", "VERIFICAR_DOCUMENTOS");
+            setLatestStatus("VERIFICAR_DOCUMENTOS");
+        }
+
     }, [alreadyUploaded])
 
 
