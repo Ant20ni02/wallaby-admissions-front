@@ -4,17 +4,32 @@ import { Readable } from 'stream';
 
 async function _getGoogleDriveClient() {
 
-  const serviceAccountKeyFile = "public/key.json";
+    if (process.env.IS_LOCAL_DEV) {
 
-  const auth = new google.auth.GoogleAuth({
-    keyFile: serviceAccountKeyFile,
-    scopes: ['https://www.googleapis.com/auth/drive'],
-  });
-  const authClient = await auth.getClient();
+        const serviceAccountKeyFile = "public/key.json";
 
-  const options : any = {version: 'v2', auth: authClient}
+        const auth = new google.auth.GoogleAuth({
+            keyFile: serviceAccountKeyFile,
+            scopes: ['https://www.googleapis.com/auth/drive'],
+        });
+        const authClient = await auth.getClient();
 
-    return google.drive(options);
+        const options : any = {version: 'v2', auth: authClient}
+
+        return google.drive(options);
+    }
+    else{
+        // Use the credentials from the environment variable
+        const credentialsBase64 = process.env.CREDENTIALS;
+        const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
+        const auth = new google.auth.GoogleAuth({
+            keyFile: credentialsJson,
+            scopes: ['https://www.googleapis.com/auth/drive'],
+        });
+        const authClient = await auth.getClient();
+        const options : any = {version: 'v2', auth: authClient}
+        return google.drive(options)
+    }
 }
 
 function bufferToStream(buffer: Buffer): Readable {

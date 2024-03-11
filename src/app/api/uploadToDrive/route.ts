@@ -62,7 +62,7 @@ async function _getGoogleSheetClient() {
   
       return google.sheets(options);
     }
-  }
+}
 
 function bufferToStream(buffer: Buffer): Readable {
     const stream = new Readable();
