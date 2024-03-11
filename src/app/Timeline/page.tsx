@@ -13,6 +13,7 @@ import { StaticImageData } from "next/image";
 import axios from "axios";
 import FileUploader from '../components/FileUploader';
 import { useRouter } from "next/navigation";
+import LogoutButton from '../components/LogoutButton/LogoutButton';
 
 const Timeline = ({ }) => {
 
@@ -165,9 +166,13 @@ const Timeline = ({ }) => {
             </div>
 
 
-            <button className={page.profile}>
+            <div className={page.profile}>
                 {currentEmail}
-            </button>
+
+                <LogoutButton />
+
+            </div>
+
 
             <div className={page.generalItemsWrap} >
 

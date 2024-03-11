@@ -1,26 +1,25 @@
 @font-face {
     font-family: 'one-little-font';
     src: local("one-little-font"),
-    url('../../../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
+        url('../../../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
 }
 
-.logout{
+.logout {
     padding: 0.5em 0.75em;
-    border-style: none;
-    border-radius:0.5em; 
+    border: none;
+    border-radius: 0.4em;
     color: white;
-    background-color: #FF3131;  
-    border-color: #FF3131;
+    background-color: #fb8f8f;
     cursor: pointer;
     font-family: "one-little-font", sans-serif;
     font-size: medium;
 }
 
-.logout:hover{
-    background-color: #eb3030;
+.logout:hover {
+    background-color: #fa5f5f;
 }
 
-.logout:active{
-    background-color:#df2c2c;
+.logout:active {
+    background-color: #df2c2c;
     font-size: small;
 }

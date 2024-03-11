@@ -201,14 +201,13 @@
     padding: 1em;
     border: none;
     border-radius: 1em;
-    background-color: #f6f6f6;
+    background-color: #F6F6F6;
     position: fixed;
     top: 1em;
     right: 3em;
     transition-duration: 0.4s;
-}
-
-.profile:hover {
-    color: white;
-    background-color: #d6d6d6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
 }
