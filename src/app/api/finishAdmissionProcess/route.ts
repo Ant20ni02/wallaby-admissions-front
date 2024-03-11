@@ -1,36 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { google } from 'googleapis';
+import fs from 'fs';
+import { promisify } from 'util';
+
+const writeFileAsync = promisify(fs.writeFile);
 
 async function _getGoogleSheetClient() {
+  const credentialsBase64 = process.env.CREDENTIALS;
+  const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
 
-  if (process.env.IS_LOCAL_DEV) {
-    const serviceAccountKeyFile = "public/key.json";
-
-    const auth = new google.auth.GoogleAuth({
-      keyFile: serviceAccountKeyFile,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    });
-    const authClient = await auth.getClient();
-
-    const options : any = {version: 'v4', auth: authClient}
-
-    return google.sheets(options);
-  }
-  else {
-    // Use the credentials from the environment variable
-    const credentialsBase64 = process.env.CREDENTIALS;
-    const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
+  const tempFilePath = './temp.json';
+  await writeFileAsync(tempFilePath, JSON.stringify(credentialsJson));
   
-    const auth = new google.auth.GoogleAuth({
-      keyFile: credentialsJson,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    });
-    const authClient = await auth.getClient();
+  const auth = new google.auth.GoogleAuth({
+    keyFile: tempFilePath,
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+  const authClient = await auth.getClient();
 
-    const options : any = {version: 'v4', auth: authClient}
+  const options : any = {version: 'v4', auth: authClient}
 
-    return google.sheets(options);
-  }
+  fs.unlinkSync(tempFilePath);
+
+  return google.sheets(options);
 }
 
 export async function POST( req : Request) {

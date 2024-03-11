@@ -1,35 +1,29 @@
 import { NextResponse } from "next/server";
 import { google } from 'googleapis';
 import { Readable } from 'stream';
+import fs from 'fs';
+import { promisify } from 'util';
+
+const writeFileAsync = promisify(fs.writeFile);
 
 async function _getGoogleDriveClient() {
+    const credentialsBase64 = process.env.CREDENTIALS;
+    const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
 
-    if (process.env.IS_LOCAL_DEV) {
+    const tempFilePath = './temp.json';
+    await writeFileAsync(tempFilePath, JSON.stringify(credentialsJson));
 
-        const serviceAccountKeyFile = "public/key.json";
+    const auth = new google.auth.GoogleAuth({
+        keyFile: tempFilePath,
+        scopes: ['https://www.googleapis.com/auth/drive'],
+    });
+    const authClient = await auth.getClient();
 
-        const auth = new google.auth.GoogleAuth({
-            keyFile: serviceAccountKeyFile,
-            scopes: ['https://www.googleapis.com/auth/drive'],
-        });
-        const authClient = await auth.getClient();
+    const options : any = {version: 'v2', auth: authClient}
 
-        const options : any = {version: 'v2', auth: authClient}
+    fs.unlinkSync(tempFilePath);
 
-        return google.drive(options);
-    }
-    else{
-        // Use the credentials from the environment variable
-        const credentialsBase64 = process.env.CREDENTIALS;
-        const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
-        const auth = new google.auth.GoogleAuth({
-            keyFile: credentialsJson,
-            scopes: ['https://www.googleapis.com/auth/drive'],
-        });
-        const authClient = await auth.getClient();
-        const options : any = {version: 'v2', auth: authClient}
-        return google.drive(options)
-    }
+    return google.drive(options)
 }
 
 function bufferToStream(buffer: Buffer): Readable {
