@@ -187,6 +187,9 @@
     width: 10em;
     height: 3em;
     border: none;
+    cursor: pointer;
+    font-family: inter, sans-serif;
+    font-size: 0.7em;
 }
 
 .menuItemsWrap {
