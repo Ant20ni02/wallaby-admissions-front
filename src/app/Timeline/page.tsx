@@ -89,7 +89,7 @@ const Timeline = ({ }) => {
         };
 
 
-        if (decoyValue >= 0 && decoyValue <= 5) {
+        if (decoyValue >= 0 && decoyValue <= 5 && curr !== "") {
             setProperties(mapping[decoyValue]);
         }
 
@@ -130,8 +130,8 @@ const Timeline = ({ }) => {
                 console.log(e);
                 //route to login
             })
-        
-            forceUpdate();
+
+        forceUpdate();
 
     }, [])
 
