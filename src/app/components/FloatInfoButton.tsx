@@ -1,18 +1,35 @@
 import floatbutton from './FloatInfoButton.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import plusvg from '../../../public/plus_svg.svg';
 import Image from 'next/image';
+import { useState } from 'react';
+import { floatButtonProps } from '../types';
 
-const FloatInfoButton = ({ activateInsertCard }: any) => {
+
+const FloatInfoButton = ({ hideHeader, headerIsHidden, buttonIndex, updateTextBoxIndex, clickedIndex }: floatButtonProps) => {
+
+    const [isHidden, setIsHidden] = useState<boolean>(headerIsHidden);
 
     const handleClick = () => {
-        activateInsertCard(true);
+
+        updateTextBoxIndex(buttonIndex);
+
+
+        if (clickedIndex === buttonIndex && headerIsHidden) {
+            hideHeader(false);
+            setIsHidden(false);
+        }
+        else {
+
+            hideHeader(true);
+            setIsHidden(true);
+        }
     }
+
+
     return (
         <>
-            <div className={floatbutton.buttonContainer} onClick={() => handleClick()}>
-                <button className={floatbutton.FloatButton}>
+            <div className={floatbutton.buttonContainer} >
+                <button className={floatbutton.FloatButton} onClick={() => handleClick()}>
                     <Image src={plusvg} alt="" className={floatbutton.plus} />
                 </button>
             </div>

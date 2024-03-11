@@ -1,33 +1,47 @@
 import { NextResponse } from "next/server";
 import { google } from 'googleapis';
 import { Readable } from 'stream';
+import fs from 'fs';
+import { promisify } from 'util';
+
+const writeFileAsync = promisify(fs.writeFile);
 
 async function _getGoogleDriveClient() {
+    const credentialsBase64 = process.env.CREDENTIALS;
+    const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
 
-  const serviceAccountKeyFile = "public/key.json";
+    const tempFilePath = './temp.json';
+    await writeFileAsync(tempFilePath, JSON.stringify(credentialsJson));
 
-  const auth = new google.auth.GoogleAuth({
-    keyFile: serviceAccountKeyFile,
-    scopes: ['https://www.googleapis.com/auth/drive'],
-  });
-  const authClient = await auth.getClient();
+    const auth = new google.auth.GoogleAuth({
+        keyFile: tempFilePath,
+        scopes: ['https://www.googleapis.com/auth/drive'],
+    });
+    const authClient = await auth.getClient();
 
-  const options : any = {version: 'v2', auth: authClient}
+    const options : any = {version: 'v2', auth: authClient}
 
-    return google.drive(options);
+    fs.unlinkSync(tempFilePath);
+
+    return google.drive(options)
 }
 
 async function _getGoogleSheetClient() {
-
-    const serviceAccountKeyFile = "public/key.json";
+    const credentialsBase64 = process.env.CREDENTIALS;
+    const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
   
+    const tempFilePath = './temp.json';
+    await writeFileAsync(tempFilePath, JSON.stringify(credentialsJson));
+    
     const auth = new google.auth.GoogleAuth({
-      keyFile: serviceAccountKeyFile,
+      keyFile: tempFilePath,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
     const authClient = await auth.getClient();
   
     const options : any = {version: 'v4', auth: authClient}
+  
+    fs.unlinkSync(tempFilePath);
   
     return google.sheets(options);
 }
@@ -273,7 +287,51 @@ export async function POST( req : Request) {
                 valueInputOption: "USER_ENTERED"
             });
             console.log(`${googleResponserangeBUENA_CONDUCTA.data.updatedCells} cells updated with BUENA_CONDUCTA`);
+
+            
         }
+
+        const rangeState = `${tabName}!AH${row}`;
+
+        var requestState = {
+            range: rangeState,
+            values: [
+                ["VERIFICAR_DOCUMENTOS"]
+            ]
+        };
+
+        const googleResponseState = await googleSheetClient.spreadsheets.values.update({
+            spreadsheetId: spreadsheetId,
+            requestBody: requestState,
+            range: rangeState,
+            valueInputOption: "USER_ENTERED"
+        });
+
+        console.log(`${googleResponseState.data.updatedCells} updated cells in row ${row} and cell ${rangeState} for State Change`);
+
+        const rangeDateUpdate = `${tabName}!AY${row}`
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        const todayFormatted = dd + '/' + mm + '/' + yyyy;
+
+
+        var requestDateUpdate = {
+            range: rangeDateUpdate,
+            values: [
+                [todayFormatted]
+            ]
+        };
+
+        const googleResponseDateUpdate = await googleSheetClient.spreadsheets.values.update({
+            spreadsheetId: spreadsheetId,
+            requestBody: requestDateUpdate,
+            range: rangeDateUpdate,
+            valueInputOption: "USER_ENTERED"
+        });
+        console.log(`${googleResponseDateUpdate.data.updatedCells} updated cells in row ${row} and cell ${rangeDateUpdate} for Date Update`);
 
         return new NextResponse('OK');
     } 
