@@ -12,6 +12,18 @@
     url('../fonts/Arimo/Arimo-Regular.ttf') format('truetype');
 }
 
+.avisoPrivacidad{
+  position: fixed;
+  bottom: 0;
+  font-family: "arimo-regular", sans-serif;
+  font-size: 0.9em;
+  color: white;
+}
+
+.avisoPrivacidad a{
+  color: white;
+}
+
 .googleLoginButton {
   width: 28em;
   height: 4em;
