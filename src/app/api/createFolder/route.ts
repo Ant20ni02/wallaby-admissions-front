@@ -6,7 +6,7 @@ import { promisify } from 'util';
 const writeFileAsync = promisify(fs.writeFile);
 
 async function _getGoogleDriveClient() {
-    const credentialsBase64 = process.env.CREDENTIALS;
+    const credentialsBase64 = process.env.NEXT_PUBLIC_CREDENTIALS;
     const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
 
     const tempFilePath = './temp.json';
