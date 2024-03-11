@@ -144,6 +144,7 @@ const LoginButton = ({ }) => {
                 </button>
 
                 <div className={page.bottomBand}></div>
+                <p className={page.avisoPrivacidad}>Colegio Wallaby 2015 - 2020 © Todos los Derechos Reservados. | <a href="https://wallaby.edu.mx/aviso-de-privacidad/" target="_blank">Aviso de Privacidad</a></p>
                 {loading && <Loading />}
             </div>
         </>
