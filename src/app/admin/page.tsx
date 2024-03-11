@@ -19,7 +19,7 @@ export default function AdminHome() {
 
   useEffect(() => {
     //localStorage.removeItem("email");
-    // localStorage.setItem("email", "a01424338@tec.mx"); //! Admin
+    // localStorage.setItem("email", "a01424454@tec.mx"); //! Admin
     // localStorage.setItem("email", "a01423189@tec.mx"); //? No admin
 
     const email = localStorage.getItem("email");
@@ -45,7 +45,7 @@ export default function AdminHome() {
     PAGO: "Pago de colegiatura",
     MATERIALES: "Lista de materiales",
     ENTREVISTA: "Entrevista",
-    TERMINADO: "Finalizado",
+    INSCRITO: "Finalizado",
   };
 
   // Objeto de elementos del requerimiento dependiendo del estado
@@ -82,6 +82,7 @@ export default function AdminHome() {
     undefined: [{ id: 0, text: "No hay información", completed: false }],
     DIA_PRUEBA: [{ id: 0, text: "¿Agendó día de prueba?", completed: false }],
     ADJUNTAR_DOCUMENTOS: documentos.map((doc) => ({ ...doc })),
+    VERIFICAR_DOCUMENTOS: documentos.map((doc) => ({ ...doc })),
     PAGO: [{ id: 0, text: "¿La persona completó su pago?", completed: false }],
     MATERIALES: [
       {
@@ -93,7 +94,7 @@ export default function AdminHome() {
     ENTREVISTA: [
       { id: 0, text: "¿La persona realizó su entrevista?", completed: false },
     ],
-    TERMINADO: [],
+    INSCRITO: [],
   };
 
   // Peticion GET para verificar si el usuario es ADMIN
@@ -153,6 +154,10 @@ export default function AdminHome() {
   const getNextState = (currentState: string) => {
     const stateKeys = Object.keys(elements);
     const currentStateIndex = stateKeys.indexOf(currentState);
+    console.log('stateKeys', stateKeys[currentStateIndex])
+    if (currentStateIndex !== -1 && currentStateIndex < stateKeys.length - 1 && stateKeys[currentStateIndex] === "ADJUNTAR_DOCUMENTOS") {
+      return stateKeys[currentStateIndex + 2];
+    }
     if (currentStateIndex !== -1 && currentStateIndex < stateKeys.length - 1) {
       return stateKeys[currentStateIndex + 1];
     }
@@ -162,6 +167,12 @@ export default function AdminHome() {
   // Función para enviar la petición POST al servidor
   const changeState = async (rowData: number, currentState: string) => {
     const newState = getNextState(currentState);
+    
+    if(newState === "INSCRITO"){
+      finishAdmission(rowData);
+      return;
+    }
+
     if (!newState) {
       console.log("No hay siguiente estado disponible.");
       return;
@@ -179,10 +190,29 @@ export default function AdminHome() {
       getInfo(data[12]);
 
       console.log("Respuesta del servidor:", response.data);
-      console.log("Email", data[12]);
     } catch (error) {
       console.error("Error al enviar la petición:", error);
     }
+  };
+
+  // Función para enviar la petición POST al servidor
+  const finishAdmission = async (rowData: number) => {
+    
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/finishAdmissionProcess",
+        {
+          row: rowData
+        }
+      );
+
+      getInfo(data[12]);
+
+      console.log("Respuesta del servidor:", response.data);
+    } catch (error) {
+      console.error("Error al enviar la petición:", error);
+    }
+
   };
 
   return (
@@ -261,10 +291,10 @@ export default function AdminHome() {
                 <h3 className="upperText">
                   Estado: {data[33] ? state[data[33]] : "No hay información"}
                 </h3>
-                {data[33] === "TERMINADO" && (
+                {data[33] === "INSCRITO" && (
                   <AdviseAdmin message="El usuario ha concluido su proceso de admisión." />
                 )}
-                {data[33] != "TERMINADO" && (
+                {data[33] !== "INSCRITO" && (
                   <ChecklistAdmin
                     elements={elements[data[33]]}
                     onClick={() => changeState(index, data[33])}
