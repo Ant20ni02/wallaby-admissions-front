@@ -12,9 +12,11 @@ import { useEffect, useReducer, useState, useLayoutEffect } from "react";
 import { StaticImageData } from "next/image";
 import axios from "axios";
 import FileUploader from '../components/FileUploader';
+import { useRouter } from "next/navigation";
 
 const Timeline = ({ }) => {
 
+    const router = useRouter();
     const [properties, setProperties] = useState<Array<nodeProperties>>([]);
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [nodeImages, setNodeImages] = useState<Array<StaticImageData>>([schoolState1, sunState2, fileState3, cardState4, backpackStage5, formStage6]);
@@ -118,17 +120,28 @@ const Timeline = ({ }) => {
         let currentStatus: string = "";
 
         axios
-            .get(`/api/getRowByEmail/${currentEmail}`)
-            .then((response) => {
-                currentStatus = response.data.row[33];
-                setLatestStatus(currentStatus);
+            .get(`/api/checkForAdmin/${currentEmail}`)
+            .then((isAdminRes) => {
+                if (isAdminRes.data.index !== 0) { //idAdmin, redirect to admin panel
+                    router.replace('/admin');
+                }
+                else { //fill nodes according to status
+                    axios
+                        .get(`/api/getRowByEmail/${currentEmail}`)
+                        .then((response) => {
+                            currentStatus = response.data.row[33];
+                            setLatestStatus(currentStatus);
 
-                fillNodes(currentStatus);
+                            fillNodes(currentStatus);
 
-            })
-            .catch((e) => {
-                console.log(e);
-                //route to login
+                        })
+                        .catch((e) => {
+                            console.log(e);
+                            //route to login
+                        })
+
+                }
+
             })
 
         forceUpdate();
