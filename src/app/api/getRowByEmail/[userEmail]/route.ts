@@ -18,7 +18,7 @@ async function _getGoogleSheetClient() {
   }
   else {
     // Use the credentials from the environment variable
-    const credentialsBase64 = process.env.serviceAccountKeyFile;
+    const credentialsBase64 = process.env.CREDENTIALS;
     const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
   
     const auth = new google.auth.GoogleAuth({
