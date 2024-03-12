@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 import Loading from "../components/SunLoader/SunLoader";
 import ChecklistAdmin from "../components/Checklist/Checklist";
@@ -17,7 +17,7 @@ export default function AdminHome() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     //localStorage.removeItem("email");
     // localStorage.setItem("email", "a01424454@tec.mx"); //! Admin
     // localStorage.setItem("email", "a01423189@tec.mx"); //? No admin
