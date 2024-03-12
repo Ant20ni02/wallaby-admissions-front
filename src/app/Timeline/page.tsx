@@ -30,7 +30,13 @@ const Timeline = ({ }) => {
     const [displayFileUploaderModalWrap, setDisplayFileUploaderModalWrap] = useState<boolean>(false);
 
     const [alreadyUploaded, setAlreadyUploaded] = useState<boolean>(false);
-    const currentEmail: string = localStorage.getItem("email");
+    const [currEmail, setCurrEmail] = useState<string>("");
+
+
+
+    useEffect(()=>{
+        setCurrEmail(localStorage.getItem("email"))
+    },[])
 
     const currentText: Array<string> = [
         "Si te encuentras aquí, es porque ya participaste en nuestro tour. Y recuerda, si tienes alguna duda, estamos aquí para ayudarte.",
@@ -56,8 +62,6 @@ const Timeline = ({ }) => {
     const changeUploadStatus = (param: boolean) => {
         setAlreadyUploaded(param);
     }
-
-    console.log("latest status: ", latestStatus);
 
     const fillNodes = (curr: string) => {
 
@@ -99,9 +103,7 @@ const Timeline = ({ }) => {
             setProperties(mapping[decoyValue]);
         }
 
-
     }
-
 
     useLayoutEffect(() => {
 
@@ -119,44 +121,44 @@ const Timeline = ({ }) => {
 
     useEffect(() => {
         headerIsHidden ? setDisplay("none") : setDisplay("flex");
-        console.log(display);
     }, [headerIsHidden])
 
     useLayoutEffect(() => {
 
-        const currentEmail: string = localStorage.getItem("email");
+        //const currentEmail: string = localStorage.getItem("email");
         let currentStatus: string = "";
 
-        axios
-            .get(`/api/checkForAdmin/${currentEmail}`)
-            .then((isAdminRes) => {
-                if (isAdminRes.data.index !== 0) { //idAdmin, redirect to admin panel
-                    router.replace('/admin');
-                }
-                else { //fill nodes according to status
-                    axios
-                        .get(`/api/getRowByEmail/${currentEmail}`)
-                        .then((response) => {
-                            currentStatus = response.data.row[33];
-                            setLatestStatus(currentStatus);
+        if(currEmail !== ""){
 
-                            fillNodes(currentStatus);
+            axios
+                .get(`/api/checkForAdmin/${currEmail}`)
+                .then((isAdminRes) => {
+                    if (isAdminRes.data.index !== 0) { //idAdmin, redirect to admin panel
+                        router.replace('/admin');
+                    }
+                    else { //fill nodes according to status
+                        axios
+                            .get(`/api/getRowByEmail/${currEmail}`)
+                            .then((response) => {
+                                currentStatus = response.data.row[33];
+                                setLatestStatus(currentStatus);
 
-                        })
-                        .catch((e) => {
-                            console.log(e);
-                            //route to login
-                        })
+                                fillNodes(currentStatus);
 
-                }
+                            })
+                            .catch((e) => {
+                                console.log(e);
+                                //route to login
+                            })
 
-            })
+                    }
+
+                })
+        }
 
         forceUpdate();
 
-    }, [])
-
-    console.log(properties);
+    }, [currEmail])
 
     return (
         <>
@@ -167,7 +169,7 @@ const Timeline = ({ }) => {
 
 
             <div className={page.profile}>
-                {currentEmail}
+                {currEmail}
 
                 <LogoutButton />
 
