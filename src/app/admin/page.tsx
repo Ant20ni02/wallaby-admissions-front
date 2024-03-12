@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 import Loading from "../components/SunLoader/SunLoader";
 import ChecklistAdmin from "../components/Checklist/Checklist";
@@ -17,12 +17,13 @@ export default function AdminHome() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     //localStorage.removeItem("email");
     // localStorage.setItem("email", "a01424454@tec.mx"); //! Admin
     // localStorage.setItem("email", "a01423189@tec.mx"); //? No admin
 
     const email = localStorage.getItem("email");
+    console.log("email: ", email);
     if (email) {
       checkForAdmin(email).then((isAdmin) => {
         console.log("IsAdmin", isAdmin);
@@ -35,7 +36,7 @@ export default function AdminHome() {
     else {
       router.push("/");
     }
-  });
+  },[]);
 
   // Objeto de strings dependiendo del estado
   const state = {
@@ -167,8 +168,8 @@ export default function AdminHome() {
   // Función para enviar la petición POST al servidor
   const changeState = async (rowData: number, currentState: string) => {
     const newState = getNextState(currentState);
-    
-    if(newState === "INSCRITO"){
+
+    if (newState === "INSCRITO") {
       finishAdmission(rowData);
       return;
     }
@@ -180,7 +181,7 @@ export default function AdminHome() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/changeState",
+        "/api/changeState",
         {
           row: rowData,
           newState: newState,
@@ -197,10 +198,10 @@ export default function AdminHome() {
 
   // Función para enviar la petición POST al servidor
   const finishAdmission = async (rowData: number) => {
-    
+
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/finishAdmissionProcess",
+        "/api/finishAdmissionProcess",
         {
           row: rowData
         }
