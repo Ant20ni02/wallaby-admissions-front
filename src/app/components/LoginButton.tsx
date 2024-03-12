@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import page from "../page.module.css";
 import googleLogo from "../../../public/google-logo.png";

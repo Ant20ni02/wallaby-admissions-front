@@ -7,7 +7,7 @@ import sunState2 from '/public/sun-state2.png';
 import fileState3 from '/public/files-state3.png';
 import cardState4 from '/public/cards-state4.png';
 import backpackStage5 from '/public/backpack-state5.png';
-import formStage6 from '/public/form-stage6.png';
+import formState6 from '/public/form-state6.png';
 import { useEffect, useReducer, useState, useLayoutEffect } from "react";
 import { StaticImageData } from "next/image";
 import axios from "axios";
@@ -20,7 +20,7 @@ const Timeline = ({ }) => {
     const router = useRouter();
     const [properties, setProperties] = useState<Array<nodeProperties>>([]);
     const [, forceUpdate] = useReducer(x => x + 1, 0);
-    const [nodeImages, setNodeImages] = useState<Array<StaticImageData>>([schoolState1, sunState2, fileState3, cardState4, backpackStage5, formStage6]);
+    const [nodeImages, setNodeImages] = useState<Array<StaticImageData>>([schoolState1, sunState2, fileState3, cardState4, backpackStage5, formState6]);
     const [headerIsHidden, setHeaderIsHidden] = useState<boolean>(false); //header is shown initially
     const [display, setDisplay] = useState<string>("flex");
 
