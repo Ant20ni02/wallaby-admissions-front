@@ -1,9 +1,7 @@
-
-
 @font-face {
   font-family: 'one-little-font';
   src: local("one-little-font"),
-  url('../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
+    url('../fonts/OneLittleFont/one-little-font-regular.otf') format('truetype');
 }
 
 @font-face {
@@ -12,7 +10,7 @@
     url('../fonts/Arimo/Arimo-Regular.ttf') format('truetype');
 }
 
-.avisoPrivacidad{
+.avisoPrivacidad {
   position: fixed;
   bottom: 0;
   font-family: "arimo-regular", sans-serif;
@@ -20,7 +18,7 @@
   color: white;
 }
 
-.avisoPrivacidad a{
+.avisoPrivacidad a {
   color: white;
 }
 
@@ -35,9 +33,16 @@
   border-radius: 0.3em;
   background-color: white;
   font-size: 1em;
+  cursor: pointer;
 }
 
-.loginItemsWrap{
+.googleLoginButton:hover {
+  background-color: #f6f6f6;
+  width: 28.5em;
+  height: 4.5em;
+}
+
+.loginItemsWrap {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,16 +60,16 @@
 
 .lowerText {
   text-align: center;
-    font-family: "arimo-regular", sans-serif;
-    font-size: 0.9em;
-    color: #192746;
-    width: 31em;
-    padding-bottom: 2em;
-    line-height: 1.5em;
+  font-family: "arimo-regular", sans-serif;
+  font-size: 0.9em;
+  color: #192746;
+  width: 31em;
+  padding-bottom: 2em;
+  line-height: 1.5em;
 }
 
 
-.topBand{
+.topBand {
   top: 0;
   width: 100%;
   height: 3em;
@@ -72,7 +77,7 @@
   margin-bottom: 4em;
 }
 
-.bottomBand{
+.bottomBand {
   bottom: 0;
   width: 100%;
   height: 3em;
