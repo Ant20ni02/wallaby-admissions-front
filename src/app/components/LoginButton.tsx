@@ -57,6 +57,16 @@ const LoginButton = ({ }) => {
                                                     .post(`/api/changeState`, body, {
                                                         headers: { 'Content-Type': 'application/json' }
                                                     })
+                                                    .then((resUnused) => {
+                                                        setProfile(res.data);
+                                                        localStorage.setItem("email", res.data.email);
+                                                        localStorage.setItem("name", `${res.data.given_name} ${res.data.family_name}`)
+                                                        localStorage.setItem("hd", res.data.hd);
+                                                        localStorage.setItem("index", res2.data.index);
+                                                        localStorage.setItem("status", "DIA_PRUEBA");
+                                                        setLoading(false);
+                                                        router.replace("/Timeline");
+                                                    })
                                                     .catch((e) => {
                                                         console.log("Error when changing state");
                                                     })
@@ -69,17 +79,19 @@ const LoginButton = ({ }) => {
                                                     setLoading(false);
                                                     router.replace("/admissionOnly");
                                                 }
-
+                                                else {
+                                                    setProfile(res.data);
+                                                    localStorage.setItem("email", res.data.email);
+                                                    localStorage.setItem("name", `${res.data.given_name} ${res.data.family_name}`)
+                                                    localStorage.setItem("hd", res.data.hd);
+                                                    localStorage.setItem("index", res2.data.index);
+                                                    localStorage.setItem("status", res2.data.row[33]);
+                                                    setLoading(false);
+                                                    router.replace("/Timeline");
+                                                }
                                             }
 
-                                            setProfile(res.data);
-                                            localStorage.setItem("email", res.data.email);
-                                            localStorage.setItem("name", `${res.data.given_name} ${res.data.family_name}`)
-                                            localStorage.setItem("hd", res.data.hd);
-                                            localStorage.setItem("index", res2.data.index);
-                                            localStorage.setItem("status", "DIA_PRUEBA");
-                                            setLoading(false);
-                                            router.push("/Timeline");
+                                            
 
                                         })
                                         .catch((e) => {

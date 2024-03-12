@@ -141,6 +141,10 @@ const Timeline = ({ }) => {
                             .get(`/api/getRowByEmail/${currEmail}`)
                             .then((response) => {
                                 currentStatus = response.data.row[33];
+
+                                if(currentStatus === 'INSCRITO'){
+                                    router.replace("/admissionOnly")
+                                }
                                 setLatestStatus(currentStatus);
 
                                 fillNodes(currentStatus);
@@ -149,6 +153,7 @@ const Timeline = ({ }) => {
                             .catch((e) => {
                                 console.log(e);
                                 //route to login
+                                router.replace("/")
                             })
 
                     }
