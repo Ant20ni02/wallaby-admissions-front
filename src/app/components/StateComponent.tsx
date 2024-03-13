@@ -10,7 +10,7 @@ const StateComponent = ({ mainProps, hideHeader, headerIsHidden, updateTextBoxIn
     const titles: Array<string> = (["¿Ya nos conociste?", "Programa tu día prueba", "Adjunta y entrega tus documentos", "Pago presencial", "Lista de materiales", "Entrevista de bienvenida"]);
 
     const redirect = () => {
-        window.open("https://facebook.com");
+        window.open("https://calendar.app.google/hM1pwXdrNAshDSFq5");
     }
 
     return (
