@@ -1,37 +1,5 @@
 import { NextResponse } from "next/server";
-import { google } from 'googleapis';
-import { Readable } from 'stream';
-import fs from 'fs';
-import { promisify } from 'util';
-
-const writeFileAsync = promisify(fs.writeFile);
-
-async function _getGoogleDriveClient() {
-    const credentialsBase64 = process.env.NEXT_PUBLIC_CREDENTIALS;
-    const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
-
-    const tempFilePath = './temp.json';
-    await writeFileAsync(tempFilePath, JSON.stringify(credentialsJson));
-
-    const auth = new google.auth.GoogleAuth({
-        keyFile: tempFilePath,
-        scopes: ['https://www.googleapis.com/auth/drive'],
-    });
-    const authClient = await auth.getClient();
-
-    const options : any = {version: 'v2', auth: authClient}
-
-    fs.unlinkSync(tempFilePath);
-
-    return google.drive(options)
-}
-
-function bufferToStream(buffer: Buffer): Readable {
-    const stream = new Readable();
-    stream.push(buffer);
-    stream.push(null); // Signifies the end of the stream
-    return stream;
-}
+import { _getGoogleDriveClient, bufferToStream} from "../../../../public/helpers";
 
 export async function POST( req : Request) {
     try {

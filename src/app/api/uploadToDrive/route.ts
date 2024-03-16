@@ -1,57 +1,6 @@
 import { NextResponse } from "next/server";
-import { google } from 'googleapis';
-import { Readable } from 'stream';
-import fs from 'fs';
-import { promisify } from 'util';
+import { _getGoogleDriveClient, _getGoogleSheetClient, bufferToStream, spreadSheetId, parentFolder } from "../../../../public/helpers";
 
-const writeFileAsync = promisify(fs.writeFile);
-
-async function _getGoogleDriveClient() {
-    const credentialsBase64 = process.env.NEXT_PUBLIC_CREDENTIALS;
-    const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
-
-    const tempFilePath = './temp.json';
-    await writeFileAsync(tempFilePath, JSON.stringify(credentialsJson));
-
-    const auth = new google.auth.GoogleAuth({
-        keyFile: tempFilePath,
-        scopes: ['https://www.googleapis.com/auth/drive'],
-    });
-    const authClient = await auth.getClient();
-
-    const options : any = {version: 'v2', auth: authClient}
-
-    fs.unlinkSync(tempFilePath);
-
-    return google.drive(options)
-}
-
-async function _getGoogleSheetClient() {
-    const credentialsBase64 = process.env.NEXT_PUBLIC_CREDENTIALS;
-    const credentialsJson = JSON.parse(Buffer.from(credentialsBase64, 'base64').toString('ascii'));
-  
-    const tempFilePath = './temp.json';
-    await writeFileAsync(tempFilePath, JSON.stringify(credentialsJson));
-    
-    const auth = new google.auth.GoogleAuth({
-      keyFile: tempFilePath,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    });
-    const authClient = await auth.getClient();
-  
-    const options : any = {version: 'v4', auth: authClient}
-  
-    fs.unlinkSync(tempFilePath);
-  
-    return google.sheets(options);
-}
-
-function bufferToStream(buffer: Buffer): Readable {
-    const stream = new Readable();
-    stream.push(buffer);
-    stream.push(null); // Signifies the end of the stream
-    return stream;
-}
 
 export async function POST( req : Request) {
     try {
@@ -74,11 +23,9 @@ export async function POST( req : Request) {
 
         //Drive folder data
         const studentName = formData.get("studentName");
-        const parentFolder = "1QJlFxLrKHXG7UxUs74a4VHXSPGeVOP_2";
 
         //Spread sheet data
         const row = formData.get("row");
-        const spreadsheetId = '1H549f8hZRufLjULdo_FNwzHkXYxqKGA9wNf5kk2DSSo';
         const tabName = 'Admisión'
         const columns = ["AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU"];
 
@@ -147,7 +94,7 @@ export async function POST( req : Request) {
             };
 
             const googleResponse = await googleSheetClient.spreadsheets.values.update({
-                spreadsheetId: spreadsheetId,
+                spreadsheetId: spreadSheetId,
                 requestBody: request,
                 range: range,
                 valueInputOption: "USER_ENTERED"
@@ -195,7 +142,7 @@ export async function POST( req : Request) {
             };
 
             const googleResponserangeCONSTANCIA_ANO_CURSADO = await googleSheetClient.spreadsheets.values.update({
-                spreadsheetId: spreadsheetId,
+                spreadsheetId: spreadSheetId,
                 requestBody: requestCONSTANCIA_ANO_CURSADO,
                 range: rangeCONSTANCIA_ANO_CURSADO,
                 valueInputOption: "USER_ENTERED"
@@ -238,7 +185,7 @@ export async function POST( req : Request) {
             };
 
             const googleResponserangeBOLETA = await googleSheetClient.spreadsheets.values.update({
-                spreadsheetId: spreadsheetId,
+                spreadsheetId: spreadSheetId,
                 requestBody: requestBOLETA,
                 range: rangeBOLETA,
                 valueInputOption: "USER_ENTERED"
@@ -281,7 +228,7 @@ export async function POST( req : Request) {
             };
 
             const googleResponserangeBUENA_CONDUCTA = await googleSheetClient.spreadsheets.values.update({
-                spreadsheetId: spreadsheetId,
+                spreadsheetId: spreadSheetId,
                 requestBody: requestBUENA_CONDUCTA,
                 range: rangeBUENA_CONDUCTA,
                 valueInputOption: "USER_ENTERED"
@@ -301,7 +248,7 @@ export async function POST( req : Request) {
         };
 
         const googleResponseState = await googleSheetClient.spreadsheets.values.update({
-            spreadsheetId: spreadsheetId,
+            spreadsheetId: spreadSheetId,
             requestBody: requestState,
             range: rangeState,
             valueInputOption: "USER_ENTERED"
@@ -326,7 +273,7 @@ export async function POST( req : Request) {
         };
 
         const googleResponseDateUpdate = await googleSheetClient.spreadsheets.values.update({
-            spreadsheetId: spreadsheetId,
+            spreadsheetId: spreadSheetId,
             requestBody: requestDateUpdate,
             range: rangeDateUpdate,
             valueInputOption: "USER_ENTERED"
